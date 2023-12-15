@@ -375,7 +375,7 @@ height: 100%;
 
 /* KAY KURT */
 
-@media screen and (max-width: 1920px){
+@media screen and (min-width: 1367px) and (max-width: 1920px) {
     .main-bg {
         width: 1440px;
         height: 810px;

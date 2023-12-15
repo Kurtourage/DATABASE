@@ -226,7 +226,7 @@ input::placeholder {
 
 
 /* FOR KURT */
-  @media screen and (max-width: 1920px) {
+@media screen and (min-width: 1367px) and (max-width: 1920px)  {
     .exit{
       margin: 0 20px 350px 0;
       width: 48px;
