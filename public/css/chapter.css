@@ -42,10 +42,10 @@ body{
 .boardBig{
     position: absolute;
     transform: scale(0);
-    width: 500px;
-    height: 500px;
-    top: 11%;
-    left: 33%;
+    width: 800px;
+    height: 466px;
+    top: 80px;
+    left: 310px;
     background-color: yellow;
     border: 2px solid white;
     z-index: 20;
