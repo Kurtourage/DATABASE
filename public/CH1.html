@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/chapter.css">
+  <link rel="stylesheet" href="css/transition.css">
+  <title>Chapter 1</title>
+
+  <script src="dist/sql-wasm.js"></script>
+
+  <script src="js/game.js"></script>
+
+  <script src="js/checkLogin.js"></script>
+
+  <script src="js/checkLevelAnswer.js"></script>
+
+  
+</head>
+<body>
+
+
+<!-- Level 1 content -->
+
+<div class="transition transition-4 is-active">
+  <h1>CHAPTER 1</h1>
+</div>
+
+<div class="logout">
+  <button id="logoutBtn"> Log out </button>
+
+</div> 
+
+<div class="overlay">
+</div>
+
+<div class="boardBig">
+    <div class="close board-close">
+                X
+    </div>
+</div>
+
+<div class="bookBig">
+  <div class="close book-close">
+              X
+  </div>
+</div>
+
+<div class="riddleBig">
+  <div class="close riddle-close">
+              X
+  </div>
+</div>
+
+<div class="tutorialBig">
+  <div class="close tutorial-close">
+              X
+  </div>
+</div>
+
+<div class="newspaperBig">
+  <div class="close newspaper-close">
+              X
+  </div>
+</div>
+
+<div class="computerBig">
+  
+    <div class="close computer-close">
+        x
+    </div>
+    <div class="computerInside">
+    <div id="level1" class="level">
+      <textarea id="sqlInput" placeholder="Type here"></textarea>
+      <div class="exc-btn">
+        <button id="executeBtn1">Execute SQL</button> 
+        <button  id="clearTable">Clear</button>
+      </div>
+      
+      <div id="tableContainer"></div>
+      </div>
+      </div>
+    </div>
+
+</div>
+
+<div class="main-bg">
+
+
+    <div class="hovers">
+    <div class="hover-img" id="board"> 
+        <button class="boardPop"></button>
+    </div> 
+
+    <div class="hover-img" id="book">
+      <button class="bookPop"></button>
+    </div>
+
+    <div class="hover-img" id="newspaper">
+      <button class="newspaperPop"></button>
+    </div>
+
+    <div class="hover-img" id="tutorial">
+      <button class="tutorialPop"></button>
+    </div>
+    <div class="hover-img" id="riddles">
+      <button class="riddlePop"></button>
+    </div>
+    <div class="hover-img" id="computer">
+        <button class="computerPop"></button>
+    </div>  
+
+    </div>
+</div>
+
+
+
+
+<script>
+  document.getElementById("logoutBtn").addEventListener("click", () => {
+    // Trigger the logout by fetching the /logout route
+    fetch('/logout')
+      .then(() => {
+        // Redirect to the login page after logout
+        window.location.href = '/index.html';
+      })
+      .catch(error => console.error('Error logging out:', error));
+  });
+</script>
+
+<script src="js/popup.js"></script>
+<script src="js/transition.js"></script>
+</body>
+</html>

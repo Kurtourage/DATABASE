@@ -1,0 +1,576 @@
+@import url('https://fonts.cdnfonts.com/css/vt323');
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'VT323', sans-serif;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:  #1e1e1e;
+}
+
+.main-bg{
+    position: relative;
+    width: 960px;
+    height: 540px;
+    left: 2%;
+    background-image: url(../assets/story_main.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+.hover-img {
+    position: absolute;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth transition */
+    
+}
+
+/* Define visibility on hover */
+.hover-img:hover {
+    opacity: 1; /* Visible on hover */
+}
+
+
+
+
+.boardBig{
+    position: absolute;
+    transform: scale(0);
+    width: 500px;
+    height: 500px;
+    top: 11%;
+    left: 33%;
+    background-color: yellow;
+    border: 2px solid white;
+    z-index: 20;
+}
+.overlay{
+    position: absolute;
+    transform: scale(0);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+.overlay.active{
+    transform: scale(1);
+}
+.boardBig.active{
+    transform: scale(1);
+}
+.boardBig .close{
+    width: 35px;
+    height: 35px;
+    top: 0;
+    right: 0;
+    background-color: green;
+}
+.boardPop{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* COMPUTER BIG */
+.computerBig{
+    position: absolute;
+    transform: scale(0);
+    left: 230px;
+    width: 960px;
+    height: 540px;
+
+    background-image: url(../assets/computerbig.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 20;
+    padding-left:16px;
+
+}
+.computerBig .computerInside{
+    background-color: transparent;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 930px;
+    height: 479px;
+    margin-top: 15px;
+    margin-right: 6px;
+    -ms-overflow-style: none;
+}
+#tableContainer{
+    margin-left: 21px;
+    max-width: 800px;
+}
+.computerBig .computerInside::-webkit-scrollbar{
+    display: none;
+}
+.tableContainer{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.computerBig.active{
+    transform: scale(1);
+}
+.computerBig .close{
+    position: fixed;
+    width: 90px;
+    height: 35px;
+    bottom: 5px;
+    right: 1px;
+    background-color: green;
+}
+
+textarea::placeholder{
+    color: #ffa400;
+}
+.computerPop{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+.level{
+    margin-top: 20px;
+}
+.level textarea {
+    display: block;
+    width: 890px; /* Adjust the width as needed */
+    height: 55px; /* Adjust the height as needed */
+    margin: 0 auto;
+    font-size: 30px;
+    font-weight: 100;
+    background-color: transparent;
+    display: flex; /* Use flexbox */
+    align-items: flex-start;
+    border-left: 1px solid black; /* Adding a border for visual distinction */
+    padding: 10px; /* Adding padding for better readability */
+    resize: none;
+    overflow: hidden;
+    outline: none;
+    color: #130900;
+}
+
+.level .exc-btn{
+    margin-top: 10px;
+    margin-bottom: 10px;    
+    display: flex;
+    justify-content: center;
+}
+
+.exc-btn button {
+    width: 100px;
+    height: 30px;
+    margin: 0 5px; /* Adjust the margin between the buttons */
+}
+
+
+
+
+
+/* HOVERS */
+
+#board{
+    width: 346px;
+    height: 241px;
+    top: 20px;
+    left: 55px;
+    background-image: url(../assets/board.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+#book{
+    width: 145px;
+    height: 111px;
+    bottom: 138px;
+    left: 249px;
+    background-image: url(../assets/book.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+#newspaper{
+    width: 105px;
+    height: 129px;
+    top: 56px;
+    right: 389px;
+    background-image: url(../assets/newspaper.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+#tutorial{
+    width: 57px;
+    height: 96px;
+    top: 72px;
+    right: 158px;
+    background-image: url(../assets/tutorial.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+#riddles{
+    width: 57px;
+    height: 97px;
+    top: 72px;
+    right: 267px;
+    background-image: url(../assets/riddles.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+#computer{
+    width: 333px;
+    height: 194px;
+    bottom: 133px;
+    right: 77px;
+    background-image: url(../assets/computer.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
+
+.logout{
+    border: 2px solid white;
+    width: 128px;
+    height: 32px;
+    position: absolute;
+    top: 8.6%;
+    left: 3%;
+    padding-right: 3%;
+    margin-right: 30px;
+}
+
+
+
+
+
+
+/* KAY KURT */
+
+@media screen and (max-width: 1920px){
+    .main-bg {
+        width: 1440px;
+        height: 810px;
+    }
+    #board{
+        width: 519px;
+        height: 361.5px;
+        top: 30px;
+        left: 82.5px;
+        background-image: url(../assets/board.png);
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+    #book{
+        width: 217.5px;
+        height: 166.5px;
+        bottom: 207px;
+        left: 373.5px;
+        background-image: url(../assets/book.png);
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+    #newspaper{
+        width: 157.5px;
+        height: 193.5px;
+        top: 84px;
+        right: 583.5px;
+        background-image: url(../assets/newspaper.png);
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+    #tutorial{
+        width: 85.5px;
+        height: 144px;
+        top: 108px;
+        right: 237px;
+        background-image: url(../assets/tutorial.png);
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+    #riddles{
+        width: 85.5px;
+        height: 145.5px;
+        top: 108px;
+        right: 400.5px;
+        background-image: url(../assets/riddles.png);
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+    #computer{
+        width: 499.5px;
+        height: 291px;
+        bottom: 199.5px;
+        right: 115.5px;
+        background-image: url(../assets/computer.png);
+        background-repeat: no-repeat;
+        background-size: cover
+    }
+
+    /* FOR BIG COMPUTER */
+    .computerBig{
+        position: absolute;
+        transform: scale(0);
+        left: 252.5px;
+        width: 1440px;
+        height: 810px;
+    
+        background-image: url(../assets/computerbig.png);
+        background-repeat: no-repeat;
+        background-size: contain;
+        z-index: 20;
+        padding-left:24px;
+    
+    }
+    .computerBig .computerInside{
+        background-color: transparent;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 1395px;
+        height: 718.5px;
+        margin-top: 22.5px;
+        margin-right: 9px;
+        -ms-overflow-style: none;
+    }
+    #tableContainer {
+        margin-left: 31.5px;
+        max-width: 1200px;
+        width: 100%;
+        font-size: 27px;
+    }
+    
+
+
+    .computerBig .computerInside::-webkit-scrollbar{
+        display: none;
+    }
+    #tableContainer{
+        margin-right: 15px;
+        margin-left: 30px;
+    }
+    .computerBig.active{
+        transform: scale(1);
+    }
+    .computerBig .close{
+        position: fixed;
+        width: 135px;
+        height: 52.5px;
+        bottom: 7.5px;
+        right: 25px;
+        background-color: green;
+    }
+    
+    textarea::placeholder{
+        color: #ffa400;
+    }
+    .computerPop{
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+    }
+    .level{
+        margin-top: 30px;
+    }
+    .level textarea {
+        display: block;
+        width: 1335px; /* Adjust the width as needed */
+        height: 82.5px; /* Adjust the height as needed */
+        margin: 0 auto;
+        font-size: 45px;
+        font-weight: 150;
+        background-color: transparent;
+        display: flex; /* Use flexbox */
+        align-items: flex-start;
+        border-left: 1px solid black; /* Adding a border for visual distinction */
+        padding: 15px; /* Adding padding for better readability */
+        resize: none;
+        overflow: hidden;
+        outline: none;
+        color: #130900;
+    }
+    
+    .level .exc-btn{
+        margin-top: 15px;
+        margin-bottom: 15px;    
+        display: flex;
+        justify-content: center;
+    }
+    
+    .exc-btn button {
+        width: 150px;
+        height: 45px;
+        margin: 0 7.5px; /* Adjust the margin between the buttons */
+    }
+    
+    .boardBig{
+        position: absolute;
+        transform: scale(0);
+        width: 1200px;
+        height: 700px;
+        top: 120px;
+        left: 375px;
+        background-color: yellow;
+        border: 2px solid white;
+        z-index: 20;
+    }
+    .overlay{
+        position: absolute;
+        transform: scale(0);
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 10;
+    }
+    .overlay.active{
+        transform: scale(1);
+    }
+    .boardBig.active{
+        transform: scale(1);
+    }
+    .boardBig .close{
+        width: 35px;
+        height: 35px;
+        top: 0;
+        right: 0;
+        background-color: green;
+    }
+    .boardPop{
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+    }
+
+
+/* FOR BOOK */
+    .bookBig{
+        position: absolute;
+        transform: scale(0);
+        width: 1200px;
+        height: 700px;
+        top: 120px;
+        left: 375px;
+        background-color: yellow;
+        border: 2px solid white;
+        z-index: 20;
+    }
+
+    .bookBig.active{
+        transform: scale(1);
+    }
+    .bookBig .close{
+        width: 35px;
+        height: 35px;
+        top: 0;
+        right: 0;
+        background-color: green;
+    }
+    .bookPop{
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+    }
+
+/* FOR RIDDLES */
+.riddleBig{
+    position: absolute;
+    transform: scale(0);
+    width: 500px;
+    height: 700px;
+    top: 120px;
+    left: 720px;
+    background-color: yellow;
+    border: 2px solid white;
+    z-index: 20;
+}
+
+.riddleBig.active{
+    transform: scale(1);
+}
+.riddleBig .close{
+    width: 35px;
+    height: 35px;
+    top: 0;
+    right: 0;
+    background-color: green;
+}
+.riddlePop{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+
+/* FOR RIDDLES */
+.tutorialBig{
+    position: absolute;
+    transform: scale(0);
+    width: 500px;
+    height: 700px;
+    top: 120px;
+    left: 720px;
+    background-color: yellow;
+    border: 2px solid white;
+    z-index: 20;
+}
+
+.tutorialBig.active{
+    transform: scale(1);
+}
+.tutorialBig .close{
+    width: 35px;
+    height: 35px;
+    top: 0;
+    right: 0;
+    background-color: green;
+}
+.tutorialPop{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+
+/* FOR NEWSPAPER */
+.newspaperBig{
+    position: absolute;
+    transform: scale(0);
+    width: 600px;
+    height: 700px;
+    top: 120px;
+    left: 690px;
+    background-color: yellow;
+    border: 2px solid white;
+    z-index: 20;
+}
+
+.newspaperBig.active{
+    transform: scale(1);
+}
+.newspaperBig .close{
+    width: 35px;
+    height: 35px;
+    top: 0;
+    right: 0;
+    background-color: green;
+}
+.newspaperPop{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
+}

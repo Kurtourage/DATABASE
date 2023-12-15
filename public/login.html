@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/login.css">
+  <link href="https://fonts.cdnfonts.com/css/vt323" rel="stylesheet">
+  <link rel="stylesheet" href="css/transition.css">
+  <title>Login Page</title>
+</head>
+<body>
+
+
+  <div class="transition transition-2 is-active"></div>
+
+  <a href="index.html" class="">
+    <div class="exit">
+    
+    </div>  
+  </a>
+
+  <div class="container">
+    <div class="forms">
+
+      <!--Login Part-->
+      <div class="form login">
+        <span class="title">  </span>
+          <form action="/login" method="post">
+            <div class="input-field">
+              <input type="text" id="username" placeholder="Enter your username" name="username" required>
+              <img src="assets/username.png" alt="">
+            </div>
+            <div class="input-field">
+              <input type="password" id="password" placeholder="Enter your password" name="password" required>
+              <img src="assets/password.png" alt="">
+            </div>
+            <div class="button">
+              <button type="submit"></button>
+            </div>
+          </form>
+
+        
+          <span class="text">
+            <a href="#" class="text signup-link">
+              <div class="login-signup create"></div>
+            </a>
+          </span>
+        
+      </div>
+
+       <!--Signup Part-->
+      <div class="form signup">
+        <span class="title"></span>
+        
+          <form action="/signup" method="post">
+            <div class="input-field">
+              <input type="text" id="username" placeholder="Enter your username" name="username" required>
+              <img src="assets/username.png" alt="">
+            </div>
+            <div class="input-field">
+              <input type="text" id="email" placeholder="Enter your email" name="email" required>
+              <img src="assets/mail.png" alt="">
+            </div>
+            <div class="input-field">
+              <input type="password" id="password" placeholder="Enter your password" name="password" required>
+              <img src="assets/password.png" alt="">
+            </div>
+            <div class="input-field">
+              <input type="password" id="confirm_password" placeholder="Confirm password" name="confirm_password" required>
+              <img src="assets/password.png" alt="">
+            </div>
+            <div class="button">
+              <button type="submit" ></button>
+            </div>
+          </form>
+
+        
+          <span class="text">
+            <a href="#" class="text login-link">
+            <div class="login-signup loginnow">
+            </div> </a>
+          </span>
+        
+      </div>
+
+
+    </div>
+  </div>
+ 
+  <script src="js/login.js"></script>
+  <script src="js/transition.js"></script>
+  
+
+
+</body>
+</html>
