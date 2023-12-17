@@ -65,7 +65,7 @@ app.post('/login', (req, res) => {
       if (results.length > 0) {
         // User found, store user information in session
         req.session.user = results[0];
-        res.redirect('/CH1.html');
+        res.redirect('/menu.html');
       } else {
         // User not found or invalid credentials
         res.send('Invalid username or password');
@@ -122,7 +122,7 @@ app.post('/signup', (req, res) => {
 });
 
 
-
+app.post('/')
 
 
 let gameDbInitialized = false;
