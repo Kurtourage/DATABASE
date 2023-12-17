@@ -5,5 +5,5 @@ document.getElementById("startClassicMode").addEventListener("click", function()
     window.location.href = "/classic.html";
 })
 document.getElementById("startPracticeMode").addEventListener("click", function() {
-    window.location.href = "/CH1.html";
+    window.location.href = "/practice.html";
 })
