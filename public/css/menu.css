@@ -30,12 +30,38 @@ body{
     margin-right: 30px;
 }
 
+.title{
+    width: 241px;
+    height: 98px;
+    position: absolute;
+    border: 1px solid yellow;
+    margin-left: 297px;
+    margin-top: -520px;
+    
+}
+.mode-title{
+background-image: url(../assets/mode.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.chapters-title{
+    background-image: url(../assets/chapters.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 .menu{
+    margin-top: 100px;
     display: flex;
     align-items: center;
-    gap: 70px;
-    margin-left: 120px;
-    border: none;
+    gap: 56.25px;
+    margin-left: 100px;
+    padding-left: 56.25px;
+    width: 960px;
+    height: 540px;
+    border: 1px solid yellow;
+    margin-bottom: 100px;
 }
 
 .modes{
@@ -82,12 +108,12 @@ body{
 
 /* CHAPTERS */
 .cards{
-
+margin-top: 100px;
     display: flex;
     flex-wrap: wrap;
     width: 800px;
     gap: 70px;
-    margin-left: 70px;
+    margin-left: 120px;
     border: 1px solid yellow;
 }
 .first-set, .second-set{
@@ -101,6 +127,7 @@ body{
     border: 1px solid yellow;
     width: 200px;
     height: 165px;
+    cursor: pointer;
 }
 .second-set{
     border: 1px solid yellow;
