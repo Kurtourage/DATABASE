@@ -23,7 +23,7 @@ body{
     position: relative;
     width: 960px;
     height: 540px;
-    left: 2%;
+    left: 100px;
     background-image: url(../assets/story_main.png);
     background-repeat: no-repeat;
     background-size: cover
