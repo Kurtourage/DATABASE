@@ -1,5 +1,5 @@
 document.getElementById("startStoryMode").addEventListener("click", function() {
-    window.location.href = "/CH1.html";
+    window.location.href = "/storyMode.html";
 })
 document.getElementById("startClassicMode").addEventListener("click", function() {
     window.location.href = "/classic.html";
