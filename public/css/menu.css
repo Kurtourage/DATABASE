@@ -36,7 +36,6 @@ body{
     gap: 70px;
     margin-left: 120px;
     border: none;
-
 }
 
 .modes{
@@ -78,3 +77,33 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+
+/* CHAPTERS */
+.cards{
+
+    display: flex;
+    flex-wrap: wrap;
+    width: 800px;
+    gap: 70px;
+    margin-left: 70px;
+    border: 1px solid yellow;
+}
+.first-set, .second-set{
+    display: flex;
+    align-items: center;
+    gap: 100px;
+    border: none;
+}
+
+.card{
+    border: 1px solid yellow;
+    width: 200px;
+    height: 165px;
+}
+.second-set{
+    border: 1px solid yellow;
+    margin-left: 149px;
+}
+
