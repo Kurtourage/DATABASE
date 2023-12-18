@@ -30,9 +30,7 @@ body{
     margin-right: 30px;
 }
 
-.title{
 
-}
 
 .mode-title{
     width: 241px;
@@ -41,7 +39,7 @@ body{
     border: 1px solid yellow;
     margin-left: 297px;
     margin-top: -525px;  
-background-image: url(../assets/mode.png);
+    background-image: url(../assets/mode.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -68,6 +66,9 @@ background-image: url(../assets/mode.png);
     height: 540px;
     border: 1px solid yellow;
     margin-bottom: 100px;
+    background-image: url(../assets/backdrop.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .modes{
@@ -123,6 +124,9 @@ background-image: url(../assets/mode.png);
     height: 540px;
     border: 1px solid yellow;
     margin-bottom: 100px;
+    background-image: url(../assets/backdrop.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .first-set, .second-set{
     margin-top: 70px;
