@@ -7,3 +7,4 @@ document.getElementById("startClassicMode").addEventListener("click", function()
 document.getElementById("startPracticeMode").addEventListener("click", function() {
     window.location.href = "/practice.html";
 })
+
