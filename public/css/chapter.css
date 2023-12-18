@@ -3,12 +3,12 @@
     src: url(../assets/fonts/vt323-regular-webfont.woff), format('woff'),
     url(../assets/fonts/vt323-regular-webfont.woff2), format('woff2');
   }
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'VT323';
-}
+  *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'VT323';
+  }
 
 body{
     height: 100vh;
