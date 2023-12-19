@@ -22,13 +22,16 @@ body{
 
 .settings{
     padding: 30px;
-    border: 1px solid white;
     width: 128px;
     height: 218px;
     position: absolute;
     top: 220px;
     left: 70px;
     margin-right: 30px;
+    background-image: url(../assets/setting.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
 }
 .settings-btn button{
     background-color: transparent;
