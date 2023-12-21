@@ -16,7 +16,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:  #000000;
+    background-color:  #3c3c3c;
 }
 
 .main-bg{
@@ -27,6 +27,14 @@ body{
     background-repeat: no-repeat;
     background-size: cover
 }
+.back-bg{
+    position: absolute;
+    z-index: -10;
+    width: 990px;
+    height: 570px;
+    border: 15px solid #111111;
+}
+
 
 .hover-img {
     position: absolute;
@@ -367,7 +375,7 @@ height: 100%;
     height: 218px;
     position: absolute;
     top: 240px;
-    left: 60px;
+    left: 45px;
     background-image: url(../assets/ch_setting.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -377,15 +385,15 @@ height: 100%;
     height: 218px;
     position: absolute;
     top: 240px;
-    right: 60px;
+    right: 45px;
     background-image: url(../assets/ch_cr1.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
 .connector{
     top: 170px;
-    left: 130px;
-    right: 130px;
+    left: 110px;
+    right: 110px;
     border: 26px solid #111111;
     position: absolute;
     height:350px;
