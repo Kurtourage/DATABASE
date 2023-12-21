@@ -220,9 +220,26 @@ app.post('/initialize-game-db', (req, res) => {
 
        const insertEvidenceTableSQL  = `INSERT INTO evidence (name, location_found)
        VALUES
-       ('Evidence1', 'Location1'),
-      ('Evidence2', 'Location2'),
-      ('Evidence3', 'Location3');` //save this for later
+       ('Poisoned Chalice', 'Analysis of the drink served to Marcus Whitewood reveals traces of a rare and potent poison. The spectral raven subtly directs attention to the chalice, indicating foul play in his demise'),
+       ('Merlot', 'The wine that was poisoned'),
+       ('Missing Object', ''),
+       ('Broken Necklace', 'Evelyn Whitewood''s necklace, a family heirloom, is discovered shattered. The raven hints at the necklace''s importance, signaling a struggle or a significant altercation before the tragic events.'),
+       ('Shattered Vial', 'Discovered near the greenhouse, hidden amidst a bed of vibrant flowers near the Whitewood family statue.'),
+       ('Torn Fabric', 'Caught on the ornate gates at the estate''s entrance, hinting at a hurried departure into the night.'),
+       ('Cryptic Note', 'Concealed within the ancient grandfather clock in the study, nestled behind its pendulum.'),
+       ('Missing Object', 'Absent from the trophy room, where an intricate crystal sculpture once stood as the centerpiece. '),
+       ('Midnight Blossom', 'a vibrant poisonous flower seen at the Sanctum, looks red when withered.'),
+       ('Stardust Lily', 'a poisonous flower seen in the Greenhouse'),
+       ('Bright Bloom', ' A vibrant red flower, di alam saan nakalagay hahaha'),  
+       ('Fragmented Jewelry', 'Scattered amidst the opulent tapestries in the banquet hall, glinting under the soft glow of chandeliers.'),
+       ('Unfamiliar Key', 'Hidden within an intricate mosaic on the mosaic near the garden''s fountain, its presence overlooked.'),
+       ('Broken Ornament', 'Found tangled within the overgrown thicket near the conservatory, shards peeking through the tangled vines.'),
+       ('Mysterious Book', ' Discovered beneath a pile of forgotten scripts on a bookstand in the music room.'),
+       ('Tainted Cloth', 'Hidden amidst the curtains in the master bedroom, a piece of fabric stained with an unidentifiable substance.'),
+       ('Dented Cane', 'Abandoned near the gardener''s shed, nestled among the tools and pots, unnoticed in the bustling garden.'),
+       ('Hidden Passageway', 'A previously unknown hidden passageway within the estate, revealed by the spectral raven''s subtle gestures, suggests an escape route or clandestine movements possibly utilized by the perpetrator.')
+      
+      ;` //no location on line 233
        ; 
 
 
@@ -471,12 +488,8 @@ function generateTableHtml(results) {
 const levels = [
   {
     id: 1,
-    mission: {
-      requiredKeyword: 'SELECT * FROM profiles WHERE ',
-      requiredPersons: ['Marcus Whitewood', 'Edmund Thatcher'],
-    },
-
-  },
+    mission: ['CREATE table ', 'SELECT * from profiles', 'INSERT INTO profiles',  'SELECT * FROM profiles where id = 46',   ]
+     },
 
   {
     id: 2,
@@ -513,6 +526,14 @@ app.post('/start-level', (req, res) => {
   res.json({ success: true, mission: level.mission });
 });
 
+
+
+const expectedActions = [];
+
+
+
+
+
 // Endpoint to check the user's answer for the current level
 app.post('/check-level-answer', (req, res) => {
   // Check if there is a current level
@@ -540,38 +561,14 @@ app.post('/check-level-answer', (req, res) => {
   }
 });
 
-// Function to check if the user's input satisfies the mission criteria
-function checkMissionCompletion(userInput, mission, tableHtml) {
-
-  const currentLevel = levels.find((level) => level.id === mission.levelId);
-
-  if (!currentLevel) {
-    return false; // Handle the case when the level is not found
-  }
 
 
-  // Check if the requiredKeyword is present in the userInput
-  const hasRequiredKeyword = userInput.includes(mission.requiredKeyword);
-
-  // Check if all requiredPersons are present in the userInput
-  const hasRequiredPersons = mission.requiredPersons.every(person => userInput.includes(person));
-
-  // Check if the generated table HTML matches the requiredTable
-  const hasRequiredTable = tableHtml === currentLevel.requiredTable;
-
-  return hasRequiredKeyword && hasRequiredPersons && hasRequiredTable;
-
-  
-}
 
 
 
 // Function to start the next level
 function startNextLevel() {
-  // Implement the logic to start the next level
-  // For example, update the current level to the next level in the sequence
-  // or fetch the next level details from your server
-  // and set it as the new current level
+
   const currentIndex = levels.findIndex(
     (level) => level.id === currentLevel.id
   );

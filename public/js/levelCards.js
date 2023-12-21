@@ -6,10 +6,9 @@ document.addEventListener('DOMContentLoaded', function () {
     cards.forEach(function (card) {
         card.addEventListener('click', function () {
             // Get the chapter number from the card's ID
-            var chapterNumber = card.id.replace('level', '');
-
+            var chapterId = card.id;
             // Redirect to the corresponding chapter page
-            window.location.href = '/CH' + chapterNumber + '.html';
+            window.location.href = '/CH' + chapterId + '.html';
         });
     });
 });
