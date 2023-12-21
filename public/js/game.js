@@ -43,7 +43,7 @@ const config = {
           document.getElementById("executeBtn1").addEventListener("click", function () {
             const userInput = document.getElementById("sqlInput").value;
           executeGameSQL(userInput);
-          checkLevelAnswer(userInput, generatedTableHtml);
+          
         });
           const result = await response.json();
           console.log(result.mission); // You can use the mission data as needed

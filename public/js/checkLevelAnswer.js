@@ -1,12 +1,12 @@
           // Function to check the user's answer for the current level on the server
-          async function checkLevelAnswer(userInput, generatedTableHtml) {
+          async function checkLevelAnswer(userInput) {
             try {
               const response = await fetch('/check-level-answer', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ userInput, generatedTableHtml }),
+                body: JSON.stringify({ userInput}),
               });
         
               if (!response.ok) {
@@ -24,3 +24,6 @@
               console.error(error);
             }
           }
+
+
+
