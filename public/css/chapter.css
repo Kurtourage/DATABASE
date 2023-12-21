@@ -380,7 +380,7 @@ height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
 }
-.credits{
+.credits.ch_cr1{
     width: 128px;
     height: 218px;
     position: absolute;
@@ -390,6 +390,48 @@ height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
 }
+.credits.ch_cr2{
+    width: 128px;
+    height: 218px;
+    position: absolute;
+    top: 240px;
+    right: 45px;
+    background-image: url(../assets/ch_cr2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.credits.ch_cr3{
+    width: 128px;
+    height: 218px;
+    position: absolute;
+    top: 240px;
+    right: 45px;
+    background-image: url(../assets/ch_cr3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.credits.ch_cr4{
+    width: 128px;
+    height: 218px;
+    position: absolute;
+    top: 240px;
+    right: 45px;
+    background-image: url(../assets/ch_cr4.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.credits.ch_cr5{
+    width: 128px;
+    height: 218px;
+    position: absolute;
+    top: 240px;
+    right: 45px;
+    background-image: url(../assets/ch_cr5.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
 .connector{
     top: 170px;
     left: 110px;
