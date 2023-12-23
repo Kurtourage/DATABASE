@@ -3,17 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/codemirror.css">
   <link rel="stylesheet" href="css/chapter.css">
   <link rel="stylesheet" href="css/transition.css">
   <link rel="stylesheet" href="css/ch_transition.css">
+ 
   <title>Chapter 1</title>
 </head>
 <body>
 
 
 <!-- Level 1 content -->
+
+<div id="result-message"> </div>
+<div id="button-container"></div>
+<div id="ch1_1" ></div>
+<div id="ch1_2" ></div>
+<div id="ch1_3" ></div>
+<div id="ch1_4" ></div>
 <!-- NARRATION -->
-<div class="image-slider">
+
+<div id="hud-container">
+  <!-- HUD content will be dynamically added here -->
+</div>
+<!--<div class="image-slider">
   <div class="overlay-slide"></div>
   <div class="slide visible ch1_first" >
     <h1>HELLO</h1>
@@ -23,7 +36,7 @@
   <button id="end-btn">End</button></div>
 </div>
 <div class="overlay">
-</div>
+</div>  -->
 
     <!-- SETTINGS -->
     <div class="connector"></div>
@@ -115,7 +128,6 @@
 <script src="js/game.js"></script>
 <script src="js/ch_transition.js"></script>
 <script src="js/checkLogin.js"></script>
-<script src="js/checkLevelAnswer.js"></script>
 <script src="js/popup.js"></script>
 </body>
 </html>

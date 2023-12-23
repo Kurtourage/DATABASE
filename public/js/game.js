@@ -1,29 +1,38 @@
+
+
+
 const config = {
     locateFile: (filename) => `/dist/${filename}`,
   };
   initSqlJs(config).then(function (SQL) {
-    const db = new SQL.Database();
+    
+    let userInput;
+    
 
-    function executeGameSQL(sql) {
+     function executeGameSQL(sql) {
       fetch('/execute-game-sql', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ sql }),
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sql }),
+          })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          console.log("Query results:", data.tableHtml);
+          displayResults(data.tableHtml);
+        } else {
+          console.error('Error executing SQL statement:', data.error);
+        }
       })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            console.log("Query results:", data.tableHtml);
-            displayResults(data.tableHtml);
-          } else {
-            console.error('Error executing SQL statement:', data.error);
-          }
-        })
-        .catch(error => console.error('Error executing SQL statement:', error));
-    }
+      .catch(error => console.error('Error executing SQL statement:', error));
+  }
 
+
+
+
+   
 
           // Function to start a level on the server
        async function startLevel(levelId) {
@@ -38,15 +47,15 @@ const config = {
 
           if (!response.ok) {
             throw new Error('Failed to start the level');
-          }
+          } 
 
-          document.getElementById("executeBtn1").addEventListener("click", function () {
-            const userInput = document.getElementById("sqlInput").value;
-          executeGameSQL(userInput);
-          
-        });
+         
           const result = await response.json();
-          console.log(result.mission); // You can use the mission data as needed
+          
+          updateHUD(result.objective);
+          console.log(result);
+          console.log(result.mission);
+          console.log(result.objective);
 
         } catch (error) {
           console.error(error);
@@ -56,36 +65,153 @@ const config = {
       }
 
 
-        // Function to check the user's answer for the current level on the server
-async function checkLevelAnswer(userInput, generatedTableHtml) {
-  try {
-    const response = await fetch('/check-level-answer', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userInput, generatedTableHtml }),
+      document.getElementById("executeBtn1").addEventListener("click", function () {
+        userInput = document.getElementById('sqlInput').value;
+        executeGameSQL(userInput);
+      });
+  
+  
+      
+
+    // Function to send the user's input to the server for checking
+    async function checkUserAnswer() {
+      
+     
+
+      try {
+        const response = await fetch('/check-level-answer', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({userInput}),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to check the level answer');
+        }
+
+        const result = await response.json();
+        handleCheckResult(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+
+    // Keep track of completed missions
+const completedMissions = [];
+
+// Function to update the HUD with the current level mission
+function updateHUD(levelMission, missionObj) {
+  const hudContainer = document.getElementById('hud-container');
+
+  // Clear previous HUD content
+  hudContainer.innerHTML = '';
+
+  // Create a new element to display the level mission
+  const levelMissionElement = document.createElement('div');
+  levelMissionElement.textContent = `Level Mission: ${levelMission}`;
+  hudContainer.appendChild(levelMissionElement);
+
+  // Check if missionObj exists and is an array
+  if (missionObj && Array.isArray(missionObj)) {
+    // Create a new element for the missionObj in bullet form
+    const missionObjElement = document.createElement('ul');
+    missionObj.forEach((mission) => {
+      const listItem = document.createElement('li');
+      listItem.textContent = mission;
+
+      // Add a line break after each mission
+      listItem.innerHTML += '<br>';
+      
+      missionObjElement.appendChild(listItem);
     });
 
-    if (!response.ok) {
-      throw new Error('Failed to check the level answer');
-    }
-
-    const result = await response.json();
-    if (result.success) {
-      console.log('Level completed!'); // You can handle level completion on the client side
-    } else {
-      console.log('Level not completed.'); // You can handle the result accordingly
-    }
-
-  } catch (error) {
-    console.error(error);
+    // Append the missionObj element to the HUD container
+    hudContainer.appendChild(missionObjElement);
   }
 }
 
+    // Function to handle the result of checking the user's answer
+    function handleCheckResult(result) {
+      const resultMessage = document.getElementById('result-message');
+      const buttonContainer = document.getElementById('button-container');
+
+      buttonContainer.innerHTML = '';
+      if (result.success) {
+          
+        
+        const currentLevelMission = result.mission;
+        if (!completedMissions.includes(currentLevelMission)) {
+          completedMissions.push(currentLevelMission);
+        }
+        resultMessage.textContent = 'Level completed!'; 
+
+         // Create a button
+          const nextLevelButton = document.createElement('button');
+          nextLevelButton.textContent = 'Next Level';
+          nextLevelButton.id = 'nextLevelButton';
+          
+
+        // Append the button to the container
+        buttonContainer.appendChild(nextLevelButton);
+        document.getElementById('nextLevelButton').addEventListener('click', startNextLevel)
+      } else {
+        resultMessage.textContent = 'Level not completed. Try again.'; 
+      }
+    }
+
+    // Event listener for the submit button
+    document.getElementById('executeBtn1').addEventListener('click', checkUserAnswer);
 
 
 
+
+    async function startNextLevel() {
+      try {
+        const response = await fetch('/start-next-level', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({}),
+        });
+  
+        if (!response.ok) {
+          throw new Error('Failed to start the next level');
+        }
+  
+        const result = await response.json();
+        console.log(result.mission); // You can use the mission data as needed
+        handleStartNextLevelResult(result);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    function handleStartNextLevelResult(result) {
+      const resultMessage = document.getElementById('result-message');
+      const buttonContainer = document.getElementById('button-container');
+  
+      buttonContainer.innerHTML = '';
+      if (result.success) {
+        resultMessage.textContent = 'Next level started!';
+
+        
+        const nextLevelNumber = result.nextLevelNumber; // Adjust this based on your server response
+        window.location.href = result.redirectUrl;
+        startLevel(nextLevelNumber);
+        
+        // You can also trigger any additional logic here if needed
+      } else {
+        resultMessage.textContent = 'Unable to start the next level. ' + result.message;
+      }
+    }
+  
+
+
+  
     // Initialize the database on the server
     fetch('/initialize-game-db', {
       method: 'POST',
@@ -112,30 +238,35 @@ async function checkLevelAnswer(userInput, generatedTableHtml) {
         }
 
       });
-      clearExit.addEventListener("click", () => {
-        // Clear result
-        while (tableContainer.firstChild) {
-          tableContainer.removeChild(tableContainer.firstChild);
-        }
-
-      });
+   
 
     
     }
+// Function to extract the level number from the file name
+function getCurrentLevelNumber() {
+  // Extract the number from the file name (e.g., "CH1.html" -> 1)
+  const match = window.location.pathname.match(/\/CH(\d+)\.html/);
+  return match ? parseInt(match[1], 10) : 1; // Default to level 1 if not found
+}
 
-    // Function to hide all levels
-    function hideAllLevels() {
-      const levels = document.querySelectorAll('.level');
-      levels.forEach(level => {
-        level.style.display = 'none';
-      });
-    }
+// Function to start the current level on page load
+function startCurrentLevel() {
+  const currentLevelNumber = getCurrentLevelNumber();
+  startLevel(currentLevelNumber);
+}
 
+// Call startCurrentLevel() on page load
+startCurrentLevel();
+  
+
+
+
+   
     
 
 
 
-startLevel(1);
+
     
   
 

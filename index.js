@@ -377,7 +377,62 @@ app.post('/initialize-game-db', (req, res) => {
         (1, 'Married'),
         (2, 'Widowed');`
         ;
- 
+          
+        const createFavoriteObjectsTableSQL = `
+        CREATE TABLE IF NOT EXISTS favorite_objects
+        (id INTEGER PRIMARY KEY,
+        name TEXT, object_type TEXT);`
+        ;
+
+        const insertFavoriteObjectsTableSQ = `
+        INSERT INTO favorite_objects(name, object_type)
+        VALUES
+        ('Merlot', 'Wine'),
+        ('Cherry Blossom', 'flower'),
+        ('Monogrammed pocket watch', 'timepiece'),
+        ('Classic fountain pen', 'writing instrument'),
+        ('DSLR camera', 'photography equipment'),
+        ('Vinyl records', 'music collection'),
+        ('Handwoven silk scarf', 'accessory'),
+        ('Heirloom earrings', 'jewelry'),
+        ('Antique book collection', 'literature'),
+        ('Silver snuff box', 'accessory'),
+        ('Engraved cufflinks', 'accessory'),
+        ('Polished silver serving tray', 'dining ware'),
+        ('Leather-bound notebook', 'stationery'),
+        ('Hand-painted porcelain teapot', 'kitchenware'),
+        ('Family recipe book', 'literature'),
+        ('Antique hairpin', 'accessory'),
+        ('Crystal vase', 'home decor'),
+        ('Gold brooch', 'accessory'),
+        ('Botanical prints', 'art collection'),
+        ('Intricately designed tapestry', 'decor'),
+        ('Embroidered handkerchief', 'accessory'),
+        ('Hand-carved wooden spoon', 'kitchenware'),
+        ('Antique music box', 'music accessory'),
+        ('Vintage pocket watch', 'timepiece'),
+        ('Collection of antique fans', 'collectibles'),
+        ('Faberge egg', 'decorative art'),
+        ('Limited edition fountain pen', 'writing instrument'),
+        ('Porcelain figurine', 'decorative art'),
+        ('Antique compass', 'navigational tool'),
+        ('Silk scarf from a foreign land', 'accessory'),
+        ('Grand piano', 'musical instrument'),
+        ('Sculpture from a renowned artist', 'art'),
+        ('Rare paintings', ' art collection'),
+        ('Antique saber', 'weapon'),
+        ('Antique lace handkerchief', 'accessory'),
+        ('Vintage typewriter', 'writing instrument'),
+        ('Ornate tapestry', 'decor'),
+        ('Antique globe', 'decor'),
+        ('Leather-bound journal filled with poetry', 'stationery'),
+        ('Paint Brush set', 'art supplies'),
+        ('Vintage sheet music collection', 'music'),
+        ('Silver-plated charity award', 'recognition'),
+        ('Antique locket', 'jewelry'),
+        ('Ancient artifact replicas', 'collectibles'),
+        ('Antique travel trunk', 'luggage');
+        `;
 
 
  // Run SQL queries
@@ -397,6 +452,8 @@ gameDb.serialize(() => {
     ${insertStatusDataSQL}
     ${createMaritalStatusTableSQL}
     ${insertMaritalStatusDataSQL}
+    ${createFavoriteObjectsTableSQL}
+    ${insertFavoriteObjectsTableSQ}
   `, (err) => {
     if (err) {
       console.error('Error executing SQL queries:', err);
@@ -488,21 +545,23 @@ function generateTableHtml(results) {
 const levels = [
   {
     id: 1,
-    mission: ['CREATE table ', 'SELECT * from profiles', 'INSERT INTO profiles',  'SELECT * FROM profiles where id = 46',   ]
+    mission: [ 'SELECT * from profiles', 'Insert into profiles(name) Values(','Delete from profiles where id = 46' ],
+    objective:['SELECT all persons involved from the profile table', 'INSERT your name in the profiles table', 'DELETE your information in the table using id ']
      },
 
   {
-    id: 2,
-    mission: {
-      requiredKeyword: 'UPDATE profiles',
-      requiredPerson: 'Markus Whitewood',
-    },
-    
+    id: 2,    
+    mission: ['SELECT * from evidence', 'update evidence set name = '],
+    objective:['SELECT all objects from clues table' , 'UPDATE  the two missing objects in clues table, the clues are in the newspaper tab']
   },
-  // Add more levels as needed
+  {
+
+
+  }
+
 ];
 
-// Current level variable
+
 let currentLevel = null;
 
 // ...
@@ -523,16 +582,68 @@ app.post('/start-level', (req, res) => {
   currentLevel = level;
 
   // Send the level mission to the client
-  res.json({ success: true, mission: level.mission });
+  res.json({ success: true, mission: level.mission, objective: level.objective });
 });
 
 
 
-const expectedActions = [];
+
+
+// Endpoint to start the next level
+app.post('/start-next-level', (req, res) => {
+  // Check if there is a current level
+  if (!currentLevel) {
+    return res.status(400).json({ error: 'No active level' });
+  }
+
+  // Find the index of the current level in the levels array
+  const currentIndex = levels.findIndex((l) => l.id === currentLevel.id);
+
+  // Check if the current level is the last level
+  if (currentIndex === levels.length - 1) {
+    return res.json({ success: false, message: 'No more levels available' });
+  }
+
+  // Get the next level
+  const nextLevel = levels[currentIndex + 1];
+  
+  // Set the current level to the next level
+  currentLevel = nextLevel;
+  console.log('Next Level:', nextLevel);
+  console.log('Next Level ID:', nextLevel.id);
+
+  if (nextLevel && nextLevel.id !== undefined) {
+    // Send the next level mission and URL to the client
+    res.json({ success: true, mission: nextLevel.mission, redirectUrl: `/CH${nextLevel.id}.html`, nextlevelNumber: nextLevel.id });
+  } else {
+    res.status(500).json({ error: 'Invalid level data' });
+  }
+});
 
 
 
 
+
+
+// Function to check if the user's input array satisfies the level mission requirements
+function checkMissionCompletion(userInputs, mission) {
+ // Check each mission requirement
+ for (const requirement of mission) {
+  // Convert both the input and requirement to lowercase for a case-insensitive comparison
+  const lowerRequirement = requirement.toLowerCase();
+
+  // Check if the requirement is present in any user input (case-insensitive)
+  if (!userInputs.some((input) => input.toLowerCase().includes(lowerRequirement))) {
+    return false;
+  }
+}
+
+// All mission requirements are satisfied
+return true;
+}
+
+
+const userInputs = [];
 
 // Endpoint to check the user's answer for the current level
 app.post('/check-level-answer', (req, res) => {
@@ -543,17 +654,19 @@ app.post('/check-level-answer', (req, res) => {
 
   // Get the user's answer from the request
   const userAnswer = req.body.userInput;
-  const generatedTableHtml = req.body.generatedTableHtml;
+    // Store the user input in the array
+    userInputs.push(userAnswer);
+
   // Check if the user's answer satisfies the level mission criteria
   const isMissionCompleted = checkMissionCompletion(
-    userAnswer,
+    userInputs,
     currentLevel.mission,
-    generatedTableHtml
+    
   );
 
   // If the mission is completed, start the next level
   if (isMissionCompleted) {
-    startNextLevel();
+    
     res.json({ success: true, nextLevelStarted: true });
   } else {
     // If the mission is not completed, respond with the result
@@ -564,23 +677,6 @@ app.post('/check-level-answer', (req, res) => {
 
 
 
-
-
-// Function to start the next level
-function startNextLevel() {
-
-  const currentIndex = levels.findIndex(
-    (level) => level.id === currentLevel.id
-  );
-  const nextIndex = currentIndex + 1;
-
-  if (nextIndex < levels.length) {
-    currentLevel = levels[nextIndex];
-  } else {
-    // No more levels, game completed
-    currentLevel = null;
-  }
-}
 
 
 // Define a route for logging out

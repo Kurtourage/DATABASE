@@ -167,7 +167,7 @@ textarea::placeholder{
     resize: none;
     overflow: hidden;
     outline: none;
-    color: #130900;
+    /*color: #130900; */
 }
 
 .level .exc-btn{
