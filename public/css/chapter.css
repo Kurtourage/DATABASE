@@ -252,12 +252,13 @@ height: 100%;
 .tutorialBig{
 position: absolute;
 transform: scale(0);
-width: 333px;
-height: 466px;
-top: 80px;
-left: 480px;
-background-color: yellow;
-border: 2px solid white;
+width: 350px;
+height: 500px;
+top: 75px;
+left: 508px;
+background-image: url(../assets/tutorialBig.png);
+background-repeat: no-repeat;
+background-size: cover;
 z-index: 20;
 }
 
@@ -265,11 +266,18 @@ z-index: 20;
 transform: scale(1);
 }
 .tutorialBig .close{
+position: fixed;
 width: 35px;
 height: 35px;
-top: 0;
-right: 0;
-background-color: green;
+top: 12px;
+right: 12px;
+background-color: #130900;
+}
+.tutorialBig .close p{
+    color: #fff5c1;
+    font-size: 27px;
+    cursor: pointer;
+    margin-left: 10px;
 }
 .tutorialPop{
 border: none;
