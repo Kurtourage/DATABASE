@@ -45,6 +45,7 @@ body{
 margin-top: 15px;
 width: 890px;
 margin-left: 20px;
+font-size: 18px;
 }
 
 /* Define visibility on hover */
@@ -279,10 +280,10 @@ width: 35px;
 height: 35px;
 top: 12px;
 right: 12px;
-background-color: #130900;
+background-color: transparent;
 }
 .tutorialBig .close h1{
-    color: #fff5c1;
+    color: #130900;
     font-size: 27px;
     cursor: pointer;
     padding-left: 10px;
