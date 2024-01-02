@@ -138,8 +138,15 @@ body{
     width: 90px;
     height: 35px;
     bottom: 5px;
-    right: 1px;
-    background-color: green;
+    right: 15px;
+    background-color: #130900;
+}
+.computerBig .close h1{
+    color: #fff5c1;
+    font-size: 27px;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-top: 3px;
 }
 
 textarea::placeholder{
@@ -294,7 +301,7 @@ height: 100%;
 text-justify: inter-word;
     top: -8px;
     margin: 18px;
-    width: 285px;
+    width: 280px;
     height: 480px;
     overflow-y: auto;
     overflow-x: hidden;
