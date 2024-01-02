@@ -273,18 +273,35 @@ top: 12px;
 right: 12px;
 background-color: #130900;
 }
-.tutorialBig .close p{
+.tutorialBig .close h1{
     color: #fff5c1;
     font-size: 27px;
     cursor: pointer;
-    margin-left: 10px;
+    padding-left: 10px;
+
 }
+
 .tutorialPop{
 border: none;
 cursor: pointer;
 background-color: transparent;
 width: 100%;
 height: 100%;
+}
+.cheatsheet{
+    position: absolute;
+    text-align: justify;
+text-justify: inter-word;
+    top: -8px;
+    margin: 18px;
+    width: 285px;
+    height: 480px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    cursor: context-menu;
+}
+.cheatsheet::-webkit-scrollbar{
+    display: none;
 }
 
 /* FOR NEWSPAPER */
