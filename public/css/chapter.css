@@ -39,8 +39,11 @@ body{
 .hover-img {
     position: absolute;
     opacity: 0; /* Initially hidden */
-    transition: opacity 0.3s ease; /* Smooth transition */
-    
+    transition: opacity 0.3s ease; /* Smooth transition */  
+}
+#hud-container{
+    position: absolute;
+    z-index: 20;
 }
 
 /* Define visibility on hover */

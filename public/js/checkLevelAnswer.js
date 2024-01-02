@@ -27,7 +27,9 @@
     function handleCheckResult(result) {
       const resultMessage = document.getElementById('result-message');
       if (result.success) {
-        resultMessage.textContent = 'Level completed!'; // You can update the UI accordingly
+        resultMessage.textContent = 'Level completed!'; 
+        
+        // You can update the UI accordingly
         // Implement logic to move to the next level or perform other actions
       } else {
         resultMessage.textContent = 'Level not completed. Try again.'; // You can update the UI accordingly
