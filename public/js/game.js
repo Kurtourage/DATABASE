@@ -31,8 +31,31 @@ const config = {
 
 
 
+// Function to extract the level number from the file name
+function getCurrentLevelNumber() {
+  // Extract the number from the file name (e.g., "CH1.html" -> 1)
+  const match = window.location.pathname.match(/\/CH(\d+)\.html/);
+  return match ? parseInt(match[1], 5) : 1; // Default to level 1 if not found
+}
 
-   
+// Function to start the current level on page load
+function startCurrentLevel() {
+  const currentLevelNumber = getCurrentLevelNumber();
+  startLevel(currentLevelNumber);
+}
+
+let missionObj = [];
+let mission = [];
+
+
+// Keep track of completed missions
+ let completedMissions = [];
+
+// Call startCurrentLevel() on page load
+startCurrentLevel();
+  
+
+  
 
           // Function to start a level on the server
        async function startLevel(levelId) {
@@ -51,11 +74,13 @@ const config = {
 
          
           const result = await response.json();
-          
-          updateHUD(result.objective);
+          missionObj = result.objective;
+          mission = result.mission;
+          completedMissions = [];
+
+          updateHUD(missionObj);
           console.log(result);
-          console.log(result.mission);
-          console.log(result.objective);
+          
 
         } catch (error) {
           console.error(error);
@@ -76,8 +101,6 @@ const config = {
     // Function to send the user's input to the server for checking
     async function checkUserAnswer() {
       
-     
-
       try {
         const response = await fetch('/check-level-answer', {
           method: 'POST',
@@ -93,53 +116,82 @@ const config = {
 
         const result = await response.json();
         handleCheckResult(result);
+        
       } catch (error) {
         console.error(error);
       }
     }
 
 
-    // Keep track of completed missions
-const completedMissions = [];
+
+
 
 // Function to update the HUD with the current level mission
-function updateHUD(levelMission, missionObj) {
-  const hudContainer = document.getElementById('hud-container');
+function updateHUD(missionObj) {
+  fetch('/update-hud')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch update-hud response');
+      }
+      return response.json();
+    })
+    .then(completedMissionsIndices => {
+      // Process the completed missions indices from the server response
+      console.log('Completed missions indices:', completedMissionsIndices);
 
-  // Clear previous HUD content
-  hudContainer.innerHTML = '';
+      // Clear previous HUD content
+      hudContainer.innerHTML = '';
 
-  // Create a new element to display the level mission
-  const levelMissionElement = document.createElement('div');
-  levelMissionElement.textContent = `Level Mission: ${levelMission}`;
-  hudContainer.appendChild(levelMissionElement);
+      // Create a new element to display the level mission
+      const levelMissionElement = document.createElement('div');
+      levelMissionElement.textContent = `Objectives:`;
+      hudContainer.appendChild(levelMissionElement);
 
-  // Check if missionObj exists and is an array
-  if (missionObj && Array.isArray(missionObj)) {
-    // Create a new element for the missionObj in bullet form
-    const missionObjElement = document.createElement('ul');
-    missionObj.forEach((mission) => {
-      const listItem = document.createElement('li');
-      listItem.textContent = mission;
+      // Check if missionObj exists and is an array
+      if (missionObj && Array.isArray(missionObj)) {
+        // Create a new element for the missionObj in bullet form
+        const missionObjElement = document.createElement('ul');
+        missionObj.forEach((objective, index) => {
+          const listItem = document.createElement('li');
 
-      // Add a line break after each mission
-      listItem.innerHTML += '<br>';
-      
-      missionObjElement.appendChild(listItem);
+          // Check if the current mission index is in the completed missions array
+          const isMissionCompleted = completedMissionsIndices.includes(index);
+
+          // Apply strikethrough for completed missions
+          if (isMissionCompleted) {
+            const strikeThroughElement = document.createElement('s');
+            strikeThroughElement.textContent = objective;
+            listItem.appendChild(strikeThroughElement);
+          } else {
+            listItem.textContent = objective;
+          }
+
+          missionObjElement.appendChild(listItem);
+        });
+
+        // Append the missionObj element to the HUD container
+        hudContainer.appendChild(missionObjElement);
+      }
+    })
+    .catch(error => {
+      console.error('Error fetching update-hud response:', error);
     });
-
-    // Append the missionObj element to the HUD container
-    hudContainer.appendChild(missionObjElement);
-  }
 }
+
+// Assume you have defined hudContainer elsewhere in your code.
+const hudContainer = document.getElementById('hud-container');
+
+
+
 
     // Function to handle the result of checking the user's answer
     function handleCheckResult(result) {
       const resultMessage = document.getElementById('result-message');
       const buttonContainer = document.getElementById('button-container');
 
+      updateHUD(missionObj);
       buttonContainer.innerHTML = '';
-      if (result.success) {
+      if (result.success == true) {
           
         
         const currentLevelMission = result.mission;
@@ -242,22 +294,6 @@ function updateHUD(levelMission, missionObj) {
 
     
     }
-// Function to extract the level number from the file name
-function getCurrentLevelNumber() {
-  // Extract the number from the file name (e.g., "CH1.html" -> 1)
-  const match = window.location.pathname.match(/\/CH(\d+)\.html/);
-  return match ? parseInt(match[1], 10) : 1; // Default to level 1 if not found
-}
-
-// Function to start the current level on page load
-function startCurrentLevel() {
-  const currentLevelNumber = getCurrentLevelNumber();
-  startLevel(currentLevelNumber);
-}
-
-// Call startCurrentLevel() on page load
-startCurrentLevel();
-  
 
 
 

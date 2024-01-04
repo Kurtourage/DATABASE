@@ -40,6 +40,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Serve HTML files from the 'public' directory
 app.use(express.static('public'));
 
+
+
+
+
 // Define a route for checking login status
 app.get('/check-login', (req, res) => {
   const loggedIn = !!req.session.user;
@@ -97,7 +101,7 @@ app.post('/signup', (req, res) => {
 
       
         connection.query(
-          'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+          'INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins) VALUES (?, ?, ?, 0, 1, 0)',
           [username, email, password],
           (err, results) => {
             if (err) {
@@ -113,9 +117,26 @@ app.post('/signup', (req, res) => {
         );
 
       
-    }
+    });
 
-  )
+    const userId = req.session.user.user_id;
+
+    connection.query(
+      "UPDATE users SET user_saved_level = ? Where user_id = ?",
+    [levelId, userId],
+    (err, results) => {
+      if (err) {
+        console.error('Error updating user_saved_level', err);
+        res.status(500).json({error: 'Internal Server Error.'});
+        return;
+        
+      
+    }
+   
+   
+
+    }
+    );
 
 
  
@@ -537,9 +558,7 @@ function generateTableHtml(results) {
 }
 
 
-// ...
 
-/// ... (previous code)
 
 // Level data
 const levels = [
@@ -564,7 +583,7 @@ const levels = [
 
 let currentLevel = null;
 
-// ...
+
 
 // Endpoint to start a level
 app.post('/start-level', (req, res) => {
@@ -580,9 +599,15 @@ app.post('/start-level', (req, res) => {
 
   // Set the current level
   currentLevel = level;
+  console.log(level);
+
+
 
   // Send the level mission to the client
   res.json({ success: true, mission: level.mission, objective: level.objective });
+  
+
+
 });
 
 
@@ -606,11 +631,27 @@ app.post('/start-next-level', (req, res) => {
 
   // Get the next level
   const nextLevel = levels[currentIndex + 1];
+
+   // Get the user ID from the session
+   const userId = req.session.user.user_id;
+
+   // Update the user_saved_level in the database
+   connection.query(
+     'UPDATE users SET user_saved_level = ? WHERE user_id = ?',
+     [nextLevel.id, userId],
+     (err, results) => {
+       if (err) {
+         console.error('Error updating user_saved_level:', err);
+         res.status(500).json({ error: 'Internal Server Error' });
+         return;
+       }
+      }
+   )
   
   // Set the current level to the next level
   currentLevel = nextLevel;
   console.log('Next Level:', nextLevel);
-  console.log('Next Level ID:', nextLevel.id);
+  
 
   if (nextLevel && nextLevel.id !== undefined) {
     // Send the next level mission and URL to the client
@@ -622,24 +663,48 @@ app.post('/start-next-level', (req, res) => {
 
 
 
+app.get('/get-user-level', (req, res) => {
+  console.log('Received check-user-level request');
+  user_level = req.session.user.user_saved_level;
+  console.log('User Level: ', user_level);
+  res.json({level: user_level})
+  
+
+});
 
 
-
+const completedMissionsIndices = [];
 // Function to check if the user's input array satisfies the level mission requirements
 function checkMissionCompletion(userInputs, mission) {
- // Check each mission requirement
- for (const requirement of mission) {
-  // Convert both the input and requirement to lowercase for a case-insensitive comparison
-  const lowerRequirement = requirement.toLowerCase();
+  
 
-  // Check if the requirement is present in any user input (case-insensitive)
-  if (!userInputs.some((input) => input.toLowerCase().includes(lowerRequirement))) {
+   // Check each mission requirement
+   for (let i = 0; i < mission.length; i++) {
+    const requirement = mission[i];
+
+    // Convert both the input and requirement to lowercase for a case-insensitive comparison
+    const lowerRequirement = requirement.toLowerCase();
+
+    // Check if the requirement is present in any user input (case-insensitive)
+    if (userInputs.some((input) => input.toLowerCase().includes(lowerRequirement))) {
+      // Mission requirement is satisfied
+      // Check if the index is not already present in completedMissionsIndices
+      if (!completedMissionsIndices.includes(i)) {
+        completedMissionsIndices.push(i);
+      }
+    }
+  }
+
+  // Check if any mission requirements are satisfied
+  if (completedMissionsIndices.length === mission.length) {
+    // all level missions are completed
+    return true;
+  }
+  
+  else {
+    
     return false;
   }
-}
-
-// All mission requirements are satisfied
-return true;
 }
 
 
@@ -663,6 +728,9 @@ app.post('/check-level-answer', (req, res) => {
     currentLevel.mission,
     
   );
+  console.log("User Inputs: ", userInputs);
+  console.log("Level Completed: ",isMissionCompleted);
+  console.log("Missions Completed: ", completedMissionsIndices);
 
   // If the mission is completed, start the next level
   if (isMissionCompleted) {
@@ -674,6 +742,14 @@ app.post('/check-level-answer', (req, res) => {
   }
 });
 
+app.get('/update-hud', (req, res) => {
+  // Check if there is a current level
+  if (!currentLevel) {
+    return res.status(400).json({ error: 'No active level' });
+  }
+
+  res.json(completedMissionsIndices);
+});
 
 
 
