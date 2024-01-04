@@ -161,7 +161,7 @@ app.post('/signup', (req, res) => {
             }
 
             // User successfully registered, store user information in session
-            req.session.user = { username, email, password, user_pic, user_saved_level, dbcoins };
+            req.session.user = results[0];
             res.redirect('/menu.html');
           }
         );
