@@ -145,9 +145,7 @@ app.post('/signup', (req, res) => {
               return;
             }
 
-            // User successfully registered, store user information in session
-            req.session.user = { username, email, password, user_pic, user_saved_level, dbcoins };
-            res.redirect('/CH1.html');
+           
           }
         );
 
@@ -164,7 +162,7 @@ app.post('/signup', (req, res) => {
 
             // User successfully registered, store user information in session
             req.session.user = { username, email, password, user_pic, user_saved_level, dbcoins };
-            res.redirect('/CH1.html');
+            res.redirect('/menu.html');
           }
         );
         
