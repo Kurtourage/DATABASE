@@ -376,3 +376,5 @@ const cheatsheetContent = `
 
 const existingDiv = document.getElementById('cheatsheet');
 existingDiv.innerHTML = cheatsheetContent;
+
+
