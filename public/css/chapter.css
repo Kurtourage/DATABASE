@@ -300,7 +300,7 @@ height: 100%;
 .cheatsheet{
     position: absolute;
     text-align: justify;
-text-justify: inter-word;
+    text-justify: inter-word;
     top: -8px;
     margin: 18px;
     width: 280px;
