@@ -298,17 +298,35 @@ width: 100%;
 height: 100%;
 }
 .cheatsheet{
+text-align: justify;
+    text-align: left;
     position: absolute;
-    text-align: justify;
-    text-justify: inter-word;
     top: -8px;
+    padding-right: 18px;
     margin: 18px;
-    width: 280px;
+    width: 290px;
     height: 480px;
     overflow-y: auto;
     overflow-x: hidden;
     cursor: context-menu;
 }
+.cheatsheet h3{
+    font-size: 1.8em;
+    color: #321900;
+}
+.cheatsheet p{
+    font-size: 1.25em;
+}
+.cheatsheet em{
+    color: #ffbc2e;
+}
+.cheatsheet strong{
+    color: #ffa400;
+}
+.cheatsheet hr{
+    border-color: #130900;
+}
+
 .cheatsheet::-webkit-scrollbar{
     display: none;
 }

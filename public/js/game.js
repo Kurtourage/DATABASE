@@ -312,6 +312,7 @@ const cheatsheetContent = `
       <em>DELETE FROM table_name WHERE condition;</em></p>
       <br>
       <hr>
+      <br>
       <h3>Filtering Data:</h3>
       <br>
       <p><strong>WHERE:</strong> Conditionally filter rows.<br>
@@ -324,12 +325,14 @@ const cheatsheetContent = `
       <em>SELECT * FROM table_name WHERE column_name LIKE 'pattern';</em></p>
       <br>
       <hr>
+      <br>
       <h3>Sorting Data:</h3>
       <br>
       <p><strong>ORDER BY:</strong> Sort query results.<br>
       <em>SELECT * FROM table_name ORDER BY column_name ASC/DESC;</em></p>
       <br>
       <hr>
+      <br>
       <h3>Aggregation Functions:</h3>
       <br>
       <p><strong>COUNT:</strong> Count number of rows.<br>
@@ -346,6 +349,7 @@ const cheatsheetContent = `
       <em>SELECT MIN(column_name) FROM table_name;</em></p>
       <br>
       <hr>
+      <br>
       <h3>Joining Tables:</h3>
       <br>
       <p><strong>INNER JOIN:</strong> Combine rows from different tables.<br>
@@ -358,6 +362,7 @@ const cheatsheetContent = `
       <em>SELECT * FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
       <br>
       <hr>
+      <br>
       <h3>Grouping Data:</h3>
       <br>
       <p><strong>GROUP BY:</strong> Group rows that have the same values.<br>
