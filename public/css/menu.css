@@ -114,7 +114,7 @@ background-image: url(../assets/music1.png);
     height: 98px;
     position: absolute;
     margin-top: -490px;
-    border: 1px solid yellow;
+    border: none;
     background-image: url(../assets/chapters.png);
     background-repeat: no-repeat;
     background-size: cover;
