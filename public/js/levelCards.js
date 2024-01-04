@@ -3,7 +3,7 @@ const chapterColor = ['#fff', '#fff', '#222222', '#333333', '#444444']; // Add m
 let user_level_id;
 let userData;
 
-async function checkUserLevel() {
+async function generateCards() {
     try {
         // Fetch user_id from the server's session details
         const response = await fetch('/get-user-level');
@@ -25,7 +25,7 @@ async function checkUserLevel() {
             if (chapterId > user_level_id) {
                 // Add an image to the card
                 const image = document.createElement('img');
-                image.src = '/assets/locked.png'; // replace with the actual image path
+                image.src = '/assets/locked.png'; 
                 card.appendChild(image);
 
                 // Remove the click event listener to make it not clickable
@@ -56,4 +56,4 @@ async function checkUserLevel() {
 }
 
 // Call checkUserLevel when the DOM is loaded
-document.addEventListener('DOMContentLoaded', checkUserLevel);
+document.addEventListener('DOMContentLoaded', generateCards);

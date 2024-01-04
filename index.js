@@ -3,9 +3,12 @@ const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const sqlite3 = require('sqlite3').verbose();
-
+const bcrypt = require('bcrypt');
 const app = express();
 const port = 5173;
+
+
+
 
 // Create a MySQL connection
 const connection = mysql.createConnection({
@@ -47,40 +50,62 @@ app.use(express.static('public'));
 // Define a route for checking login status
 app.get('/check-login', (req, res) => {
   const loggedIn = !!req.session.user;
+  userId = req.session.user.user_id;
   res.json({ loggedIn });
 });
 
-// Define a route for handling login requests
+// Inside your login route handler
 app.post('/login', (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username, password } = req.body;
 
-  // Query the database for the user
-  connection.query(
-    'SELECT * FROM users WHERE username = ? AND password = ?',
-    [username, password],
-    (err, results) => {
-      if (err) {
-        console.error('Error executing MySQL query:', err);
+  // Fetch the hashed password from the database based on the provided username
+  connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    if (results.length === 0) {
+      // User not found
+      res.send('Invalid username or password');
+      return;
+    }
+
+    const user_id = results.user_id;
+    const user_saved_level = results.user_saved_level;
+    const email = results.email;
+    const dbcoins = results.dbcoins;
+    const user_pic = results.user_pic;
+    
+    
+    const hashedPasswordFromDB = results[0].password;
+
+    // Compare the provided password with the hashed password from the database
+    bcrypt.compare(password, hashedPasswordFromDB, (compareErr, passwordMatch) => {
+      if (compareErr) {
+        console.error('Error comparing passwords:', compareErr);
         res.status(500).send('Internal Server Error');
         return;
       }
 
-      if (results.length > 0) {
-        // User found, store user information in session
-        req.session.user = results[0];
+      if (passwordMatch) {
+        // Passwords match, login successful
+        req.session.user = results[0]; // Store user information in the session
         res.redirect('/menu.html');
       } else {
-        // User not found or invalid credentials
+        // Passwords do not match
         res.send('Invalid username or password');
       }
-    }
-  );
+    });
+  });
 });
+
+
+
 
 // Define a route for handling signup requests
 app.post('/signup', (req, res) => {
-
   const { username, email, password } = req.body;
 
   connection.query(
@@ -99,51 +124,37 @@ app.post('/signup', (req, res) => {
         return;
       }
 
-      
+      // Hash the password using bcrypt
+      bcrypt.hash(password, 10, (hashErr, hashedPassword) => {
+        if (hashErr) {
+          console.error('Error hashing password:', hashErr);
+          res.status(500).send('Internal Server Error');
+          return;
+        }
+
+        // Initialize the hashedPassword variable and use it in the INSERT query
+        
+
         connection.query(
           'INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins) VALUES (?, ?, ?, 0, 1, 0)',
-          [username, email, password],
-          (err, results) => {
-            if (err) {
-              console.error('Error executing MySQL query:', err);
+          [username, email, hashedPassword],
+          (insertErr, results) => {
+            if (insertErr) {
+              console.error('Error executing MySQL query:', insertErr);
               res.status(500).send('Internal Server Error');
               return;
             }
-      
+
             // User successfully registered, store user information in session
-            req.session.user = { username, email };
+            req.session.user = { username, email, password, user_pic, user_saved_level, dbcoins };
             res.redirect('/CH1.html');
           }
         );
-
-      
+      });
     });
-
-    const userId = req.session.user.user_id;
-
-    connection.query(
-      "UPDATE users SET user_saved_level = ? Where user_id = ?",
-    [levelId, userId],
-    (err, results) => {
-      if (err) {
-        console.error('Error updating user_saved_level', err);
-        res.status(500).json({error: 'Internal Server Error.'});
-        return;
-        
-      
-    }
-   
-   
-
-    }
-    );
-
-
- 
 });
 
 
-app.post('/')
 
 
 let gameDbInitialized = false;
@@ -583,7 +594,7 @@ const levels = [
 
 let currentLevel = null;
 
-
+let userId; 
 
 // Endpoint to start a level
 app.post('/start-level', (req, res) => {
@@ -601,6 +612,7 @@ app.post('/start-level', (req, res) => {
   currentLevel = level;
   console.log(level);
 
+ 
 
 
   // Send the level mission to the client
@@ -664,8 +676,9 @@ app.post('/start-next-level', (req, res) => {
 
 
 app.get('/get-user-level', (req, res) => {
+  console.log(req.session.user);
   console.log('Received check-user-level request');
-  user_level = req.session.user.user_saved_level;
+   user_level = req.session.user.user_saved_level;
   console.log('User Level: ', user_level);
   res.json({level: user_level})
   

@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "codemirror": "^6.0.1",
     "express": "^4.18.2",
     "express-session": "^1.17.3",

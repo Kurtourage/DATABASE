@@ -209,9 +209,7 @@ const hudContainer = document.getElementById('hud-container');
         // Append the button to the container
         buttonContainer.appendChild(nextLevelButton);
         document.getElementById('nextLevelButton').addEventListener('click', startNextLevel)
-      } else {
-        resultMessage.textContent = 'Level not completed. Try again.'; 
-      }
+      } 
     }
 
     // Event listener for the submit button
