@@ -132,9 +132,9 @@ app.post('/signup', (req, res) => {
           return;
         }
 
-        // Initialize the hashedPassword variable and use it in the INSERT query
         
-
+        
+        //inserting data to database
         connection.query(
           'INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins) VALUES (?, ?, ?, 0, 1, 0)',
           [username, email, hashedPassword],
@@ -145,11 +145,27 @@ app.post('/signup', (req, res) => {
               return;
             }
 
-            // User successfully registered, store user information in session
-            req.session.user = { username, email, password, user_pic, user_saved_level, dbcoins };
-            res.redirect('/CH1.html');
+           
           }
         );
+
+
+          //selecting data from the database for session information
+        connection.query(
+          'SELECT * from users WHERE username = ? AND password = ?', [username, hashedPassword],
+          (insertErr, results) => {
+            if (insertErr) {
+              console.error('Error executing MySQL query:', insertErr);
+              res.status(500).send('Internal Server Error');
+              return;
+            }
+
+            // User successfully registered, store user information in session
+            req.session.user = results[0];
+            res.redirect('/menu.html');
+          }
+        );
+        
       });
     });
 });
@@ -676,7 +692,7 @@ app.post('/start-next-level', (req, res) => {
 
 
 app.get('/get-user-level', (req, res) => {
-  console.log(req.session.user);
+  console.log(req.session.user)
   console.log('Received check-user-level request');
    user_level = req.session.user.user_saved_level;
   console.log('User Level: ', user_level);
