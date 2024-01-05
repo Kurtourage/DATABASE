@@ -7,3 +7,4 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
       })
       .catch(error => console.error('Error logging out:', error));
   });
+

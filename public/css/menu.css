@@ -114,7 +114,7 @@ background-image: url(../assets/music1.png);
     height: 98px;
     position: absolute;
     margin-top: -490px;
-    border: 1px solid yellow;
+    border: none;
     background-image: url(../assets/chapters.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -185,7 +185,7 @@ background-image: url(../assets/music1.png);
     padding-left: 90px;
     width: 960px;
     height: 540px;
-    border: 1px solid yellow;
+    border: none;
     margin-bottom: 50px;
     background-image: url(../assets/backdrop.png);
     background-repeat: no-repeat;
@@ -199,11 +199,11 @@ background-image: url(../assets/music1.png);
     display: flex;
     align-items: center;
     gap: 90px;
-    border: 1px solid yellow;
+    border: none;
 }
 
 .card{
-    border:1px solid yellow ;
+    border:none ;
     width: 200px;
     height: 165px;
     cursor: pointer;
