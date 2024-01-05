@@ -10,6 +10,17 @@ const port = 5173;
 
 
 
+
+
+
+let gameDbInitialized = false;
+  // SQLite database for the game
+const gameDb = new sqlite3.Database(':memory:');
+let completedMissionsIndices = [];
+let userInputs = [];
+
+
+
 // Create a MySQL connection
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -173,13 +184,6 @@ app.post('/signup', (req, res) => {
 
 
 
-let gameDbInitialized = false;
-
-
-  // SQLite database for the game
-  const gameDb = new sqlite3.Database(':memory:');
-
-
 
 app.post('/initialize-game-db', (req, res) => {
   // Create your game database tables and initial data
@@ -270,12 +274,10 @@ app.post('/initialize-game-db', (req, res) => {
        VALUES
        ('Poisoned Chalice', 'Analysis of the drink served to Marcus Whitewood reveals traces of a rare and potent poison. The spectral raven subtly directs attention to the chalice, indicating foul play in his demise'),
        ('Merlot', 'The wine that was poisoned'),
-       ('Missing Object', ''),
        ('Broken Necklace', 'Evelyn Whitewood''s necklace, a family heirloom, is discovered shattered. The raven hints at the necklace''s importance, signaling a struggle or a significant altercation before the tragic events.'),
        ('Shattered Vial', 'Discovered near the greenhouse, hidden amidst a bed of vibrant flowers near the Whitewood family statue.'),
        ('Torn Fabric', 'Caught on the ornate gates at the estate''s entrance, hinting at a hurried departure into the night.'),
        ('Cryptic Note', 'Concealed within the ancient grandfather clock in the study, nestled behind its pendulum.'),
-       ('Missing Object', 'Absent from the trophy room, where an intricate crystal sculpture once stood as the centerpiece. '),
        ('Midnight Blossom', 'a vibrant poisonous flower seen at the Sanctum, looks red when withered.'),
        ('Stardust Lily', 'a poisonous flower seen in the Greenhouse'),
        ('Bright Bloom', ' A vibrant red flower, di alam saan nakalagay hahaha'),  
@@ -287,7 +289,7 @@ app.post('/initialize-game-db', (req, res) => {
        ('Dented Cane', 'Abandoned near the gardener''s shed, nestled among the tools and pots, unnoticed in the bustling garden.'),
        ('Hidden Passageway', 'A previously unknown hidden passageway within the estate, revealed by the spectral raven''s subtle gestures, suggests an escape route or clandestine movements possibly utilized by the perpetrator.')
       
-      ;` //no location on line 233
+      ;` //no location on line 273
        ; 
 
 
@@ -597,11 +599,13 @@ const levels = [
 
   {
     id: 2,    
-    mission: ['SELECT * from evidence', 'update evidence set name = '],
-    objective:['SELECT all objects from clues table' , 'UPDATE  the two missing objects in clues table, the clues are in the newspaper tab']
+    mission: ['SELECT * from evidence', "INSERT INTO evidence(name, location_found) VALUES ('Red Mask', 'Gardens')", "INSERT INTO evidence(name, location_found) VALUES ('Regal Ephemera', 'Library')"],
+    objective:['SELECT all objects from clues table' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' ]
   },
   {
-
+    id: 3,
+    mission: ['SELECT profiles.name as Name, gender.name as Gender from profiles INNER JOIN gender ON profiles.gender = gender.id WHERE gender.id = 1', 'SELECT profiles.name as Name, gender.name as Gender from profiles INNER JOIN gender ON profiles.gender = gender.id WHERE gender.id = 0', 'SELECT name, testimony FROM profiles INNER JOIN testimony ON profiles.id = testimony.profile_id'],
+    objective: ['Using Inner Join, select the Name and Gender of all females from profiles' , 'Using Inner Join, select the Name and Gender of all males from profiles' , 'Select the name and testimony of everyone in the profiles table']
 
   }
 
@@ -629,8 +633,8 @@ app.post('/start-level', (req, res) => {
   console.log(level);
 
  
-
-
+userInputs = [];
+completedMissionsIndices =[];
   // Send the level mission to the client
   res.json({ success: true, mission: level.mission, objective: level.objective });
   
@@ -662,7 +666,7 @@ app.post('/start-next-level', (req, res) => {
 
    // Get the user ID from the session
    const userId = req.session.user.user_id;
-
+   userInputs = [];
    // Update the user_saved_level in the database
    connection.query(
      'UPDATE users SET user_saved_level = ? WHERE user_id = ?',
@@ -702,7 +706,7 @@ app.get('/get-user-level', (req, res) => {
 });
 
 
-const completedMissionsIndices = [];
+
 // Function to check if the user's input array satisfies the level mission requirements
 function checkMissionCompletion(userInputs, mission) {
   
@@ -737,7 +741,6 @@ function checkMissionCompletion(userInputs, mission) {
 }
 
 
-const userInputs = [];
 
 // Endpoint to check the user's answer for the current level
 app.post('/check-level-answer', (req, res) => {

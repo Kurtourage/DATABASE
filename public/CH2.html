@@ -3,9 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/codemirror.css">
   <link rel="stylesheet" href="css/chapter.css">
   <link rel="stylesheet" href="css/transition.css">
   <link rel="stylesheet" href="css/ch_transition.css">
+ 
   <title>Chapter 2</title>
 </head>
 <body>
@@ -13,25 +15,29 @@
 
 <!-- Level 1 content -->
 
-<div id="result-message"></div>
 <div id="button-container"></div>
-
+<div id="ch2_1" ></div>
+<div id="ch2_2" ></div>
+<div id="ch2_3" ></div>
+<div id="ch2_4" ></div>
 <!-- NARRATION -->
-<div class="image-slider">
+
+
+<!--<div class="image-slider">
   <div class="overlay-slide"></div>
   <div class="slide visible ch1_first" >
-    <h1>chapter 2</h1>
+    <h1>HELLO</h1>
     <button id="next-btn">Next</button></div>
   <div class="slide ch1_second">
     <h1>HIII</h1>
   <button id="end-btn">End</button></div>
-</div>
+</div>-->
 <div class="overlay">
-</div>
+</div>  
 
     <!-- SETTINGS -->
     <div class="connector"></div>
-    <div class="credits ch_cr2" id="ch_cr2"></div>
+    <div class="credits ch_cr1" id="ch_cr1"></div>
     <div class="settings signout">
       <div class="settings-btn">
           <button id="homeBtn"> </button>
@@ -40,45 +46,124 @@
           <button id="musicBtn"> </button>
       </div> 
   </div>
-  <div class="back-bg"></div>
+  <div class="back-bg">
+  </div>
 
 <!-- </div> BIG HOVERS -->
 <div class="boardBig">
     <div class="close board-close">
-                X
+                <p>x</p>
     </div>
 </div>
 <div class="bookBig">
   <div class="close book-close">
-              X
+    <p>x</p>
   </div>
 </div>
 <div class="riddleBig">
   <div class="close riddle-close">
-              X
+    <p>x</p>
   </div>
+  
 </div>
 <div class="tutorialBig">
   <div class="close tutorial-close">
-              X
+    <h1>x</h1>   
+  </div>
+    <div class="cheatsheet">
+      <br>
+      <h3>Basic Commands:</h3>
+      <br>
+      <p><strong>SELECT:</strong> Retrieve data from a database.<br>
+      <em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
+      <br>
+      <p><strong>INSERT:</strong> Add new records into a table.<br>
+      <em>INSERT INTO table_name (column1, column2) VALUES (value1, value2);</em></p>
+      <br>
+      <p><strong>UPDATE:</strong> Modify existing records in a table.<br>
+      <em>UPDATE table_name SET column1 = value1 WHERE condition;</em></p>
+      <br>
+      <p><strong>DELETE:</strong> Remove records from a table.<br>
+      <em>DELETE FROM table_name WHERE condition;</em></p>
+      <br>
+      <hr>
+      <h3>Filtering Data:</h3>
+      <br>
+      <p><strong>WHERE:</strong> Conditionally filter rows.<br>
+      <em>SELECT * FROM table_name WHERE condition;</em></p>
+      <br>
+      <p><strong>AND/OR:</strong> Combine multiple conditions.<br>
+      <em>SELECT * FROM table_name WHERE condition1 AND/OR condition2;</em></p>
+      <br>
+      <p><strong>LIKE:</strong> Pattern matching with wildcard characters.<br>
+      <em>SELECT * FROM table_name WHERE column_name LIKE 'pattern';</em></p>
+      <br>
+      <hr>
+      <h3>Sorting Data:</h3>
+      <br>
+      <p><strong>ORDER BY:</strong> Sort query results.<br>
+      <em>SELECT * FROM table_name ORDER BY column_name ASC/DESC;</em></p>
+      <br>
+      <hr>
+      <h3>Aggregation Functions:</h3>
+      <br>
+      <p><strong>COUNT:</strong> Count number of rows.<br>
+      <em>SELECT COUNT(column_name) FROM table_name;</em></p>
+      <br>
+      <p><strong>SUM:</strong> Calculate sum of values.<br>
+      <em>SELECT SUM(column_name) FROM table_name;</em></p>
+      <br>
+      <p><strong>AVG:</strong> Compute average value.</em><br>
+      <em>SELECT AVG(column_name) FROM table_name;</em></p>
+      <br>
+      <p><strong>MAX/MIN:</strong> Retrieve maximum/minimum value.<br>
+      <em>SELECT MAX(column_name) FROM table_name;</em><br>
+      <em>SELECT MIN(column_name) FROM table_name;</em></p>
+      <br>
+      <hr>
+      <h3>Joining Tables:</h3>
+      <br>
+      <p><strong>INNER JOIN:</strong> Combine rows from different tables.<br>
+      <em>SELECT * FROM table1 INNER JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <p><strong>LEFT JOIN:</strong> Retrieve all records from the left table and matching records from the right table.<br>
+      <em>SELECT * FROM table1 LEFT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <p><strong>RIGHT JOIN:</strong> Retrieve all records from the right table and matching records from the left table.<br>
+      <em>SELECT * FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <hr>
+      <h3>Grouping Data:</h3>
+      <br>
+      <p><strong>GROUP BY:</strong> Group rows that have the same values.<br>
+      <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1;</em></p>
+      <br>
+      <p><strong>HAVING:</strong> Filter groups based on conditions.<br>
+      <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1 HAVING COUNT(column2) > value;</em></p>
+      <br>
+      <br>
   </div>
 </div>
 <div class="newspaperBig">
   <div class="close newspaper-close">
-              X
+    <p>x</p>
   </div>
 </div>
 <div class="computerBig">
     <div class="close computer-close">
-        x
+      <h1>OFF</h1>
     </div>
     <div class="computerInside">
+      <div id="hud-container">
+        <!-- HUD content will be dynamically added here -->
+      </div>
     <div id="level1" class="level">
       <textarea id="sqlInput" placeholder="Type here"></textarea>
       <div class="exc-btn">
         <button id="executeBtn1">Execute SQL</button> 
         <button  id="clearTable">Clear</button>
       </div>
+      <div id="result-message"> </div>
       <div id="tableContainer"></div>
       </div>
       </div>
