@@ -9,15 +9,13 @@ const port = 5173;
 
 
 
-
-
-
-
 let gameDbInitialized = false;
   // SQLite database for the game
 const gameDb = new sqlite3.Database(':memory:');
 let completedMissionsIndices = [];
 let userInputs = [];
+
+
 
 
 
@@ -83,11 +81,7 @@ app.post('/login', (req, res) => {
       return;
     }
 
-    const user_id = results.user_id;
-    const user_saved_level = results.user_saved_level;
-    const email = results.email;
-    const dbcoins = results.dbcoins;
-    const user_pic = results.user_pic;
+  
     
     
     const hashedPasswordFromDB = results[0].password;
@@ -204,11 +198,11 @@ app.post('/initialize-game-db', (req, res) => {
       id INTEGER PRIMARY KEY,
       name TEXT,
       age INTEGER,
-      gender TEXT,
+      gender INTEGER,
       address TEXT,
       work TEXT,
-      status INT,
-      marital_status INT
+      status INTEGER,
+      marital_status INTEGER
     );
   `;
 
@@ -781,6 +775,458 @@ app.get('/update-hud', (req, res) => {
   }
 
   res.json(completedMissionsIndices);
+});
+
+
+
+
+
+
+
+
+
+
+
+//Classic mode randomization 
+let sqlQuery;
+let problemStatement;
+let counter = 0;
+
+function generateRandomSQLProblem(counter) {
+
+
+  
+      const easy_template = [
+          {
+            template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE department_name = '{{department}}'",
+            problemStatement: "Retrieve all employees in the '{{department}}' department.",
+          },
+          {
+            template: "SELECT employee_name, AVG(salary) FROM employees GROUP BY department_id HAVING AVG(salary) > {{averageSalary}}",
+            problemStatement: "Find the names of employees whose average salary in their department id is greater than {{averageSalary}}.",
+          },
+          {
+            template: "SELECT employee_name, job_title FROM employees WHERE job_title = '{{jobTitle}}'",
+            problemStatement: "Retrieve all employees with the job title '{{jobTitle}}'.",
+          },
+         
+          {
+            template: "SELECT * FROM employees ORDER BY hire_date DESC",
+            problemStatement: "Retrieve all employees and order them by hire date in descending order.",
+          },
+          {
+            template: "SELECT COUNT(*) FROM employees WHERE salary > {{salaryThreshold}}",
+            problemStatement: "Count the number of employees with a salary greater than {{salaryThreshold}}.",
+          },
+          {
+              template: "DELETE FROM employees WHERE hire_date < '{{date}}'",
+              problemStatement: "Remove employees hired before '{{date}}' from the database.",
+            },
+          {
+              template: "SELECT * FROM projects WHERE status = '{{status}}'",
+              problemStatement: "Retrieve all {{status}} projects."
+          }
+  
+          
+          
+        ];
+  
+  
+          
+  const medium_Template = [
+      {
+        template: "SELECT employee_name, job_title FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE departments.department_name = '{{department}}' AND salary > {{salary}}",
+        problemStatement: "Retrieve  the names and job titles of employees  in the '{{department}}' department with a salary greater than {{salary}}.",
+      },
+      {
+        template: "SELECT department_name, COUNT(employees.id) FROM employees INNER JOIN departments ON employees.department_id = departments.department_id GROUP BY departments.department_id HAVING COUNT(*) > {{employeeCount}}",
+        problemStatement: "Find the name and the number of employees of departments with more than {{employeeCount}} employees.",
+      },
+      {
+        template: "UPDATE employees SET salary = salary + (salary * {{percentageIncrease}}) WHERE job_title = '{{jobTitle}}'",
+        problemStatement: "Increase the salary by {{percentageIncrease}}% for all '{{jobTitle}}' employees.",
+      },
+      
+      {
+          template: "INSERT INTO departments (department_name, location) VALUES ('{{newDepartmentName}}', '{{newDepartmentLocation}}')",
+          problemStatement: "Add a new department with the name '{{newDepartmentName}}' and location '{{newDepartmentLocation}}' to the departments table.",
+      },
+  
+      {
+          template: "SELECT employees.employee_name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE employees.department_id = '{{departmentId}}' AND employees.salary > {{salary}}",
+          problemStatement: "Retrieve the names of employees and their respective department names for those in the department with ID '{{departmentId}}' and a salary greater than {{salary}}.",
+        },
+        
+        {
+          template: "UPDATE employees SET manager_id = '{{newManagerId}}' WHERE department_id = '{{departmentId}}' AND salary < {{managerSalary}}",
+          problemStatement: "Assign a new manager with ID '{{newManagerId}}' to all employees in the department with ID '{{departmentId}}' whose salary is less than '{{managerSalary}}'.",
+        },
+  
+        {
+          template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE department_name = '{{department}}' AND employees.salary BETWEEN {{minSalary}} AND {{maxSalary}}",
+          problemStatement: "Retrieve all employees in the '{{department}}' department with salaries between {{minSalary}} and {{maxSalary}}.",
+      },
+      
+   
+    ];
+   
+    const hard_Template = [
+      { 
+        template: "SELECT employee_name, project_name FROM employees INNER JOIN employee_projects ON employees.employee_id = employee_projects.employee_id INNER JOIN projects ON employee_projects.project_id = projects.project_id WHERE employees.department_id = '{{departmentId}}' AND projects.start_date >= '{{startDate}}' AND projects.end_date <= '{{endDate}}'",
+        problemStatement: "Retrieve the names of employees and the names of projects they are working on in the department with ID number '{{departmentId}}'. Include only those projects that started after '{{startDate}}' and ended before '{{endDate}}'.",
+       },
+  
+      {
+          template: "SELECT employees.employee_name, projects.project_name FROM employees INNER JOIN employee_projects ON employees.employee_id = employee_projects.employee_id INNER JOIN projects ON employee_projects.project_id = projects.project_id WHERE employees.job_title = '{{jobTitle}}' AND projects.status = 'Active'",
+          problemStatement: "Find the names of employees and the names of projects they are working on for those with the job title '{{jobTitle}}' and working on active projects.",
+        },
+  
+        {
+          template: "SELECT department_name, AVG(salary) AS avg_salary FROM employees INNER JOIN departments ON employees.department_id = departments.department_id WHERE departments.department_name = '{{department}}' GROUP BY departments.department_id HAVING AVG(salary) > {{averageSalary}}",
+          problemStatement: "Find the department names and average salaries for departments where the average salary is greater than {{averageSalary}}. Display the results for the '{{department}}' department.",
+        },
+  
+        {
+          template: "SELECT employee_name, project_name, COUNT(employee_projects.project_id) AS project_count FROM employees INNER JOIN employee_projects ON employees.employee_id = employee_projects.employee_id INNER JOIN projects ON employee_projects.project_id = projects.project_id WHERE employees.department = '{{department}}' AND projects.start_date >= '{{startDate}}' AND projects.end_date <= '{{endDate}}' GROUP BY employees.employee_id, employee_name HAVING project_count > 2 ORDER BY project_count DESC",
+          problemStatement: "Retrieve the names of employees, project names, and project counts for those in the '{{department}}' department. Include only those employees who are assigned to more than two projects between '{{startDate}}' and '{{endDate}}'. Display the results in descending order of project count.",
+        },
+      
+        {
+          template: "SELECT department_name, MAX(salary) AS max_salary FROM employees INNER JOIN departments ON employees.department_id = departments.department_id GROUP BY departments.department_id, department_name HAVING MAX(salary) > {{maxSalary}} ORDER BY max_salary DESC",
+          problemStatement: "Find the department names and maximum salaries for departments where the maximum salary is greater than {{maxSalary}}. Display the results in descending order of maximum salary.",
+        },
+      
+        {
+          template: "SELECT employee_name, job_title FROM employees WHERE employees.department_id IN (SELECT department_id FROM departments WHERE location = '{{location}}')",
+          problemStatement: "Retrieve the names and job titles of employees in departments located in '{{location}}'.",
+        },
+      
+        {
+          template: "UPDATE projects SET status = 'Completed' WHERE project_id IN (SELECT project_id FROM employee_projects WHERE employee_id IN (SELECT employee_id FROM employees WHERE department = '{{department}}')) AND projects.end_date < '{{endDate}}'",
+          problemStatement: "Mark all projects in the '{{department}}' department with an end date before '{{endDate}}' as 'Completed'.",
+        },
+      
+        {
+          template: "SELECT employee_name, job_title, COUNT(employee_projects.project_id) AS project_count FROM employees INNER JOIN employee_projects ON employees.employee_id = employee_projects.employee_id INNER JOIN projects ON employee_projects.project_id = projects.project_id WHERE employees.job_title = '{{jobTitle}}' AND projects.status = 'Active' GROUP BY employees.employee_id, employee_name, job_title HAVING project_count > 0 ORDER BY project_count DESC",
+          problemStatement: "Find the names, job titles, and project counts for employees with the job title '{{jobTitle}}' working on active projects. Display the results in descending order of project count.",
+        },
+  
+  
+  
+    ]
+  
+  
+    
+        // Generate random data
+        const departments = ["HR", "IT", "Finance", "Marketing", "Legal", "Customer Service" , "Sales" , "R&D" , "Admin" , "Security" , "Production"];
+        const locations = ["San Francisco" , "Quezon City" , "Manila", "Shanghai" , "Quebec" , "Baghdad", "Tokyo" , "Kuala Lumpur" , "Jerusalem" , "San Antonio" , "Athens" , "Guadalajara"];
+        const jobTitle = ["Accountant" , "Senior Developer" , "Marketing Assistant" , "Graphic Designer", "Project Manager" , "Financial Analyst"];
+        const projectStatus = ["Active" , "Completed" , "Aborted", "Inactive"];
+  
+        
+        const randomDepartment = departments[Math.floor(Math.random() * departments.length)];
+        const randomAverageSalary = Math.floor(Math.random() * 50000) + 50000; 
+        const randomJobTitle = jobTitle[Math.floor(Math.random() * jobTitle.length)];
+        const randomSalaryThreshold = Math.floor(Math.random() *70000) + 50000;
+        const randomSalary = Math.floor(Math.random() * 50000) + 30000;
+        const randomEmployeeCount = Math.floor(Math.random() * 2000); 
+        const randomPercentage = (Math.floor(Math.random () * 200) / 100) + 1;
+        const randomDepartmentId = Math.floor(Math.random() * 5);
+        const start_date = new Date('2008-05-01');
+        const end_date = new Date('2022-05-02');
+        const randomDate = getRandomDate(start_date, end_date); 
+        const randomDate2 = getRandomDate(start_date, end_date); 
+        const randomManagerId = Math.floor(Math.random() * 1000);
+        const randomProjectStatus = projectStatus[Math.floor(Math.random() * projectStatus.length)];
+        const randomSalaryLow = Math.floor(Math.random() * 50000) + 10000;
+        const randomLocation = locations[Math.floor(Math.random() * locations.length)];
+  
+  
+  
+  
+  
+  
+  
+    function getRandomDate (startDate, endDate) {
+  
+      const startMillis = startDate.getTime();
+      const endMillis = endDate.getTime();
+      const RandomMillis = startMillis + Math.random() * (endMillis - startMillis);
+      const randomDate = new Date(RandomMillis);
+      const formattedDate = randomDate.toISOString().split('T')[0];
+  
+  
+      return formattedDate;
+      
+    }
+    
+      
+      let sqlProblems;
+    
+  
+      if (counter < 3) {
+        sqlProblems = easy_template;
+      }
+      else if (counter <= 10 && counter >= 3) {
+        sqlProblems = medium_Template;
+      }
+
+      else {
+        sqlProblems = hard_Template;
+      }
+  
+  
+  
+      const randomSqlProblem = sqlProblems[Math.floor(Math.random() * sqlProblems.length)];
+      
+   
+      const randomTemplate = randomSqlProblem.template;
+     
+     
+      const isRecentlyUsed = checkTemplateHistory(randomTemplate);
+  
+  
+  
+      if (isRecentlyUsed) {
+        
+        return generateRandomSQLProblem(counter);
+      }
+  
+  
+      console.log(templateHistory);
+      updateTemplateHistory(randomTemplate);
+  
+  
+      const problemStatementTemplate = randomSqlProblem.problemStatement;
+  
+  
+  
+       sqlQuery = randomTemplate
+        .replace('{{department}}', randomDepartment)
+        .replace('{{averageSalary}}', randomAverageSalary)
+        .replace('{{jobTitle}}', randomJobTitle)
+        .replace('{{salaryThreshold}}', randomSalaryThreshold)
+        .replace('{{salary}}', randomSalary)
+        .replace('{{employeeCount}}', randomEmployeeCount)
+        .replace('{{percentageIncrease}}', randomPercentage)
+        .replace('{{date}}', randomDate)
+        .replace('{{departmentId}}', randomDepartmentId)
+        .replace('{{minSalary}}' , randomSalaryLow)
+        .replace('{{maxSalary}}' , randomSalary)
+        .replace('{{newManagerId}}', randomManagerId)
+        .replace('{{managerSalary}}', randomSalary)
+        .replace('{{status}}', randomProjectStatus)
+        .replace('{{newDepartmentName}}', randomDepartment)
+        .replace('{{newDepartmentLocation}}', randomLocation)
+        .replace('{{startDate}}' , randomDate)
+        .replace('{{endDate}}', randomDate2)
+        .replace('{{location}}', randomLocation);
+      
+  
+  
+  
+  
+       problemStatement = problemStatementTemplate 
+        .replace('{{department}}', randomDepartment)
+        .replace('{{averageSalary}}', randomAverageSalary)
+        .replace('{{jobTitle}}', randomJobTitle)
+        .replace('{{salaryThreshold}}', randomSalaryThreshold)
+        .replace('{{salary}}', randomSalary)
+        .replace('{{employeeCount}}', randomEmployeeCount)
+        .replace('{{percentageIncrease}}', randomPercentage)
+        .replace('{{date}}', randomDate)
+        .replace('{{departmentId}}', randomDepartmentId)
+        .replace('{{minSalary}}' , randomSalaryLow)
+        .replace('{{maxSalary}}' , randomSalary)
+        .replace('{{newManagerId}}', randomManagerId)
+        .replace('{{managerSalary}}', randomSalary)
+        .replace('{{status}}', randomProjectStatus)
+        .replace('{{newDepartmentName}}', randomDepartment)
+        .replace('{{newDepartmentLocation}}', randomLocation)
+        .replace('{{startDate}}' , randomDate)
+        .replace('{{endDate}}', randomDate2)
+        .replace('{{location}}', randomLocation);
+      
+
+      
+     
+    }
+  
+  
+    const templateHistory = [];
+  
+  
+    function checkTemplateHistory(template) {
+      
+      return templateHistory.includes(template);
+    }
+    
+    function updateTemplateHistory(template) {
+    
+      templateHistory.push(template);
+    
+      
+      if (templateHistory.length > 5) {
+        templateHistory.shift(); 
+      }
+    }
+
+   
+
+
+
+
+
+
+ 
+
+
+
+
+app.post('/initialize-db' , (req, res) => {
+counter = 0;
+
+
+  if (gameDbInitialized) {
+    return res.json({ message: 'Game database already initialized' });
+  }
+
+
+  // Set the flag to true to prevent further initialization
+  gameDbInitialized = true;
+
+
+  const createEmployeeTblSql = `CREATE TABLE IF NOT EXISTS employees (
+    employee_id INTEGER PRIMARY KEY,
+    employee_name TEXT NOT NULL,
+    job_title TEXT NOT NULL,
+    department_id INTEGER,
+    salary INTEGER,
+    hire_date DATE,
+    manager_id INTEGER,
+    FOREIGN KEY (department_id) REFERENCES departments(id),
+    FOREIGN KEY (manager_id) REFERENCES employees(employee_id)
+  );
+  `;
+  
+  const createDepartmentsTblSql = `CREATE TABLE IF NOT EXISTS departments (
+    id INTEGER PRIMARY KEY,
+    department_name TEXT NOT NULL,
+    location TEXT
+  );
+  `;
+  
+  const createProjectsTblSql = `CREATE TABLE IF NOT EXISTS projects (
+    project_id INTEGER PRIMARY KEY,
+    project_name TEXT NOT NULL,
+    start_date DATE,
+    end_date DATE,
+    status TEXT
+  );
+  `;
+  
+  const createEmployeeProjectsTblSql = `CREATE TABLE IF NOT EXISTS employee_projects (
+    employee_id INTEGER,
+    project_id INTEGER,
+    PRIMARY KEY (employee_id, project_id),
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id),
+    FOREIGN KEY (project_id) REFERENCES projects(project_id)
+  );
+  `;
+  
+  const insertEmployeeSql = `INSERT INTO employees (employee_name, job_title, department_id, salary, hire_date, manager_id)
+  VALUES
+    ('John Doe', 'Senior Developer', 1, 60000, '2022-01-18', 3073),
+    ('Jane Smith', 'Marketing Assistant', 2, 45000, '2022-01-18', 212),
+    ('Alice Johnson', 'Financial Analyst', 3, 55000, '2022-01-18' , 652),
+    ('Bob Brown', 'Project Manager', 1, 70000, '2022-01-18', 9414);
+  `;
+  
+  const insertEmployeeProjectsSql = `INSERT INTO employee_projects (employee_id, project_id)
+  VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4);
+  `;
+  
+  const insertDepartmentsSql = `INSERT INTO departments ( department_name, location)
+  VALUES
+    ('HR', 'San Francisco'),
+    ('IT', 'Quezon City'),
+    ('Marketing', 'Manila'),
+    ('Finance', 'Shanghai');
+  `;
+  
+  const insertProjectsSql = `INSERT INTO projects (project_name, status, start_date, end_date)
+  VALUES
+    ('Project A', 'Active', '2022-01-18', '2022-02-18'),
+    ('Project B', 'Completed', '2022-03-01', '2022-04-15'),
+    ('Project C', 'Active', '2022-02-01', '2022-03-15'),
+    ('Project D', 'Inactive', '2022-04-01', '2022-05-15');
+  `;
+  
+
+
+    gameDb.serialize(() => {
+      gameDb.exec(`
+        ${createEmployeeTblSql}
+        ${createEmployeeProjectsTblSql}
+        ${createDepartmentsTblSql}
+        ${createProjectsTblSql}
+        ${insertEmployeeSql}
+        ${insertEmployeeProjectsSql}
+        ${insertDepartmentsSql}
+        ${insertProjectsSql}
+      `, (err) => {
+        if (err) {
+          console.error('Error executing SQL queries:', err);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+        }
+    
+        res.json({ message: 'Game database initialized' });
+      });
+    });
+
+})
+
+
+
+
+
+app.get('/random-sql-template', (req, res) => {
+  
+  generateRandomSQLProblem(counter);
+
+  res.json({ success: true, message: 'Random SQL template generated', problemStatement, sqlQuery, counter });
+  console.log("SQL QUERY: ", sqlQuery);
+  console.log("PROBLEM: ", problemStatement);
+  console.log(counter);
+});
+
+
+
+
+app.post('/check-answer', (req, res) => {
+
+
+  const userAnswer = cleanAndNormalize(req.body.userInput);
+  const correctAnswer = cleanAndNormalize(sqlQuery);
+
+
+if (userAnswer === correctAnswer) {
+  counter++;
+  res.json({ success: true, message: "Answer correct.", counter });
+} else {
+  res.json({ success: false, message: "Answer incorrect.", counter });
+}
+
+function cleanAndNormalize(str) {
+  // Convert to lowercase and remove spaces
+  return str.toLowerCase().replace(/\s/g, '');
+}
+
 });
 
 
