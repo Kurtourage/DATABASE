@@ -16,7 +16,9 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:  #3c3c3c;
+    background-image: url(../assets/chapter_background.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 .main-bg{
@@ -59,10 +61,8 @@ font-size: 18px;
 .boardBig{
     position: absolute;
     transform: scale(0);
-    width: 800px;
-    height: 466px;
-    top: 80px;
-    left: 310px;
+    width: 960px;
+    height: 540px;
     background-color: yellow;
     border: 2px solid white;
     z-index: 20;
@@ -103,7 +103,6 @@ font-size: 18px;
     transform: scale(0);
     width: 960px;
     height: 540px;
-
     background-image: url(../assets/computerbig.png);
     background-repeat: no-repeat;
     background-size: contain;
@@ -203,15 +202,63 @@ textarea::placeholder{
     height: 467px;
     top: 80px;
     left: 250px;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
     background-color: yellow;
     border: 2px solid white;
     z-index: 20;
+    overflow: hidden;
 }
-
+.bookBig img {
+    width: 384px;
+    height: 512px;
+    border-radius: 16px;
+    position: absolute;
+    user-select: none;
+    transition-property: transform, opacity, zIndex, ; 
+    transition-duration: 0.3s; 
+    transition-timing-function: ease-out; 
+  }
+  .arrows {
+    width: 900px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    z-index: 20;
+  }
+  .arrows button {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
+  .next{
+    background-image: url(../assets/next.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .prev{
+    background-image: url(../assets/prev.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .arrows button:active {
+    transform: scale(0.9);
+    opacity: 1;
+    transition-property: transform, opacity; 
+    transition-duration: 0.3s; 
+    transition-timing-function: ease-out; 
+  }
 .bookBig.active{
     transform: scale(1);
 }
 .bookBig .close{
+    position: absolute;
     width: 35px;
     height: 35px;
     top: 0;
@@ -383,7 +430,7 @@ height: 100%;
     left: 249px;
     background-image: url(../assets/book.png);
     background-repeat: no-repeat;
-    background-size: cover
+    background-size: cover;
 }
 #newspaper{
     width: 105px;
@@ -392,7 +439,7 @@ height: 100%;
     right: 389px;
     background-image: url(../assets/newspaper.png);
     background-repeat: no-repeat;
-    background-size: cover
+    background-size: cover;
 }
 #tutorial{
     width: 57px;
@@ -401,7 +448,7 @@ height: 100%;
     right: 158px;
     background-image: url(../assets/tutorial.png);
     background-repeat: no-repeat;
-    background-size: cover
+    background-size: cover;
 }
 #riddles{
     width: 57px;
@@ -530,6 +577,7 @@ background-image: url(../assets/ch_music1.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 
 
 

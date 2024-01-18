@@ -4,7 +4,7 @@
     right: 0;
     left: 0;
     bottom: 0;
-    z-index: 101;
+    z-index: 9999;
     background-color: #090500;
     opacity: 0;
     pointer-events: none;
@@ -24,7 +24,7 @@
     left: -100%;
     width: 100%;
     bottom: 0;
-    z-index: 101;
+    z-index: 9999;
     background-color: #090500;
     transition: 1s ease-out;
 }
@@ -39,7 +39,7 @@
     right: -100%;
     width: 100%;
     bottom: 0;
-    z-index: 101;
+    z-index: 9999;
     background-color: #090500;
     transition: 1s ease-in;
 }
@@ -55,7 +55,7 @@
     right: 0;
     left: 0;
     bottom: 0;
-    z-index: 101;
+    z-index: 999;
     background-color: #090500;
     opacity: 0;
     pointer-events: none;
@@ -70,9 +70,48 @@
     pointer-events: all;
 }
 
-h1{
-    font-size: 70px;
-    font-weight: 400;
-    color: white;
+.transition-5{
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 50%;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #090500;
+    transition: 1s ease-in;
+}
+.transition-5.is-active {
+    right: 0px;
+}
+.transition-6{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: -100%;
+    width: 50%;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #090500;
+    transition: 1s ease-in;
+}
+.transition-6.is-active {
+    left: 0px;
+}
 
+.transition-7 {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: #090500;
+    opacity: 0;
+    pointer-events: none;
+    transition: 5s ;
+}
+
+.transition-7.is-active {
+    opacity: 1;
+    pointer-events: all;
 }
