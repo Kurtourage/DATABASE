@@ -1110,7 +1110,7 @@ counter = 0;
   `;
   
   const createDepartmentsTblSql = `CREATE TABLE IF NOT EXISTS departments (
-    id INTEGER PRIMARY KEY,
+    department_id INTEGER PRIMARY KEY,
     department_name TEXT NOT NULL,
     location TEXT
   );
@@ -1195,6 +1195,8 @@ counter = 0;
 
 
 
+
+
 app.get('/random-sql-template', (req, res) => {
   
   generateRandomSQLProblem(counter);
@@ -1202,7 +1204,7 @@ app.get('/random-sql-template', (req, res) => {
   res.json({ success: true, message: 'Random SQL template generated', problemStatement, sqlQuery, counter });
   console.log("SQL QUERY: ", sqlQuery);
   console.log("PROBLEM: ", problemStatement);
-  console.log(counter);
+  console.log("Correct Answer Counter: ", counter);
 });
 
 
@@ -1229,6 +1231,12 @@ function cleanAndNormalize(str) {
 
 });
 
+
+app.post('/reset-counter', (req, res) => {
+ counter = 0;
+
+  res.json({ success: true, message: 'Counter reset on the server side' });
+});
 
 
 
