@@ -179,7 +179,7 @@ function updateHUD(missionObj) {
 }
 
 // Assume you have defined hudContainer elsewhere in your code.
-const hudContainer = document.getElementById('hud-container');
+    const hudContainer = document.getElementById('hud-container');
 
 
 

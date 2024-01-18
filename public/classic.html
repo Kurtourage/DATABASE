@@ -1,21 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classic</title>
-   
-    
-    <script src="dist/sql-wasm.js"></script>
-    <script src="js/game.js"></script>
-    <script src="js/ch_transition.js"></script>
-    <script src="js/checkLogin.js"></script>
-    <script src="js/popup.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/codemirror.css">
+  <link rel="stylesheet" href="css/chapter.css">
+  <link rel="stylesheet" href="css/transition.css">
+  <link rel="stylesheet" href="css/ch_transition.css">
 
-
-    
+ 
+  <title>Classic Mode</title>
 </head>
 <body>
-    
+
+
+<!-- Level 1 content -->
+
+<div id="button-container"></div>
+<div id="timer">Time Left:</div>
+<button id="startGameBtn">Start Game</button>
+
+<div id="ch1_1" ></div>
+<div id="ch1_2" ></div>
+<div id="ch1_3" ></div>
+<div id="ch1_4" ></div>
+<!-- NARRATION -->
+
+
+<!--<div class="image-slider">
+  <div class="overlay-slide"></div>
+  <div class="slide visible ch1_first" >
+    <h1>HELLO</h1>
+    <button id="next-btn">Next</button></div>
+  <div class="slide ch1_second">
+    <h1>HIII</h1>
+  <button id="end-btn">End</button></div>
+</div>-->
+<div class="overlay">
+</div>  
+
+    <!-- SETTINGS -->
+    <div class="connector"></div>
+    <div class="credits ch_cr1" id="ch_cr1"></div>
+    <div class="settings signout">
+      <div class="settings-btn">
+        <a href="menu.html">
+        <button id="homeBtn"></button>
+        </a>
+      </div> 
+      <div class="settings-btn">
+          <button id="musicBtn"> </button>
+      </div> 
+  </div>
+  <div class="back-bg">
+  </div>
+
+<!-- </div> BIG HOVERS -->
+<div class="boardBig">
+    <div class="close board-close">
+                <p>x</p>
+    </div>
+</div>
+<div class="bookBig">
+  <div class="close book-close">
+    <p>x</p>
+  </div>
+</div>
+<div class="riddleBig">
+  <div class="close riddle-close">
+    <p>x</p>
+  </div>
+  
+</div>
+<div class="tutorialBig">
+  <div class="close tutorial-close">
+    <h1>x</h1>   
+  </div>
+    <div class="cheatsheet" id="cheatsheet">
+  </div>
+</div>
+<div class="newspaperBig">
+  <div class="close newspaper-close">
+    <p>x</p>
+  </div>
+</div>
+<div class="computerBig">
+    <div class="close computer-close">
+      <h1>OFF</h1>
+    </div>
+    <div class="computerInside">
+      <div id="hud-container">
+        <!-- HUD content will be dynamically added here -->
+      </div>
+    <div id="level1" class="level">
+      <textarea id="sqlInput" placeholder="Type here"></textarea>
+      <div class="exc-btn">
+        <button id="executeBtn1">Execute SQL</button> 
+        <button  id="clearTable">Clear</button>
+      </div>
+      <div id="result-message"> </div>
+      <div id="tableContainer"></div>
+      </div>
+      </div>
+    </div>
+</div>
+
+<!-- SMALL HOVERS -->
+<div class="main-bg">
+    <div class="hovers">
+    <div class="hover-img" id="board"> 
+        <button class="boardPop"></button>
+    </div> 
+
+    <div class="hover-img" id="book">
+      <button class="bookPop"></button>
+    </div>
+
+    <div class="hover-img" id="newspaper">
+      <button class="newspaperPop"></button>
+    </div>
+
+    <div class="hover-img" id="tutorial">
+      <button class="tutorialPop"></button>
+    </div>
+    <div class="hover-img" id="riddles">
+      <button class="riddlePop"></button>
+    </div>
+    <div class="hover-img" id="computer">
+        <button class="computerPop"></button>
+    </div>  
+    </div>
+</div>
+
+
+
+
+<script src="dist/sql-wasm.js"></script>
+
+<script src="js/checkLogin.js"></script>
+<script src="js/popup.js"></script>
+<script src="js/classic.js"></script>
 </body>
 </html>
