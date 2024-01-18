@@ -255,32 +255,35 @@ background-image: url(../assets/music1.png);
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 10;
+    transform: scale(0);
 }
 .overlay.active{
     transform: scale(1);
 }
-.profile-popup{
+.profilepopup{
     display: flex;
     position: absolute;
-    border: 1px solid blue;
+    border: none;
     z-index: 50;
     width: 960px;
     height: 620px;
     top: 0;
     left: 199px;
+    visibility: hidden;
+    border:3px solid #130900;
+}
+.profilepopup.active{
+    visibility: visible;
 }
 .character-profile{
     margin: 0;
     width: 896px;
-    border: 1px solid green;
+    border: none;
     background-image: url(../assets/profile-id.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
-.profile-btn{
-    width: 64px;
-    border: 1px solid yellow;
-}
+
 
 .profile-frame{
     left: 156px;
@@ -292,20 +295,18 @@ background-image: url(../assets/music1.png);
     height: 230px;
     width: 230px;
     padding: 11px 12px 12px 12px;
-    border: 1px solid green;
-    background-color: transparent;
 }
+
 .profile-picture{
     height: 206px;
     width: 206px;
     background-color: transparent;
-    background-image: url(../assets/profiles/default1.png);
-    background-repeat: no-repeat;
+    background-image: url(../assets/profiles/profile3.png);
     background-size: 100% 100%;
-    border: 1px solid red;
+    border: none;
 }
 .profile-codename{
-    border: 1px solid red;
+    border: none;
     position: absolute;
     height: 41px;
     width: 310px;
@@ -320,7 +321,7 @@ background-image: url(../assets/music1.png);
     font-size: 40px;
 }
 .profile-date-issued{
-    border: 1px solid red;
+    border: none;
     position: absolute;
     height: 41px;
     width: 310px;
@@ -333,4 +334,62 @@ background-image: url(../assets/music1.png);
 }
 .profile-date-issued h1{
     font-size: 40px;
+}
+
+.profile-sidebar{
+    padding: 8px;
+    width: 64px;
+    border-left:3px solid #130900;
+    background-color: #1e1e1e;
+}
+.profile-btn button{
+    outline: none;
+    border: none;    
+    margin-bottom: 15px;
+    width: 45px;
+    height: 45px;
+    display: block;
+    cursor: pointer;
+}
+#closeProfileBtn{
+    background-color: transparent;
+    background-image: url(../assets/profile-exit1.png);
+    background-size: 100% 100%;
+}
+#profileIDBtn
+{
+    background-color: transparent;
+    background-image: url(../assets/profile1.png);
+    background-size: 100% 100%;
+}
+#profileEditBtn{
+    background-color: transparent;
+    background-image: url(../assets/profile-edit1.png);
+    background-size: 100% 100%;
+}
+#shopIDBtn
+{
+    background-color: transparent;
+    background-image: url(../assets/logout1.png);
+    background-size: 100% 100%;
+}
+#closeProfileBtn:hover{
+    background-color: transparent;
+    background-image: url(../assets/profile-exit2.png);
+    background-size: 100% 100%;
+}
+#profileIDBtn:hover{
+    background-color: transparent;
+    background-image: url(../assets/profile2.png);
+    background-size: 100% 100%;
+}
+#profileEditBtn:hover{
+    background-color: transparent;
+    background-image: url(../assets/profile-edit2.png);
+    background-size: 100% 100%;
+}
+#shopIDBtn:hover{
+    background-color: transparent;
+    background-image: url(../assets/logout2.png);
+    background-size: 100% 100%;
 }

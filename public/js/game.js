@@ -202,7 +202,7 @@ function updateHUD(missionObj) {
 
          // Create a button
           const nextLevelButton = document.createElement('button');
-          nextLevelButton.textContent = 'Next Level';
+          nextLevelButton.textContent = 'Click anywhere to continue';
           nextLevelButton.id = 'nextLevelButton';
           
 

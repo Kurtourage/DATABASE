@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/transition.css">
 </head>
 <body>
+    <div class="transition transition-1 is-active"></div>
     <audio id="music-btn">
        <source src="assets/music/lobby.mp3" type="audio/mp3"> 
     </audio>
@@ -14,10 +16,11 @@
     <!-- PROFILE -->
     <div class="overlay">
     </div>
-    <div class="profile-popup">
-    <div class="character-profile">
-            <div class="profile-frame">
-                <div class="profile-picture">
+    <div class="profilepopup">
+    
+    <div class="character-profile" id="char-profile">
+            <div class="profile-frame" id="prof-frame">
+                <div class="profile-picture" id="prof-picture">
 
                 </div>
             </div>
@@ -25,18 +28,23 @@
                 <h1></h1>
             </div>
             <div class="profile-date-issued">
-                <h1></h1>
+                <h1>01-01-2023</h1>
             </div>
         <div class="shop">
-
         </div>
     </div>
-    <div class="profile-btn">
-        <div class="profile-id-btn">
-            
+    <div class="profile-sidebar">
+        <div class="profile-btn">
+            <button class="closeProfile" id="closeProfileBtn"></button>
         </div>
-        <div class="shop-id-btn">
-
+        <div class="profile-btn">
+            <button id="profileIDBtn"></button>
+        </div>
+        <div class="profile-btn">
+            <button id="profileEditBtn"></button>
+        </div>
+        <div class="profile-btn">
+            <button id="shopIDBtn"></button>
         </div>
     </div>  
     </div>
@@ -54,7 +62,7 @@
     </div>
     <div class="credits">
         <div class="credits-btn">
-            <button id="profileBtn"></button>
+            <button class="profileBtn" id="profileBtn"></button>
         </div> 
         <div class="credits-btn">
             <button id="leaderboardBtn"> </button>
@@ -70,8 +78,10 @@
         <button class="modes" id="startPracticeMode"></button>
     </div>
     <script src="js/menuButtons.js"></script>
+    <script src="js/profile.js"></script>
     <script src="js/checkLogout.js"></script>
     <script src="js/checkLogin.js"></script>
     <script src="js/music.js"></script>
+    <script src="js/transition.js"></script>
 </body>
 </html>
