@@ -1,3 +1,5 @@
+
+
 const chapterColor = ['#fff', '#fff', '#222222', '#333333', '#444444']; // Add more colors as needed
 
 let user_level_id;

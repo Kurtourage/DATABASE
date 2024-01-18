@@ -1,25 +1,28 @@
-const slides = document.querySelectorAll('.slide');
-const overlay_slide = document.querySelector(".overlay-slide");
-let currentIndex = 0;
-const nextBtn = document.getElementById('next-btn');
-const endBtn = document.getElementById('end-btn');
+const slides = document.querySelector('.slide');
+const title = document.querySelector('.title');
+const first = document.querySelector('.text-1');
+const second = document.querySelector('.text-2');
+const next1 = document.querySelector('.next-btn-1');
+const next2 = document.querySelector('.next-btn-2');
+const end = document.querySelector('.end-btn');
 
-nextBtn.addEventListener('click', () => {
-    overlay_slide.classList.add('active');
-    if (currentIndex < slides.length - 1) {
-        slides[currentIndex].classList.remove('visible');
-        currentIndex++;
-        slides[currentIndex].classList.add('visible');
-        if (currentIndex === slides.length - 1) {
-            nextBtn.style.display = 'none';
-            endBtn.style.display = 'block';
-        }
-    }
-});
+next1.addEventListener("click", ()=>{
+    title.classList.remove("active");
+    first.classList.add('active');
+    next2.classList.add('active');
+    next1.classList.remove('active');
+})
+next2.addEventListener("click", ()=>{
+    first.classList.remove('active');
+    second.classList.add('active');
+    end.classList.add('active');
+    next2.classList.remove('active');
+})
+end.addEventListener("click", ()=>{
+    second.classList.remove('active');
+    end.classList.remove('active');
+    slides.classList.remove('visible');
+})
 
-endBtn.addEventListener('click', () => {
-    slides.forEach(slide => slide.classList.remove('visible'));
-    overlay_slide.classList.remove('active');
-});
 
 

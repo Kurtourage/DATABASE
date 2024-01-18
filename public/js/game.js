@@ -202,7 +202,7 @@ const hudContainer = document.getElementById('hud-container');
 
          // Create a button
           const nextLevelButton = document.createElement('button');
-          nextLevelButton.textContent = 'Next Level';
+          nextLevelButton.textContent = 'Click anywhere to continue';
           nextLevelButton.id = 'nextLevelButton';
           
 
