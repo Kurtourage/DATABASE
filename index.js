@@ -353,7 +353,7 @@ app.post('/initialize-game-db', (req, res) => {
        (18, 'I was responsible for the ballroom''s upkeep and floral arrangements throughout the evening. I also went to the garden.'),
        (19, 'I was occupied with garden maintenance and floral arrangements in the estate.'),
        (20, 'I was overseeing the garden''s décor and ensuring the ambiance was perfect.'),
-       (21, 'I primarily organized the garden''s interiors and ensured everything was tidy.),
+       (21, 'I primarily organized the garden''s interiors and ensured everything was tidy.'),
        (22, 'I focused on the garden''s cleanliness and assisted with meal preparations.'),
        (23, 'I was meticulous with guest room cleanliness and amenities throughout the evening, also went to the garden.'),
        (24, 'I was engaged in discussions with Marcus Whitewood about our business partnership.'),
