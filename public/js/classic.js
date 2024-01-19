@@ -1,3 +1,5 @@
+const mode = 'classic';
+
 document.addEventListener("DOMContentLoaded", function () {
   let problemStatement;
   let correctAnswers;
@@ -15,7 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ sql }),
+      body: JSON.stringify({ sql, mode }),
+      
     })
       .then(response => response.json())
       .then(data => {

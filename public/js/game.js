@@ -1,4 +1,4 @@
-
+const mode = 'story';
 
 
 const config = {
@@ -15,7 +15,8 @@ const config = {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ sql }),
+      body: JSON.stringify({ sql, mode }),
+      
           })
       .then(response => response.json())
       .then(data => {
