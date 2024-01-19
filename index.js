@@ -10,8 +10,10 @@ const port = 5173;
 
 
 let gameDbInitialized = false;
+let classicDbInitialized = false;
   // SQLite database for the game
 const gameDb = new sqlite3.Database(':memory:');
+const classicDb = new sqlite3.Database(':memory:');
 let completedMissionsIndices = [];
 let userInputs = [];
 
@@ -274,7 +276,7 @@ app.post('/initialize-game-db', (req, res) => {
        ('Cryptic Note', 'Concealed within the ancient grandfather clock in the study, nestled behind its pendulum.'),
        ('Midnight Blossom', 'a vibrant poisonous flower seen at the Sanctum, looks red when withered.'),
        ('Stardust Lily', 'a poisonous flower seen in the Greenhouse'),
-       ('Bright Bloom', ' A vibrant red flower, di alam saan nakalagay hahaha'),  
+       ('Bright Bloom', 'a vibrant red flower, di alam saan nakalagay hahaha'),  
        ('Fragmented Jewelry', 'Scattered amidst the opulent tapestries in the banquet hall, glinting under the soft glow of chandeliers.'),
        ('Unfamiliar Key', 'Hidden within an intricate mosaic on the mosaic near the garden''s fountain, its presence overlooked.'),
        ('Broken Ornament', 'Found tangled within the overgrown thicket near the conservatory, shards peeking through the tangled vines.'),
@@ -283,7 +285,7 @@ app.post('/initialize-game-db', (req, res) => {
        ('Dented Cane', 'Abandoned near the gardener''s shed, nestled among the tools and pots, unnoticed in the bustling garden.'),
        ('Hidden Passageway', 'A previously unknown hidden passageway within the estate, revealed by the spectral raven''s subtle gestures, suggests an escape route or clandestine movements possibly utilized by the perpetrator.')
       
-      ;` //no location on line 273
+      ;` 
        ; 
 
 
@@ -333,27 +335,27 @@ app.post('/initialize-game-db', (req, res) => {
        const insertTestimonyDataSQL = `
        INSERT INTO testimony(profile_id, testimony)
        VALUES
-       (2, 'I oversaw the arrangements and chatted with Lady Beatrice Cavendish most of the evening.'),
-       (3, 'I spent time with the Foxworths discussing the latest textile trends in the ballroom.' ),
-       (4, 'I was in the library, engrossed in a conversation about art with Baroness Matilda Everhart.'),
-       (5, 'I mostly circulated, but later, I was in the conservatory, admiring the floral arrangements.'),
-       (6, 'I was with Lady Penelope Grant, discussing music and politics in the drawing-room.'),
-       (7, 'I danced and mingled, but I found solace in the garden admiring the beauty of the moon.'),
-       (8, 'I assisted Lady Emily de Montague in the study, discussing diplomatic affairs.'),
-       (9, 'I spent most of the evening in the ballroom, enjoying conversations about literature.'),
-       (11,'I was overseeing the food preparations in the kitchen for a part of the evening.' ),
+       (2, 'I oversaw the arrangements and chatted with Lady Beatrice Cavendish most of the evening and went to the garden.'),
+       (3, 'I spent time with the Foxworths discussing the latest textile trends in the ballroom and went to the garden.' ),
+       (4, 'I was in the library, engrossed in a conversation about art with Baroness Matilda Everhart, and went to the garden.'),
+       (5, 'I mostly circulated, but later, I was in the conservatory, admiring the floral arrangements, and went to the garden.'),
+       (6, 'I was with Lady Penelope Grant, discussing music and politics in the garden.'),
+       (7, 'I danced and mingled, but I found solace in the garden admiring the moon''s beauty.'),
+       (8, 'I assisted Lady Emily de Montague in the study, discussing diplomatic affairs, and went to the garden.'),
+       (9, 'I spent most of the evening in the garden, enjoying conversations about literature.'),
+       (11, 'I was overseeing the food preparations in the kitchen for a part of the evening, but Mr. Edmund called me to the garden.' ),
        (12, 'I mainly assisted guests in the foyer and checked on the garden decorations.'),
-       (13, 'I helped organize the ballroom and later attended to the guests in the main hall.'),
-       (14, 'I coordinated the duties of the maids and helped Mr. Edmund with various tasks around the mansion.'),
+       (13, 'I coordinated the maids'' duties and helped Mr. Edmund with various tasks around the mansion, and later went to the garden.'),
+       (14, 'I was assisting guests in the garden and tending to specific requests.'),
        (15, 'I was assisting guests in the dining area and tending to specific requests.'),
-       (16, 'I focused on maintaining the family quarters and attending to needs of the guests there.'),
-       (17, 'I primarily worked in the ballroom, ensuring cleanliness and guest comfort.'),
-       (18, 'I was responsible for the upkeep of the ballroom and floral arrangements throughout the evening.'),
+       (16, 'I focused on maintaining the family''s quarters and attending to guests'' needs there, I also went to the garden.'),
+       (17, 'I primarily worked in the ballroom, ensuring cleanliness and guest comfort, but Mr. Edmund called me to the garden.'),
+       (18, 'I was responsible for the ballroom''s upkeep and floral arrangements throughout the evening. I also went to the garden.'),
        (19, 'I was occupied with garden maintenance and floral arrangements in the estate.'),
-       (20, 'I was overseeing mansion décor and ensuring the ambiance was perfect.'),
-       (21, 'I primarily organized the interiors of the estate  and ensured everything was tidy.'),
-       (22, 'I focused on the cleanliness of the kitchen and assisted with meal preparations.'),
-       (23, 'I was meticulous with guest room cleanliness and amenities throughout the evening.'),
+       (20, 'I was overseeing the garden''s décor and ensuring the ambiance was perfect.'),
+       (21, 'I primarily organized the garden''s interiors and ensured everything was tidy.),
+       (22, 'I focused on the garden''s cleanliness and assisted with meal preparations.'),
+       (23, 'I was meticulous with guest room cleanliness and amenities throughout the evening, also went to the garden.'),
        (24, 'I was engaged in discussions with Marcus Whitewood about our business partnership.'),
        (25, 'I spent the evening mingling with other guests and discussing charitable ventures.'),
        (26, 'I was discussing diplomatic affairs with Lady Penelope Grant near the conservatory.'),
@@ -515,14 +517,26 @@ gameDb.serialize(() => {
 // Execute Game SQL Endpoint
 app.post('/execute-game-sql', (req, res) => {
 
- 
-   // Check if gameDB has been initialized; if not, return an error
-   if (!gameDbInitialized) {
-    return res.status(500).json({ error: 'Game database not initialized' });
+  const { sql, mode } = req.body;
+
+
+
+  if (mode === 'story') {
+// Check if gameDB has been initialized; if not, return an error
+  if (!gameDbInitialized) {
+  return res.status(500).json({ error: 'Game database not initialized' });
+}
+
   }
 
+  if (mode === 'classic') {
+    if (!classicDbInitialized) {
+      return res.status(500).json({ error: 'Game database not initialized' });
+    }
+    
+  }
   
-  const { sql } = req.body;
+
 
   // Log the received SQL query for debugging
   console.log('Received Game SQL query:', sql);
@@ -587,21 +601,36 @@ function generateTableHtml(results) {
 const levels = [
   {
     id: 1,
-    mission: [ 'SELECT * from profiles', 'Insert into profiles(name) Values(','Delete from profiles where id = 46' ],
-    objective:['SELECT all persons involved from the profile table', 'INSERT your name in the profiles table', 'DELETE your information in the table using id ']
+    mission: [ 'SELECT * from profiles', "Insert into profiles (name) Values('{{name}}')",'Delete from profiles where id = 46' ],
+    objective:['SELECT all persons involved from the profile table', 'INSERT your name in the profiles table', 'DELETE your information in the profiles table using id ']
      },
 
   {
     id: 2,    
     mission: ['SELECT * from evidence', "INSERT INTO evidence(name, location_found) VALUES ('Red Mask', 'Gardens')", "INSERT INTO evidence(name, location_found) VALUES ('Regal Ephemera', 'Library')"],
-    objective:['SELECT all objects from clues table' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' ]
+    objective:['SELECT all from the evidence table' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' ]
   },
   {
     id: 3,
     mission: ['SELECT profiles.name as Name, gender.name as Gender from profiles INNER JOIN gender ON profiles.gender = gender.id WHERE gender.id = 1', 'SELECT profiles.name as Name, gender.name as Gender from profiles INNER JOIN gender ON profiles.gender = gender.id WHERE gender.id = 0', 'SELECT name, testimony FROM profiles INNER JOIN testimony ON profiles.id = testimony.profile_id'],
-    objective: ['Using Inner Join, select the Name and Gender of all females from profiles' , 'Using Inner Join, select the Name and Gender of all males from profiles' , 'Select the name and testimony of everyone in the profiles table']
+    objective: ['Using Inner Join, select the Name and Gender of all females from profiles' , 'Using Inner Join, select the Name and Gender of all males from profiles' , 'Using inner join, select the name and testimony of everyone in the profiles table']
+
+  },
+
+  {
+    id: 4,
+    mission: ["INSERT INTO mansion_locations(name), VALUES('Manor Sanctum')", 'SELECT * FROM mansion_locations', 'create table weapon_location(name TEXT)', "INSERT INTO weapon_location(name) VALUES('manor sanctum')", 'CREATE TABLE murder_weapon(name TEXT)' , "INSERT INTO murder_weapon(name) VALUES ('Midnight Blossom')", "SELECT * FROM profiles WHERE address = 'Midway Grove, Calabasas City'", "DELETE FROM profiles where address != 'Midway Grove, Calabasas City' "],
+    objective: []
+ 
+  },
+
+  {
+    id: 5,
+    mission: [],
+    objective: []
 
   }
+
 
 ];
 
@@ -612,8 +641,8 @@ let userId;
 
 // Endpoint to start a level
 app.post('/start-level', (req, res) => {
-  // Get the level ID from the request
-  const levelId = req.body.levelId;
+  // Get the level ID and username from the request
+  const { levelId, username } = req.body;
 
   // Find the corresponding level
   const level = levels.find((l) => l.id === levelId);
@@ -622,19 +651,19 @@ app.post('/start-level', (req, res) => {
     return res.status(400).json({ error: 'Invalid level ID' });
   }
 
+  // Replace the {{name}} placeholder with the username in the mission array
+  const replacedMission = level.mission.map((mission) => mission.replace(/{{name}}/g, username));
+
   // Set the current level
-  currentLevel = level;
-  console.log(level);
+  currentLevel = { ...level, mission: replacedMission };
 
- 
-userInputs = [];
-completedMissionsIndices =[];
-  // Send the level mission to the client
-  res.json({ success: true, mission: level.mission, objective: level.objective });
-  
+  userInputs = [];
+  completedMissionsIndices = [];
 
-
+  // Send the modified level mission to the client
+  res.json({ success: true, mission: replacedMission, objective: level.objective });
 });
+
 
 
 
@@ -691,6 +720,7 @@ app.post('/start-next-level', (req, res) => {
 
 app.get('/get-user-level', (req, res) => {
   console.log(req.session.user)
+  username = req.session.user.username;
   console.log('Received check-user-level request');
    user_level = req.session.user.user_saved_level;
   console.log('User Level: ', user_level);
@@ -701,19 +731,27 @@ app.get('/get-user-level', (req, res) => {
 
 
 
+// Function to clean and normalize a string
+function cleanAndNormalize(str) {
+  // Convert to lowercase and remove spaces
+  return str.toLowerCase().replace(/\s/g, '');
+}
+
+
 // Function to check if the user's input array satisfies the level mission requirements
-function checkMissionCompletion(userInputs, mission) {
-  
+function checkMissionCompletion(userInputs, mission, username) {
+  // Replace {{name}} placeholders with the specified username
+  const replacedMission = mission.map(requirement => requirement.replace(/\{\{name\}\}/g, username));
 
-   // Check each mission requirement
-   for (let i = 0; i < mission.length; i++) {
-    const requirement = mission[i];
+  // Clean and normalize replaced mission requirements
+  const normalizedMission = replacedMission.map(cleanAndNormalize);
 
-    // Convert both the input and requirement to lowercase for a case-insensitive comparison
-    const lowerRequirement = requirement.toLowerCase();
+  // Check each mission requirement
+  for (let i = 0; i < normalizedMission.length; i++) {
+    const requirement = normalizedMission[i];
 
-    // Check if the requirement is present in any user input (case-insensitive)
-    if (userInputs.some((input) => input.toLowerCase().includes(lowerRequirement))) {
+    // Check if the requirement is present in any user input (case-insensitive and spaces removed)
+    if (userInputs.some((input) => cleanAndNormalize(input).includes(requirement))) {
       // Mission requirement is satisfied
       // Check if the index is not already present in completedMissionsIndices
       if (!completedMissionsIndices.includes(i)) {
@@ -723,16 +761,14 @@ function checkMissionCompletion(userInputs, mission) {
   }
 
   // Check if any mission requirements are satisfied
-  if (completedMissionsIndices.length === mission.length) {
-    // all level missions are completed
+  if (completedMissionsIndices.length === normalizedMission.length) {
+    // All level missions are completed
     return true;
-  }
-  
-  else {
-    
+  } else {
     return false;
   }
 }
+
 
 
 
@@ -742,6 +778,8 @@ app.post('/check-level-answer', (req, res) => {
   if (!currentLevel) {
     return res.status(400).json({ error: 'No active level' });
   }
+
+  
 
   // Get the user's answer from the request
   const userAnswer = req.body.userInput;
@@ -1087,13 +1125,13 @@ app.post('/initialize-db' , (req, res) => {
 counter = 0;
 
 
-  if (gameDbInitialized) {
+  if (classicDbInitialized) {
     return res.json({ message: 'Game database already initialized' });
   }
 
 
   // Set the flag to true to prevent further initialization
-  gameDbInitialized = true;
+  classicDbInitialized = true;
 
 
   const createEmployeeTblSql = `CREATE TABLE IF NOT EXISTS employees (
@@ -1110,7 +1148,7 @@ counter = 0;
   `;
   
   const createDepartmentsTblSql = `CREATE TABLE IF NOT EXISTS departments (
-    id INTEGER PRIMARY KEY,
+    department_id INTEGER PRIMARY KEY,
     department_name TEXT NOT NULL,
     location TEXT
   );
@@ -1195,6 +1233,8 @@ counter = 0;
 
 
 
+
+
 app.get('/random-sql-template', (req, res) => {
   
   generateRandomSQLProblem(counter);
@@ -1202,7 +1242,7 @@ app.get('/random-sql-template', (req, res) => {
   res.json({ success: true, message: 'Random SQL template generated', problemStatement, sqlQuery, counter });
   console.log("SQL QUERY: ", sqlQuery);
   console.log("PROBLEM: ", problemStatement);
-  console.log(counter);
+  console.log("Correct Answer Counter: ", counter);
 });
 
 
@@ -1222,13 +1262,15 @@ if (userAnswer === correctAnswer) {
   res.json({ success: false, message: "Answer incorrect.", counter });
 }
 
-function cleanAndNormalize(str) {
-  // Convert to lowercase and remove spaces
-  return str.toLowerCase().replace(/\s/g, '');
-}
 
 });
 
+
+app.post('/reset-counter', (req, res) => {
+ counter = 0;
+
+  res.json({ success: true, message: 'Counter reset on the server side' });
+});
 
 
 
