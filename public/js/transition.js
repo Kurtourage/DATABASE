@@ -17,13 +17,52 @@ function layout() {
   const scaleStep = 0.6;
   const opacityStep = 0;
   const imageSources = [
-    "https://cdn.discordapp.com/attachments/1142426341002711040/1149739540840456192/img2.jpg",
-    "https://cdn.discordapp.com/attachments/1142426341002711040/1149739541066961046/img3.jpg",
-    "https://cdn.discordapp.com/attachments/1142426341002711040/1149739541347971153/img4.jpg",
-    "https://cdn.discordapp.com/attachments/1142426341002711040/1149739541603819612/img5.jpg",
-    "https://cdn.discordapp.com/attachments/1142426341002711040/1149739541868072960/img6.jpg",
-    "https://cdn.discordapp.com/attachments/1142426341002711040/1149739540555247620/img1.jpg"
+    "assets/testimony/testimony1.png",
+    "assets/testimony/testimony2.png",
+    "assets/testimony/testimony3.png",
+    "assets/testimony/testimony4.png",
+    "assets/testimony/testimony5.png",
+    "assets/testimony/testimony6.png",
+    "assets/testimony/testimony7.png",
+    "assets/testimony/testimony8.png",
+    "assets/testimony/testimony9.png",
+    "assets/testimony/testimony10.png",
+    "assets/testimony/testimony11.png",
+    "assets/testimony/testimony12.png",
+    "assets/testimony/testimony13.png",
+    "assets/testimony/testimony14.png",
+    "assets/testimony/testimony15.png",
+    "assets/testimony/testimony16.png",
+    "assets/testimony/testimony17.png",
+    "assets/testimony/testimony18.png",
+    "assets/testimony/testimony19.png",
+    "assets/testimony/testimony20.png",
+    "assets/testimony/testimony21.png",
+    "assets/testimony/testimony22.png",
+    "assets/testimony/testimony23.png",
+    "assets/testimony/testimony24.png",
+    "assets/testimony/testimony25.png",
+    "assets/testimony/testimony26.png",
+    "assets/testimony/testimony27.png",
+    "assets/testimony/testimony28.png",
+    "assets/testimony/testimony29.png",
+    "assets/testimony/testimony30.png",
+    "assets/testimony/testimony31.png",
+    "assets/testimony/testimony32.png",
+    "assets/testimony/testimony33.png",
+    "assets/testimony/testimony34.png",
+    "assets/testimony/testimony35.png",
+    "assets/testimony/testimony36.png",
+    "assets/testimony/testimony37.png",
+    "assets/testimony/testimony38.png",
+    "assets/testimony/testimony39.png",
+    "assets/testimony/testimony40.png",
+    "assets/testimony/testimony41.png",
+    "assets/testimony/testimony42.png",
+    "assets/testimony/testimony43.png",
+    "assets/testimony/testimony44.png"    
   ];
+  
   
   for(let i = 0; i < imgs.length; i++){
     img = imgs[i];
