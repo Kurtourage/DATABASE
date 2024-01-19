@@ -63,8 +63,10 @@ font-size: 18px;
     transform: scale(0);
     width: 960px;
     height: 540px;
-    background-color: yellow;
-    border: 2px solid white;
+    background-image: url(../assets/schemaboard.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border: none;
     z-index: 20;
 }
 .overlay{
@@ -72,7 +74,7 @@ font-size: 18px;
     transform: scale(0);
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.9);
     z-index: 10;
 }
 .overlay.active{
@@ -81,12 +83,19 @@ font-size: 18px;
 .boardBig.active{
     transform: scale(1);
 }
-.boardBig .close{
-    width: 35px;
-    height: 35px;
-    top: 0;
-    right: 0;
-    background-color: green;
+.boardBig .close {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: 32px;
+    right: 32px;
+    padding: 0 15px 15px 15px;
+    background-color: transparent;
+}
+.boardBig .close h1{
+    color: #130900;
+    font-size: 48px;
+    cursor: pointer;
 }
 .boardPop{
     border: none;
@@ -198,35 +207,35 @@ textarea::placeholder{
 .bookBig{
     position: absolute;
     transform: scale(0);
-    width: 800px;
-    height: 467px;
-    top: 80px;
-    left: 250px;
+    width: 960px;
+    height: 540px;
     display: flex;
   justify-content: center;
   align-items: center;
   gap: 20px;
-    background-color: yellow;
-    border: 2px solid white;
+    background-color: transparent;
+    border: none;
     z-index: 20;
     overflow: hidden;
 }
+
 .bookBig img {
     width: 384px;
     height: 512px;
     border-radius: 16px;
     position: absolute;
+left: 288px;
     user-select: none;
     transition-property: transform, opacity, zIndex, ; 
     transition-duration: 0.3s; 
     transition-timing-function: ease-out; 
   }
   .arrows {
-    width: 900px;
+    width: 588px;
     height: auto;
-    display: flex;
-    justify-content: space-between;
-    z-index: 20;
+   display: flex;
+   justify-content: space-between;
+    z-index: 9999;
   }
   .arrows button {
     width: 60px;
@@ -257,13 +266,18 @@ textarea::placeholder{
 .bookBig.active{
     transform: scale(1);
 }
-.bookBig .close{
+.bookBig .close {
     position: absolute;
-    width: 35px;
-    height: 35px;
+    width: 64px;
+    height: 64px;
     top: 0;
     right: 0;
-    background-color: green;
+    background-color: transparent;
+}
+.bookBig .close h1{
+    color: #fff5c1;
+    font-size: 48px;
+    cursor: pointer;
 }
 .bookPop{
     border: none;
@@ -329,6 +343,7 @@ top: 12px;
 right: 12px;
 background-color: transparent;
 }
+
 .tutorialBig .close h1{
     color: #130900;
     font-size: 27px;
@@ -767,8 +782,7 @@ background-image: url(../assets/ch_music1.png);
         transform: scale(0);
         width: 100%;
         height: 100%;
-        background-color: yellow;
-        z-index: 15;
+        z-index: 19;
     }
     .overlay.active{
         transform: scale(1);
