@@ -16,6 +16,7 @@ const gameDb = new sqlite3.Database(':memory:');
 const classicDb = new sqlite3.Database(':memory:');
 let completedMissionsIndices = [];
 let userInputs = [];
+let username;
 
 
 
@@ -602,7 +603,7 @@ const levels = [
   {
     id: 1,
     mission: [ 'SELECT * from profiles', "Insert into profiles (name) Values('{{name}}')",'Delete from profiles where id = 46' ],
-    objective:['SELECT all persons involved from the profile table', 'INSERT your name in the profiles table', 'DELETE your information in the profiles table using id ']
+    objective:['SELECT all persons involved from the profile table', 'INSERT your username in the profiles table', 'DELETE your information in the profiles table using id ']
      },
 
   {
@@ -642,8 +643,8 @@ let userId;
 // Endpoint to start a level
 app.post('/start-level', (req, res) => {
   // Get the level ID and username from the request
-  const { levelId, username } = req.body;
-
+  const { levelId } = req.body;
+  username = req.session.user.username;
   // Find the corresponding level
   const level = levels.find((l) => l.id === levelId);
 
@@ -750,8 +751,8 @@ function checkMissionCompletion(userInputs, mission, username) {
   for (let i = 0; i < normalizedMission.length; i++) {
     const requirement = normalizedMission[i];
 
-    // Check if the requirement is present in any user input (case-insensitive and spaces removed)
-    if (userInputs.some((input) => cleanAndNormalize(input).includes(requirement))) {
+    // Check if the requirement exactly matches any user input (case-insensitive and spaces removed)
+    if (userInputs.some((input) => cleanAndNormalize(input) === requirement)) {
       // Mission requirement is satisfied
       // Check if the index is not already present in completedMissionsIndices
       if (!completedMissionsIndices.includes(i)) {
@@ -790,6 +791,7 @@ app.post('/check-level-answer', (req, res) => {
   const isMissionCompleted = checkMissionCompletion(
     userInputs,
     currentLevel.mission,
+    username
     
   );
   console.log("User Inputs: ", userInputs);
