@@ -289,27 +289,48 @@ left: 288px;
 
 /* FOR RIDDLES */
 .riddleBig{
-position: absolute;
-transform: scale(0);
-width: 333px;
-height: 466px;
-top: 80px;
-left: 480px;
-background-color: yellow;
-border: 2px solid white;
-z-index: 20;
+    position: absolute;
+    transform: scale(0);
+    width: 350px;
+    height: 500px;
+    top: 75px;
+    left: 508px;
+    background-image: url(../assets/tutorialBig.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 20;
 }
 
 .riddleBig.active{
 transform: scale(1);
 }
-.riddleBig .close{
-width: 35px;
-height: 35px;
-top: 0;
-right: 0;
-background-color: green;
+.riddleContent{
+    width: max-content;
+    padding: 50px 50px 50px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
+.riddleContent h1{
+
+}
+.riddleBig .close{
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    top: 12px;
+    right: 12px;
+    background-color: transparent;
+    }
+    
+    .riddleBig .close h1{
+        color: #130900;
+        font-size: 27px;
+        cursor: pointer;
+        padding-left: 10px;
+    
+    }
 .riddlePop{
 border: none;
 cursor: pointer;
@@ -614,59 +635,54 @@ background-image: url(../assets/ch_music1.png);
         width: 1440px;
         height: 810px;
     }
+    .back-bg{
+        position: absolute;
+        z-index: -10;
+        width: 1485px;
+        height: 855px;
+        border: 22.5px solid #111111;
+    }
+    #hud-container{
+        margin-top: 22.5px;
+        width: 1335px;
+        margin-left: 30px;
+        font-size: 27px;
+        }
     #board{
         width: 519px;
         height: 361.5px;
         top: 30px;
         left: 82.5px;
-        background-image: url(../assets/board.png);
-        background-repeat: no-repeat;
-        background-size: cover
     }
     #book{
         width: 217.5px;
         height: 166.5px;
         bottom: 207px;
         left: 373.5px;
-        background-image: url(../assets/book.png);
-        background-repeat: no-repeat;
-        background-size: cover
     }
     #newspaper{
         width: 157.5px;
         height: 193.5px;
         top: 84px;
         right: 583.5px;
-        background-image: url(../assets/newspaper.png);
-        background-repeat: no-repeat;
-        background-size: cover
     }
     #tutorial{
         width: 85.5px;
         height: 144px;
         top: 108px;
         right: 237px;
-        background-image: url(../assets/tutorial.png);
-        background-repeat: no-repeat;
-        background-size: cover
     }
     #riddles{
         width: 85.5px;
         height: 145.5px;
         top: 108px;
         right: 400.5px;
-        background-image: url(../assets/riddles.png);
-        background-repeat: no-repeat;
-        background-size: cover
     }
     #computer{
         width: 499.5px;
         height: 291px;
         bottom: 199.5px;
         right: 115.5px;
-        background-image: url(../assets/computer.png);
-        background-repeat: no-repeat;
-        background-size: cover
     }
 
     /* FOR BIG COMPUTER */
@@ -676,10 +692,6 @@ background-image: url(../assets/ch_music1.png);
         left: 252.5px;
         width: 1440px;
         height: 810px;
-    
-        background-image: url(../assets/computerbig.png);
-        background-repeat: no-repeat;
-        background-size: contain;
         z-index: 20;
         padding-left:24px;
     
@@ -719,7 +731,6 @@ background-image: url(../assets/ch_music1.png);
         height: 52.5px;
         bottom: 7.5px;
         right: 25px;
-        background-color: green;
     }
     
     textarea::placeholder{
@@ -769,24 +780,11 @@ background-image: url(../assets/ch_music1.png);
     .boardBig{
         position: absolute;
         transform: scale(0);
-        width: 1200px;
-        height: 700px;
-        top: 120px;
-        left: 375px;
-        background-color: yellow;
-        border: 2px solid white;
-        z-index: 20;
+        left: 252.5px;
+        width: 1440px;
+        height: 810px;
     }
-    .overlay{
-        position: absolute;
-        transform: scale(0);
-        width: 100%;
-        height: 100%;
-        z-index: 19;
-    }
-    .overlay.active{
-        transform: scale(1);
-    }
+
     .boardBig.active{
         transform: scale(1);
     }
@@ -841,12 +839,13 @@ background-image: url(../assets/ch_music1.png);
 .riddleBig{
     position: absolute;
     transform: scale(0);
-    width: 500px;
-    height: 700px;
-    top: 120px;
-    left: 720px;
-    background-color: yellow;
-    border: 2px solid white;
+    width: 350px;
+    height: 500px;
+    top: 75px;
+    left: 508px;
+    background-image: url(../assets/tutorialBig.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     z-index: 20;
 }
 
