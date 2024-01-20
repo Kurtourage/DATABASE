@@ -182,7 +182,7 @@ textarea::placeholder{
     background-color: transparent;
     display: flex; /* Use flexbox */
     align-items: flex-start;
-    border-left: 1px solid black; /* Adding a border for visual distinction */
+    border-left: none; /* Adding a border for visual distinction */
     padding: 10px; /* Adding padding for better readability */
     resize: none;
     overflow: hidden;
@@ -295,9 +295,9 @@ left: 288px;
     height: 500px;
     top: 75px;
     left: 508px;
-    background-image: url(../assets/tutorialBig.png);
+    background-image: url(../assets/riddleContent.png);
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: 100% 100%;
     z-index: 20;
 }
 
@@ -305,15 +305,25 @@ left: 288px;
 transform: scale(1);
 }
 .riddleContent{
-    width: max-content;
+    width: 350px;
+    height: 500px;
     padding: 50px 50px 50px 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    border: none;
+}
+.flower{
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    background-image: url(../assets/flower.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 .riddleContent h1{
-
+    white-space: pre-line;
 }
 .riddleBig .close{
     position: fixed;
@@ -415,28 +425,126 @@ text-align: justify;
 }
 
 /* FOR NEWSPAPER */
+.newspaperBig::-webkit-scrollbar {
+    background-color: transparent;
+    width: 5px; /* Adjust the width as needed */
+}
+
+.newspaperBig::-webkit-scrollbar-thumb {
+    background-color: #fff5c1; /* Set the color of the scrollbar thumb */
+    border-radius: 1px; 
+    height: 20px;
+/* Optional: Add rounded corners to the scrollbar thumb */
+}
+
+.newspaperBig::-webkit-scrollbar-track {
+    background-color: transparent; /* Set the color of the scrollbar track */
+}
+
 .newspaperBig{
 position: absolute;
 transform: scale(0);
-width: 400px;
-height: 466px;
-top: 80px;
-left: 460px;
-background-color: yellow;
-border: 2px solid white;
+width: 960px;
+height: 540px;
+background-color: transparent;
 z-index: 20;
+overflow-y: auto;
+overflow-x: hidden;
 }
 
 .newspaperBig.active{
 transform: scale(1);
 }
 .newspaperBig .close{
-width: 35px;
-height: 35px;
-top: 0;
-right: 0;
-background-color: green;
-}
+    position: fixed;
+    width: 35px;
+    height: 35px;
+    top: 12px;
+    right: 12px;
+    background-color: transparent;
+    }
+    
+    .newspaperBig .close h1{
+        color: #130900;
+        font-size: 27px;
+        cursor: pointer;
+        padding-left: 10px;
+        
+    }
+.header {
+    padding-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    background-image: url(../assets/news-header.png);
+background-repeat: no-repeat;
+background-size: 100% 100%;
+  }
+  .header h1{
+    font-size: 5em;
+    color: #111;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 15px;
+    text-shadow: -1px 1px 0 white, -2px 2px 0 #111;
+  }
+  .header p{
+    padding-top: 75px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: bold;
+    bottom: 0;
+  }
+  
+  hr {
+    margin-left: 5px;
+    border-bottom: 4px solid #111;
+    box-shadow: -1px 1px 0 white, -2px 2px 0 #111;
+  }
+  
+  .content {
+    position: absolute;
+    width: 960px;
+    height: 640px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 40px;
+    -webkit-column-rule: 1px solid #130900;
+    -moz-column-count: 4;
+    -moz-column-gap: 40px;
+    -moz-column-rule: 1px solid #130900;
+    column-count: 4;
+    column-gap: 40px;
+    column-rule: 1px solid #130900b5;
+    text-align: justify;
+    padding-top: 15px;
+    padding-right: 20px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    background-image: url(../assets/news-content.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .article .image1{
+    width: 100%;
+    height: 120px;
+    border: 1px solid black;
+  }
+  
+  .content h1 {
+    margin-top: 0;
+    text-align: left;
+    
+  }
+  .article p:first-of-type::first-letter{
+    font-size: 5em;
+    float: left;
+    line-height: 50%;
+    margin: 0.1em 0.1em 0.1em -0.05em;
+  }
+  .article b{
+    color: red;
+  }
+  
 .newspaperPop{
 border: none;
 cursor: pointer;
@@ -612,6 +720,26 @@ background-image: url(../assets/ch_music1.png);
     background-image: url(../assets/ch_music3.png);
     background-repeat: no-repeat;
     background-size: cover;
+}
+#clearTable{
+    border: none;
+    outline: none;
+    width: 88px;
+    height: 48px;
+    background-image: url(../assets/execute2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+#executeBtn1{
+    border: none;
+    outline: none;
+    width: 88px;
+    height: 48px;
+    background-image: url(../assets/execute1.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
 }
 
 
@@ -921,12 +1049,21 @@ background-image: url(../assets/ch_music1.png);
     transform: scale(1);
 }
 .newspaperBig .close{
+    position: fixed;
     width: 35px;
     height: 35px;
-    top: 0;
-    right: 0;
-    background-color: green;
-}
+    top: 12px;
+    right: 12px;
+    background-color: transparent;
+    }
+    
+    .newspaperBig .close h1{
+        color: #130900;
+        font-size: 27px;
+        cursor: pointer;
+        padding-left: 10px;
+    
+    }
 .newspaperPop{
     border: none;
     cursor: pointer;
