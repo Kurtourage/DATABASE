@@ -95,6 +95,12 @@ startCurrentLevel();
         userInput = document.getElementById('sqlInput').value;
         executeGameSQL(userInput);
       });
+      document.getElementById('sqlInput').addEventListener('keyup', function (event) {
+        if (event.key === 'Enter') {
+            // Trigger the click event for the button
+            document.getElementById("executeBtn1").click();
+        }
+      });
   
   
       
@@ -144,7 +150,7 @@ function updateHUD(missionObj) {
       hudContainer.innerHTML = '';
 
       // Create a new element to display the level mission
-      const levelMissionElement = document.createElement('div');
+      const levelMissionElement = document.createElement('h1');
       levelMissionElement.textContent = `Objectives:`;
       hudContainer.appendChild(levelMissionElement);
 
@@ -154,7 +160,6 @@ function updateHUD(missionObj) {
         const missionObjElement = document.createElement('ul');
         missionObj.forEach((objective, index) => {
           const listItem = document.createElement('li');
-
           // Check if the current mission index is in the completed missions array
           const isMissionCompleted = completedMissionsIndices.includes(index);
 
@@ -162,6 +167,7 @@ function updateHUD(missionObj) {
           if (isMissionCompleted) {
             const strikeThroughElement = document.createElement('s');
             strikeThroughElement.textContent = objective;
+            strikeThroughElement.classList.add('completed-mission');
             listItem.appendChild(strikeThroughElement);
           } else {
             listItem.textContent = objective;
@@ -289,9 +295,6 @@ function updateHUD(missionObj) {
         }
 
       });
-   
-
-    
     }
   });
 

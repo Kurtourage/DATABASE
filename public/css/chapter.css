@@ -46,10 +46,17 @@ body{
 #hud-container{
 margin-top: 15px;
 width: 890px;
-margin-left: 20px;
-font-size: 18px;
+margin-left: 100px;
+font-size: 21px;
 }
-
+#hud-container h1{
+    font-size: 24px;
+    margin-left: -70px;
+}
+.completed-mission{
+    text-decoration: line-through;
+    text-decoration-color: yellow; 
+}
 /* Define visibility on hover */
 .hover-img:hover {
     opacity: 1; /* Visible on hover */
@@ -131,14 +138,21 @@ font-size: 18px;
 }
 #tableContainer{
     margin-left: 21px;
-    max-width: 800px;
+    max-width: 850px;
+    font-size: 20px;
 }
+#tableContainer table{
+    border-collapse: collapse;
+    border-color: #130900;
+}
+#tableContainer th, #tableContainer td {
+    padding: 8px;
+    text-align: left;
+    padding-left: 10px; /* Add padding to the left */
+}
+
 .computerBig .computerInside::-webkit-scrollbar{
     display: none;
-}
-.tableContainer{
-    margin-right: 10px;
-    margin-left: 10px;
 }
 .computerBig.active{
     transform: scale(1);
@@ -182,7 +196,7 @@ textarea::placeholder{
     background-color: transparent;
     display: flex; /* Use flexbox */
     align-items: flex-start;
-    border-left: none; /* Adding a border for visual distinction */
+    border: none; /* Adding a border for visual distinction */
     padding: 10px; /* Adding padding for better readability */
     resize: none;
     overflow: hidden;
