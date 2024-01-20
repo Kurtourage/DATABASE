@@ -109,12 +109,15 @@ app.post('/login', (req, res) => {
   });
 });
 
-
-
-
 // Define a route for handling signup requests
 app.post('/signup', (req, res) => {
   const { username, email, password } = req.body;
+
+  // Get the current date and time in JavaScript
+  const currentDate = new Date();
+
+  // Format the date as 'YYYY-MM-DD'
+  const formattedDate = currentDate.toISOString().split('T')[0];
 
   connection.query(
     'SELECT * FROM users WHERE username = ? OR email = ?',
@@ -140,12 +143,10 @@ app.post('/signup', (req, res) => {
           return;
         }
 
-        
-        
-        //inserting data to database
+        // Inserting data to the database
         connection.query(
-          'INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins) VALUES (?, ?, ?, 0, 1, 0)',
-          [username, email, hashedPassword],
+          'INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins, creation_date) VALUES (?, ?, ?, 0, 1, 0, ?)',
+          [username, email, hashedPassword, formattedDate],
           (insertErr, results) => {
             if (insertErr) {
               console.error('Error executing MySQL query:', insertErr);
@@ -153,30 +154,28 @@ app.post('/signup', (req, res) => {
               return;
             }
 
-           
+            // Selecting data from the database for session information
+            connection.query(
+              'SELECT * FROM users WHERE username = ? AND password = ?',
+              [username, hashedPassword],
+              (selectErr, results) => {
+                if (selectErr) {
+                  console.error('Error executing MySQL query:', selectErr);
+                  res.status(500).send('Internal Server Error');
+                  return;
+                }
+
+                // User successfully registered, store user information in session
+                req.session.user = results[0];
+                res.redirect('/menu.html');
+              }
+            );
           }
         );
-
-
-          //selecting data from the database for session information
-        connection.query(
-          'SELECT * from users WHERE username = ? AND password = ?', [username, hashedPassword],
-          (insertErr, results) => {
-            if (insertErr) {
-              console.error('Error executing MySQL query:', insertErr);
-              res.status(500).send('Internal Server Error');
-              return;
-            }
-
-            // User successfully registered, store user information in session
-            req.session.user = results[0];
-            res.redirect('/menu.html');
-          }
-        );
-        
       });
     });
 });
+
 
 
 
@@ -225,7 +224,7 @@ app.post('/initialize-game-db', (req, res) => {
       ('James Sullivan', 45, 1, 'Midway Grove, Calabasas City', 'Senior Butler', '1', '0' ),
       ('Thomas Bennett', 37, 1, 'Midway Grove, Calabasas City', 'Butler', '1', '0' ),
       ('Robert Foster', 25, 1, 'Midway Grove, Calabasas City', 'Butler', '1', '0' ),
-      ('Emily Thompson', 75, 0, 'Midway Grove, Calabasas City', 'Head Maid', '0', '1' ),
+      ('Emily Thompson', 75, 0, 'Midway Grove, Calabasas City', 'Head Maid', '1', '1' ),
       ('Sarah Johnson', 50, 0, 'Midway Grove, Calabasas City', 'Senior Maid', '1', '0' ),
       ('Amelia Carter', 31, 0, 'Midway Grove, Calabasas City', 'Maid', '1', '0' ),
       ('Olivia Parker', 25, 0, 'Midway Grove, Calabasas City', 'Maid', '1', '0' ),
@@ -609,26 +608,26 @@ const levels = [
   {
     id: 2,    
     mission: ['SELECT * from evidence', "INSERT INTO evidence(name, location_found) VALUES ('Red Mask', 'Gardens')", "INSERT INTO evidence(name, location_found) VALUES ('Regal Ephemera', 'Library')"],
-    objective:['SELECT all from the evidence table' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab' ]
+    objective:['SELECT all from the evidence table.' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab.' , 'INSERT the two missing objects in evidence table, the clues are in the newspaper tab.' ]
   },
   {
     id: 3,
     mission: ['SELECT profiles.name as Name, gender.name as Gender from profiles INNER JOIN gender ON profiles.gender = gender.id WHERE gender.id = 1', 'SELECT profiles.name as Name, gender.name as Gender from profiles INNER JOIN gender ON profiles.gender = gender.id WHERE gender.id = 0', 'SELECT name, testimony FROM profiles INNER JOIN testimony ON profiles.id = testimony.profile_id'],
-    objective: ['Using Inner Join, select the Name and Gender of all females from profiles' , 'Using Inner Join, select the Name and Gender of all males from profiles' , 'Using inner join, select the name and testimony of everyone in the profiles table']
+    objective: ['Using Inner Join, select the Name and Gender of all females from profiles.' , 'Using Inner Join, select the Name and Gender of all males from profiles' , 'Using inner join, select the name and testimony of everyone in the profiles table.']
 
   },
 
   {
     id: 4,
     mission: ["INSERT INTO mansion_locations(name), VALUES('Manor Sanctum')", 'SELECT * FROM mansion_locations', 'create table weapon_location(name TEXT)', "INSERT INTO weapon_location(name) VALUES('manor sanctum')", 'CREATE TABLE murder_weapon(name TEXT)' , "INSERT INTO murder_weapon(name) VALUES ('Midnight Blossom')", "SELECT * FROM profiles WHERE address = 'Midway Grove, Calabasas City'", "DELETE FROM profiles where address != 'Midway Grove, Calabasas City' "],
-    objective: []
+    objective: ['INSERT a new location in the mansion_locations table.', 'SELECT all locations in the mansion.', 'CREATE a table named weapon_location.', 'UPDATE your guess location where the weapon is.' ,'CREATE a table named `murder_weapon` with a `name` field.', 'INSERT the weapon used in the “murder_weapon” table.', 'SELECT all persons that lives in the Whitewood residence.' , 'DELETE all guests.' ]
  
   },
 
   {
     id: 5,
-    mission: [],
-    objective: []
+    mission: ["SELECT profiles.name FROM testimony INNER JOIN profiles ON testimony.id = profiles.id  INNER JOIN favorite_objects ON profiles.id = favorite_objects.id WHERE testimony LIKE '%garden%' AND object_type LIKE '%flower%'", 'CREATE TABLE suspect (name text)', "INSERT into suspect (name) Values ('Edmund Thatcher')" ],
+    objective: ['SELECT all people and their favorite objects.', 'SELECT all the names where the alibis have “garden” and the type of object they like is “flowers.”',  'CREATE  a table named `suspect` with a `name` column.', 'INSERT the killer in the suspect table, SELECT the *answer* in the suspect table.']
 
   }
 
@@ -720,6 +719,10 @@ app.post('/start-next-level', (req, res) => {
 
 
 app.get('/get-user-level', (req, res) => {
+
+  res.setHeader('Cache-Control', 'no-store');
+
+
   console.log(req.session.user)
   username = req.session.user.username;
   console.log('Received check-user-level request');
@@ -729,6 +732,21 @@ app.get('/get-user-level', (req, res) => {
   
 
 });
+
+
+app.get('/get-user-info', (req, res) => {
+
+ // Check if the user is logged in (you can customize this based on your authentication logic)
+ if (req.session.user) {
+  // If the user is logged in, send the user data
+  res.json(req.session.user);
+} else {
+  // If the user is not logged in, send an appropriate response
+  res.status(401).json({ error: 'User not logged in' });
+}
+
+}) ;
+
 
 
 
