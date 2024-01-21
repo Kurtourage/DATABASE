@@ -270,7 +270,7 @@ background-image: url(../assets/music1.png);
     top: 0;
     left: 199px;
     visibility: hidden;
-    border:3px solid #130900;
+    border:none;
 }
 .profilepopup.active{
     visibility: visible;
@@ -340,7 +340,7 @@ background-image: url(../assets/music1.png);
     padding: 8px;
     width: 64px;
     border-left:3px solid #130900;
-    background-color: #1e1e1e;
+    background-color: #ffd262;
 }
 .profile-btn button{
     outline: none;
