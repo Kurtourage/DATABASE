@@ -109,16 +109,12 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
-#musicBtn{
-background-image: url(../assets/music1.png);
+.music-btn{
+    background-image: url(../assets/music1.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
-#musicBtn:hover{
-    background-image: url(../assets/music3.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+
 #backBtn{
     background-image: url(../assets/back1.png);
         background-repeat: no-repeat;
