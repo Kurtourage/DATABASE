@@ -43,6 +43,9 @@ body{
     opacity: 0; /* Initially hidden */
     transition: opacity 0.3s ease; /* Smooth transition */  
 }
+.help-img {
+    position: absolute;
+}
 #hud-container{
 margin-top: 15px;
 width: 890px;
@@ -567,7 +570,42 @@ width: 100%;
 height: 100%;
 }
 
-
+/* for helpBig */
+.helpBig{
+    position: absolute;
+    transform: scale(0);
+    width: 960px;
+    height: 540px;
+    background-image: url(../assets/helpBIG.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border: none;
+    z-index: 20;
+}
+.helpBig.active{
+    transform: scale(1);
+}
+.helpBig .close {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: 32px;
+    right: 32px;
+    padding: 0 15px 15px 15px;
+    background-color: transparent;
+}
+.helpBig .close h1{
+    color: #130900;
+    font-size: 48px;
+    cursor: pointer;
+}
+.helpPop{
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+}
 
 
 /* HOVERS */
@@ -625,6 +663,20 @@ height: 100%;
     background-image: url(../assets/computer.png);
     background-repeat: no-repeat;
     background-size: cover;
+}
+#help{
+    width: 35px;
+    height: 35px;
+    top: 37px;
+    right: 49px;
+    background-image: url(../assets/help1.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+#help:hover{
+    background-image: url(../assets/help2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 
@@ -725,16 +777,12 @@ height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
 }
-#musicBtn{
-background-image: url(../assets/ch_music1.png);
+.music-btn{
+    background-image: url(../assets/ch_music1.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
-#musicBtn:hover{
-    background-image: url(../assets/ch_music3.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+
 #clearTable{
     border: none;
     outline: none;

@@ -39,7 +39,7 @@ async function generateCards() {
             } else {
                 // Display the chapter number on unlocked cards
                 card.textContent = 'CHAPTER ' + chapterId;
-
+    
                 // Set the background color based on the chapterColor array
                 card.style.backgroundColor = chapterColor[index];
 

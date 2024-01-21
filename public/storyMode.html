@@ -7,12 +7,14 @@
     <title>Story mode</title>
     <script src="js/checkLogin.js"></script>
     <script src="js/levelCards.js"></script>
-    <script src="js/music.js"></script>
+    <script src="js/transition.js"></script>
+    <script src="js/profile.js"></script>
    
 </head>
 <body>
-   <audio id="music-btn">
-      <source src="assets/music/lobby.mp3" type="audio/mp3"> 
+    <div class="transition transition-1 is-active"></div>
+   <audio id="music-sound">
+      <source src="assets/music/menu.mp3" type="audio/mp3"> 
    </audio>
    
    <div class="connector">
@@ -61,7 +63,7 @@
         </a>
       </div> 
       <div class="settings-btn">
-          <button id="musicBtn"> </button>
+          <button class="music-btn"> </button>
       </div> 
   </div>
   <div class="credits">

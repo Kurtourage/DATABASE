@@ -104,3 +104,17 @@ unshowNewspaper.addEventListener("click", () => {
     newspaper.classList.remove('active');
     overlay.classList.remove('active');
 });
+
+//FOR COMPUTER
+const help = document.querySelector('.helpBig');
+const showHelp = document.querySelector(".helpPop");
+const unshowHelp = document.querySelector(".help-close");
+
+showHelp.addEventListener("click", () => {
+   help.classList.add('active');
+    overlay.classList.add('active');
+});
+unshowHelp.addEventListener("click", () => {
+    help.classList.remove('active');
+    overlay.classList.remove('active');
+});

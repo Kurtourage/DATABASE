@@ -11,9 +11,10 @@
   <title>Chapter 1</title>
 </head>
 <body>
-  <audio id="music-btn">
-    <source src="assets/music/lobby.mp3" type="audio/mp3"> 
+  <audio id="music-sound">
+    <source src="assets/music/chapters.mp3" type="audio/mp3"> 
  </audio>
+ 
 <div class="transition transition-7 is-active">
   <div class="transition-5"></div>
   <div class="transition-6"></div>
@@ -70,7 +71,7 @@
         </a>
       </div> 
       <div class="settings-btn">
-          <button id="musicBtn"> </button>
+          <button class="music-btn" id="musicBtn"> </button>
       </div> 
   </div>
   <div class="back-bg">
@@ -82,6 +83,7 @@
                 <h1>x</h1>
     </div>
 </div>
+
 <div class="bookBig">
   <div class="close book-close">
     <h1>x</h1>
@@ -132,8 +134,8 @@
   <img class="img44" />
   <img class="img45" />
   <div class="arrows">
-    <button class="prev"></button>
-    <button class="next"></button>
+    <button class="prev" id="paper"></button>
+    <button class="next" id="paper"></button>
   </div>
 </div>
 
@@ -247,9 +249,18 @@
     </div>
 </div>
 
+<div class="helpBig active">
+  <div class="close help-close">
+    <h1>x</h1>   
+  </div>
+</div>
+
 <!-- SMALL HOVERS -->
 <div class="main-bg">
     <div class="hovers">
+    <div class="help-img" id="help"> 
+        <button class="helpPop"></button>
+    </div>
     <div class="hover-img" id="board"> 
         <button class="boardPop"></button>
     </div> 
@@ -284,5 +295,6 @@
 <script src="js/popup.js"></script>
 <script src="js/transition.js"></script>
 <script src="js/img-transition.js"></script>
+<script src="js/music.js"></script>
 </body>
 </html>
