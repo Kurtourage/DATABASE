@@ -522,18 +522,46 @@ app.post('/execute-game-sql', (req, res) => {
 
 
   if (mode === 'story') {
+    
 // Check if gameDB has been initialized; if not, return an error
   if (!gameDbInitialized) {
   return res.status(500).json({ error: 'Game database not initialized' });
 }
 
+// Use parameterized queries or prepared statements to prevent SQL injection
+gameDb.all(sql, (err, results) => {
+  if (err) {
+    console.error('Error executing Game SQL query:', err);
+    res.status(500).json({ error: 'Internal Server Error' });
+    return;
+  }
+
+  // Generate the HTML table on the server side
+  const tableHtml = generateTableHtml(results);
+
+  // Send the HTML table in the response
+  res.json({ success: true, tableHtml });
+});
   }
 
   if (mode === 'classic') {
     if (!classicDbInitialized) {
       return res.status(500).json({ error: 'Game database not initialized' });
     }
-    
+    // Use parameterized queries or prepared statements to prevent SQL injection
+  classicDb.all(sql, (err, results) => {
+    if (err) {
+      console.error('Error executing Game SQL query:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+
+    // Generate the HTML table on the server side
+    const tableHtml = generateTableHtml(results);
+
+    // Send the HTML table in the response
+    res.json({ success: true, tableHtml });
+  });
   }
   
 
@@ -547,20 +575,7 @@ app.post('/execute-game-sql', (req, res) => {
     return;
   }
 
-  // Use parameterized queries or prepared statements to prevent SQL injection
-  gameDb.all(sql, (err, results) => {
-    if (err) {
-      console.error('Error executing Game SQL query:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
-    }
-
-    // Generate the HTML table on the server side
-    const tableHtml = generateTableHtml(results);
-
-    // Send the HTML table in the response
-    res.json({ success: true, tableHtml });
-  });
+  
 });
 
 // Function to generate HTML table from query results
@@ -1226,8 +1241,8 @@ counter = 0;
   
 
 
-    gameDb.serialize(() => {
-      gameDb.exec(`
+    classicDb.serialize(() => {
+      classicDb.exec(`
         ${createEmployeeTblSql}
         ${createEmployeeProjectsTblSql}
         ${createDepartmentsTblSql}
