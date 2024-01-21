@@ -4,8 +4,8 @@ fetch('/get-user-info')
   // Process the user data received from the server
 
   // Update the content of the profile-codename and profile-date-issued divs
-  const codenameElements = document.querySelectorAll('.profile-codename');
-  const dateIssuedElements = document.querySelectorAll('.profile-date-issued');
+  const codenameElements = document.querySelectorAll('.profile-codename1');
+  const dateIssuedElements = document.querySelectorAll('.profile-date-issued1');
 
   codenameElements.forEach(element => {
     element.textContent = `${data.username || 'N/A'}`;
