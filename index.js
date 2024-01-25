@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
+const { connect } = require('http2');
 const app = express();
 const port = 5173;
 
@@ -17,7 +18,8 @@ const classicDb = new sqlite3.Database(':memory:');
 let completedMissionsIndices = [];
 let userInputs = [];
 let username;
-
+let dbcoins;
+let userDbCoins;
 
 
 
@@ -112,6 +114,10 @@ app.post('/login', (req, res) => {
 // Define a route for handling signup requests
 app.post('/signup', (req, res) => {
   const { username, email, password } = req.body;
+
+  if (username.length > 15) {
+    return res.status(400).json({ error: "Username must not be longer than 15 characters." });
+  }
 
   // Get the current date and time in JavaScript
   const currentDate = new Date();
@@ -1308,7 +1314,45 @@ app.post('/reset-counter', (req, res) => {
 });
 
 
+app.get('/classic-add-coins', (req, res) => {
+  let username = req.session.user.username;
+  console.log(username);
+  connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+    console.log('Query results:', results); 
 
+    if (results.length > 0) {
+      userDbCoins = results[0].dbcoins;
+    } 
+
+    
+
+    else {
+      console.error('User not found.');
+      res.status(404).send('User not found.');
+      return;
+    }
+    
+ 
+
+
+dbcoins = userDbCoins + (counter * 50);
+
+connection.query("UPDATE users SET dbcoins = ? WHERE username = ?", [dbcoins, username] ,(err, results) => {
+if (err) {
+  console.error('Error executing MySQL query:', err);
+  res.status(500).send('Internal Server Error');
+  return;
+}
+
+res.json({ coins: dbcoins, correctAnswers: counter});
+});
+});
+});
 
 // Define a route for logging out
 app.get('/logout', (req, res) => {

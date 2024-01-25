@@ -1,3 +1,5 @@
+
+
 const mode = 'classic';
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -81,9 +83,42 @@ document.addEventListener("DOMContentLoaded", function () {
         // Additional logic when the timer reaches zero (end the game, etc.)
         alert("Time is up! Your score: ", correctAnswers);
         showStartAgainButton();
+
+        fetch('/classic-add-coins', {
+          method: 'get',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }) 
+        .then(response => response.json())
+        .then(data => {
+          console.log('Server resonse: ', data);
+
+              // Display coins information in a new div
+          const coinsInfoDiv = document.getElementById('coins-info');
+          coinsInfoDiv.textContent = `You earned ${data.coins} coins!`;
+
+          const correctAnswersInfoDiv = document.getElementById('correct-answers-info');
+          correctAnswersInfoDiv.textContent = `You got ${data.correctAnswers} correct answers!`;
+  
+          // You can further customize how the correct answers information is displayed (e.g., styling)
+          correctAnswersInfoDiv.style.display = 'block';
+          
+        // You can further customize how the coins information is displayed (e.g., styling)
+        coinsInfoDiv.style.display = 'block';
+
+        })
+
+        .catch(error => {
+
+          console.error("error sending request: ", error);
+        })
       }
     }, 1000);
   }
+
+
+
 
   function showStartAgainButton() {
     const startAgainButton = document.createElement('button');
