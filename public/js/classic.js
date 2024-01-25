@@ -78,6 +78,28 @@ document.addEventListener("DOMContentLoaded", function () {
       timeLeft--;
 
       if (timeLeft < 0) {
+
+        fetch('/update-high-score', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'Application/json',
+          },
+        })
+
+        .then(response => {
+          if(!response.ok) {
+            throw new Error ('Network response not OK');
+          }
+          return response.json();
+        })
+
+        .then(data => {
+          console.log('Server response: ', data);
+        })
+
+        .catch(error => {
+          console.error('Error: ', error); 
+        })
         clearInterval(timer);
         document.getElementById('timer').textContent = 'Time Up!';
         // Additional logic when the timer reaches zero (end the game, etc.)

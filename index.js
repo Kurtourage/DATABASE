@@ -12,15 +12,24 @@ const port = 5173;
 
 let gameDbInitialized = false;
 let classicDbInitialized = false;
+
+
   // SQLite database for the game
 const gameDb = new sqlite3.Database(':memory:');
 const classicDb = new sqlite3.Database(':memory:');
 let completedMissionsIndices = [];
 let userInputs = [];
 let username;
+let userId; 
 let dbcoins;
 let userDbCoins;
+let currentLevel = null;
 
+
+
+let sqlQuery;
+let problemStatement;
+let counter = 0;
 
 
 
@@ -82,7 +91,7 @@ app.post('/login', (req, res) => {
 
     if (results.length === 0) {
       // User not found
-      res.send('Invalid username or password');
+      res.json('Invalid username or password');
       return;
     }
 
@@ -656,9 +665,9 @@ const levels = [
 ];
 
 
-let currentLevel = null;
 
-let userId; 
+
+
 
 // Endpoint to start a level
 app.post('/start-level', (req, res) => {
@@ -757,12 +766,11 @@ app.get('/get-user-level', (req, res) => {
 
 app.get('/get-user-info', (req, res) => {
 
- // Check if the user is logged in (you can customize this based on your authentication logic)
+
  if (req.session.user) {
-  // If the user is logged in, send the user data
+  
   res.json(req.session.user);
 } else {
-  // If the user is not logged in, send an appropriate response
   res.status(401).json({ error: 'User not logged in' });
 }
 
@@ -867,9 +875,7 @@ app.get('/update-hud', (req, res) => {
 
 
 //Classic mode randomization 
-let sqlQuery;
-let problemStatement;
-let counter = 0;
+
 
 function generateRandomSQLProblem(counter) {
 
@@ -877,7 +883,7 @@ function generateRandomSQLProblem(counter) {
   
       const easy_template = [
           {
-            template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE department_name = '{{department}}'",
+            template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE department_name = '{{department}}'",
             problemStatement: "Retrieve all employees in the '{{department}}' department.",
           },
           {
@@ -914,7 +920,7 @@ function generateRandomSQLProblem(counter) {
           
   const medium_Template = [
       {
-        template: "SELECT employee_name, job_title FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE departments.department_name = '{{department}}' AND salary > {{salary}}",
+        template: "SELECT employee_name, job_title FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE departments.department_name = '{{department}}' AND salary > {{salary}}",
         problemStatement: "Retrieve  the names and job titles of employees  in the '{{department}}' department with a salary greater than {{salary}}.",
       },
       {
@@ -932,7 +938,7 @@ function generateRandomSQLProblem(counter) {
       },
   
       {
-          template: "SELECT employees.employee_name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE employees.department_id = '{{departmentId}}' AND employees.salary > {{salary}}",
+          template: "SELECT employees.employee_name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE employees.department_id = '{{departmentId}}' AND employees.salary > {{salary}}",
           problemStatement: "Retrieve the names of employees and their respective department names for those in the department with ID '{{departmentId}}' and a salary greater than {{salary}}.",
         },
         
@@ -942,7 +948,7 @@ function generateRandomSQLProblem(counter) {
         },
   
         {
-          template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.id WHERE department_name = '{{department}}' AND employees.salary BETWEEN {{minSalary}} AND {{maxSalary}}",
+          template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE department_name = '{{department}}' AND employees.salary BETWEEN {{minSalary}} AND {{maxSalary}}",
           problemStatement: "Retrieve all employees in the '{{department}}' department with salaries between {{minSalary}} and {{maxSalary}}.",
       },
       
@@ -1317,6 +1323,8 @@ app.post('/reset-counter', (req, res) => {
 app.get('/classic-add-coins', (req, res) => {
   let username = req.session.user.username;
   console.log(username);
+
+
   connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
@@ -1353,6 +1361,112 @@ res.json({ coins: dbcoins, correctAnswers: counter});
 });
 });
 });
+
+
+app.get('/update-high-score',(req, res) => {
+let username = req.session.user.username;
+let highscore = counter * 50;
+connection.query('UPDATE users SET classic_high_score = ? WHERE username = ?', [highscore, username], (err, results) => {
+  if (err) {
+    console.error('Error executing MySQL query:', err);
+    res.status(500).send('Internal Server Error');
+    return;
+  }
+  console.log("Successful updating high score for ", username);
+
+})
+});
+
+
+app.get('/get-leaderboards', (req, res) => {
+
+  connection.query("SELECT username, classic_high_score from users", (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    res.json(results);
+  });
+
+
+});
+
+
+app.get('/get-shop-items', (req, res) => {
+
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+  connection.query('SELECT * FROM shoptbl INNER JOIN cosmetic_linktbl on shoptbl.id = cosmetic_linktbl.item_id', (err, shopResults) => {
+      if (err) {
+          console.error('Error executing MySQL query:', err);
+          res.status(500).send('Internal Server Error');
+          return;
+      }
+
+      const shopItems = shopResults;
+
+      
+
+      connection.query('SELECT * from user_purchasestbl WHERE user_id = ?', [userId], (err, userResults) => {
+          if (err) {
+              console.error('Error executing MySQL query:', err);
+              res.status(500).send('Internal Server Error');
+              return;
+          }
+
+          const userPurchases = userResults;
+          res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+          res.json({ shopItems, userPurchases });
+      });
+  });
+});
+
+
+app.post('/buy-item', (req, res) => {
+const item_id = req.body.item_id;
+const item_price = req.body.price;
+const item_type = req.body.item_type;
+let username = req.session.user.username;
+
+
+connection.query("SELECT * from users where username = ? ", [username], (err, results) => {
+  if (err) {
+    console.error("Error executing MySQL query for selecting dbcoins: ", err);
+    res.status(500).send('Internal Server Error');
+    return;
+  }
+
+  if (results[0].dbcoins > item_price) {
+    userDbCoins = results[0].dbcoins - item_price;
+  }
+ 
+  
+  connection.query("UPDATE users SET dbcoins =  ? WHERE username = ? " ,[userDbCoins, username], (err, results)=> {
+    if (err) {
+      console.error("Error executing MySQL query for updating dbcoins: ", err);
+      res.status(500).send('Internal Server Error');
+      return;
+
+    }
+
+    connection.query ("INSERT INTO user_purchasestbl (item_id, user_id, type) VALUES (?, ?, ?)", [item_id, userId, item_type ], (err, results) => {
+
+      if (err) {
+        console.error("Error executing MySQL query for inserting into user_purchasestbl: ", err);
+        res.status(500).send('Internal Server Error');
+        return;
+  
+      }
+
+      console.log("Purchase successful.")
+    })
+  })
+})
+
+});
+
+
 
 // Define a route for logging out
 app.get('/logout', (req, res) => {

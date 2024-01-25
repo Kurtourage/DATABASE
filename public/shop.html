@@ -4,9 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
+    <style>
+        .card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  width: 200px; /* Adjust the width as needed */
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+.card.purchased {
+    opacity: 0.5; 
+}
+
+/* Optionally, style the disabled buy button */
+.card.purchased button {
+    cursor: not-allowed; /* Show a not-allowed cursor for disabled button */
+}
+
+}
+
+img {
+  max-width: 100%; /* Make sure images don't exceed the width of the card */
+}
+
+    </style>
 </head>
 <body>
+
+    <div id = "dbcoins"></div>
     
-    <div class =""></div>
+    <div id="shop-items"></div>
+    <script src="js/shop.js"></script>
 </body>
 </html>
