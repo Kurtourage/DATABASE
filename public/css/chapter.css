@@ -25,10 +25,18 @@ body{
     position: relative;
     width: 960px;
     height: 540px;
+}
+#main-bg{
     background-image: url(../assets/story_main.png);
     background-repeat: no-repeat;
     background-size: cover
 }
+#classic-bg{
+    background-image: url(../assets/classic_bg.png);
+    background-repeat: no-repeat;
+    background-size: cover
+}
+
 .back-bg{
     position: absolute;
     z-index: -10;
@@ -241,7 +249,7 @@ textarea::placeholder{
     height: 512px;
     border-radius: 16px;
     position: absolute;
-left: 288px;
+    left: 288px;
     user-select: none;
     transition-property: transform, opacity, zIndex, ; 
     transition-duration: 0.3s; 
@@ -805,16 +813,45 @@ height: 100%;
 }
 .timer_div{
     position: absolute;
-    width: 100px;
+    width: 98px;
     height: 45px;
-    border: 1px solid yellow;
+    border: none;
     z-index: 15;
+    top: 342px;
+    left: 294px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
 }
 .startgame.active{
     display: block;
 }
 .startgame{
     display: none;
+}
+
+
+.classic-tutorial{
+    width: 384px;
+    height: 512px;
+    border-radius: 16px;
+    position: absolute;
+    left: 288px;
+    user-select: none;
+    transition-property: transform, opacity, zIndex, ; 
+    transition-duration: 0.3s; 
+    transition-timing-function: ease-out; 
+    border: 1px solid #ffa400;
+}
+#classic-1{
+    color: red;
+}
+#classic-2{
+    color: yellow;
+}
+#classic-3{
+    color:gray;
 }
 
 

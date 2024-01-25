@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     timer = setInterval(function () {
       const minutes = Math.floor(timeLeft / 60);
       const seconds = timeLeft % 60;
-      document.getElementById('timer').textContent = `Time Left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+      document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
       timeLeft--;
 
       if (timeLeft < 0) {
@@ -349,3 +349,82 @@ const starting = document.querySelector('.startgame');
 starting.addEventListener("click", () => {
   starting.classList.remove('active');
 });
+
+// FOR BOARD
+const board = document.querySelector('.boardBig');
+const overlay = document.querySelector('.overlay');
+const showBoard = document.querySelector(".boardPop");
+const unshowBoard = document.querySelector(".board-close");
+
+showBoard.addEventListener("click", () => {
+    board.classList.add('active');
+    overlay.classList.add('active');
+});
+
+unshowBoard.addEventListener("click", () => {
+    board.classList.remove('active');
+    overlay.classList.remove('active');
+});
+//FOR COMPUTER
+const computer = document.querySelector('.computerBig');
+const showComputer = document.querySelector(".computerPop");
+const unshowComputer = document.querySelector(".computer-close");
+
+showComputer.addEventListener("click", () => {
+    computer.classList.add('active');
+    overlay.classList.add('active');
+    
+});
+
+unshowComputer.addEventListener("click", () => {
+    computer.classList.remove('active');
+    overlay.classList.remove('active');
+});
+
+const textarea = document.querySelector("textarea");
+let prevScrollHeight = textarea.scrollHeight;
+
+textarea.addEventListener("input", function(e) {
+    let newScrollHeight = this.scrollHeight;
+    if (prevScrollHeight > newScrollHeight) {
+        this.style.height = `${newScrollHeight - prevScrollHeight }px`;
+
+    } else {
+        this.style.height = "auto";
+        this.style.height = `${this.scrollHeight}px`;
+    }
+    prevScrollHeight = newScrollHeight;
+});
+
+
+
+// FOR RIDDLE
+const riddle = document.querySelector('.riddleBig');
+const showRiddle = document.querySelector(".riddlePop");
+const unshowRiddle = document.querySelector(".riddle-close");
+
+showRiddle.addEventListener("click", () => {
+    riddle.classList.add('active');
+    overlay.classList.add('active');
+});
+
+unshowRiddle.addEventListener("click", () => {
+    riddle.classList.remove('active');
+    overlay.classList.remove('active');
+});
+
+// FOR tutorial
+const tutorial = document.querySelector('.tutorialBig');
+const showTutorial = document.querySelector(".tutorialPop");
+const unshowTutorial = document.querySelector(".tutorial-close");
+
+showTutorial.addEventListener("click", () => {
+    tutorial.classList.add('active');
+    overlay.classList.add('active');
+});
+
+unshowTutorial.addEventListener("click", () => {
+    tutorial.classList.remove('active');
+    overlay.classList.remove('active');
+});
+

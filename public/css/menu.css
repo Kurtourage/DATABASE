@@ -423,31 +423,21 @@ body{
     background-image: url(../assets/profile-exit1.png);
     background-size: 100% 100%;
 }
-#profileIDBtn
+.profileID
 {
     background-color: transparent;
     background-image: url(../assets/profile1.png);
     background-size: 100% 100%;
 }
-#profileEditBtn{
+.profileIDEdit{
     background-color: transparent;
     background-image: url(../assets/profile-edit1.png);
     background-size: 100% 100%;
 }
-#shopIDBtn
+.shopID
 {
     background-color: transparent;
     background-image: url(../assets/shop1.png);
-    background-size: 100% 100%;
-}
-.shopBtn.active{
-    background-color: transparent;
-    background-image: url(../assets/shop2.png);
-    background-size: 100% 100%;
-}
-.profile.active{
-    background-color: transparent;
-    background-image: url(../assets/profile2.png);
     background-size: 100% 100%;
 }
 #closeProfileBtn:hover{
@@ -455,17 +445,32 @@ body{
     background-image: url(../assets/profile-exit2.png);
     background-size: 100% 100%;
 }
-#profileIDBtn:hover{
+.profileID:hover{
     background-color: transparent;
     background-image: url(../assets/profile2.png);
     background-size: 100% 100%;
 }
-#profileEditBtn:hover{
+.profileIDEdit:hover{
     background-color: transparent;
     background-image: url(../assets/profile-edit2.png);
     background-size: 100% 100%;
 }
-#shopIDBtn:hover{
+.shopID:hover{
+    background-color: transparent;
+    background-image: url(../assets/shop2.png);
+    background-size: 100% 100%;
+}
+.profileID.active{
+    background-color: transparent;
+    background-image: url(../assets/profile2.png);
+    background-size: 100% 100%;
+}
+.profileIDEdit.active{
+    background-color: transparent;
+    background-image: url(../assets/profile-edit2.png);
+    background-size: 100% 100%;
+}
+.shopID.active{
     background-color: transparent;
     background-image: url(../assets/shop2.png);
     background-size: 100% 100%;

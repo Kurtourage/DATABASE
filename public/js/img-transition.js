@@ -59,8 +59,6 @@ function layout() {
   
   for(let i = 0; i < imgs.length; i++){
     img = imgs[i];
-
-    
     const sign = Math.sign(i - index);
 
     let xOffset = (i - index) * xOffsetStep;

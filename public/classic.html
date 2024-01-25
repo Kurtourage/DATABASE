@@ -17,7 +17,6 @@
 <!-- Level 1 content -->
 
 <div id="button-container"></div>
-<div class="timer_div" id="timer">Time Left:</div>
 <button class="startgame active" id="startGameBtn">Start Game</button>
 
 <div id="ch1_1" ></div>
@@ -37,10 +36,8 @@
   <button id="end-btn">End</button></div>
 </div>-->
 <div class="overlay">
-  
 </div>  
-<div id="coins-info" class="coins-info"></div>
-  <div id="correct-answers-info" class="correct-answers-info"></div>
+
     <!-- SETTINGS -->
     <div class="connector"></div>
     <div class="credits ch_cr1" id="ch_cr1"></div>
@@ -60,17 +57,13 @@
 <!-- </div> BIG HOVERS -->
 <div class="boardBig">
     <div class="close board-close">
-                <p>x</p>
+      <h1>x</h1>
     </div>
 </div>
-<div class="bookBig">
-  <div class="close book-close">
-    <p>x</p>
-  </div>
-</div>
+
 <div class="riddleBig">
   <div class="close riddle-close">
-    <p>x</p>
+    <h1>x</h1>
   </div>
   
 </div>
@@ -81,11 +74,7 @@
     <div class="cheatsheet" id="cheatsheet">
   </div>
 </div>
-<div class="newspaperBig">
-  <div class="close newspaper-close">
-    <p>x</p>
-  </div>
-</div>
+
 <div class="computerBig">
     <div class="close computer-close">
       <h1>OFF</h1>
@@ -108,20 +97,12 @@
 </div>
 
 <!-- SMALL HOVERS -->
-<div class="main-bg">
-
+<div class="main-bg" id="classic-bg">
     <div class="hovers">
+    <div class="timer_div" id="timer"></div>
     <div class="hover-img" id="board"> 
         <button class="boardPop"></button>
     </div> 
-
-    <div class="hover-img" id="book">
-      <button class="bookPop"></button>
-    </div>
-
-    <div class="hover-img" id="newspaper">
-      <button class="newspaperPop"></button>
-    </div>
 
     <div class="hover-img" id="tutorial">
       <button class="tutorialPop"></button>
@@ -141,7 +122,6 @@
 <script src="dist/sql-wasm.js"></script>
 
 <script src="js/checkLogin.js"></script>
-<script src="js/popup.js"></script>
 <script src="js/classic.js"></script>
 </body>
 </html>
