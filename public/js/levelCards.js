@@ -38,7 +38,14 @@ async function generateCards() {
                 card.style.cursor = 'not-allowed';
             } else {
                 // Display the chapter number on unlocked cards
-                card.textContent = 'CHAPTER ' + chapterId;
+                cardImages = ['assets/chaptersmall1.png',
+                'assets/chaptersmall2.png',
+                'assets/chaptersmall3.png',
+                'assets/chaptersmall4.png',
+                'assets/chaptersmall5.png'];
+                var cardImagesElement = document.createElement('img');
+                cardImagesElement.src = cardImages[chapterId-1];
+                card.appendChild(cardImagesElement);
     
                 // Set the background color based on the chapterColor array
                 card.style.backgroundColor = chapterColor[index];

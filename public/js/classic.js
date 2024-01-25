@@ -321,3 +321,9 @@ const cheatsheetContent = `
 
 const existingDiv = document.getElementById('cheatsheet');
 existingDiv.innerHTML = cheatsheetContent;
+
+const starting = document.querySelector('.startgame');
+
+starting.addEventListener("click", () => {
+  starting.classList.remove('active');
+});

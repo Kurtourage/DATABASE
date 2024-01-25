@@ -810,9 +810,13 @@ height: 100%;
     border: 1px solid yellow;
     z-index: 15;
 }
-.startgame .active{
-    visibility: hidden;
+.startgame.active{
+    display: block;
 }
+.startgame{
+    display: none;
+}
+
 
 
 
