@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/menu.css">
     <title>Story mode</title>
-    <script src="js/checkLogin.js"></script>
-    <script src="js/levelCards.js"></script>
-    <script src="js/transition.js"></script>
-    <script src="js/profile.js"></script>
    
 </head>
 <body>
@@ -25,36 +21,39 @@
    <div class="overlay">
 </div>
 <div class="profilepopup">
-<div class="character-profile" id="char-profile">
-        <div class="profile-frame" id="prof-frame">
-            <div class="profile-picture" id="prof-picture">
+    <div class="character-profile" id="char-profile">
+            <div class="profile-frame" id="prof-frame">
+                <div class="profile-picture" id="prof-picture">
 
+                </div>
             </div>
-        </div>
-        <div class="profile-codename">
-            <h1>HAPPYDEIGH</h1>
-        </div>
-        <div class="profile-date-issued">
-            <h1>01-01-2023</h1>
-        </div>
-    <div class="shop">
-    </div>
-</div>
-<div class="profile-btn">
-    <div class="closeProfile">
-        X
-    </div>
-    <div class="profile-id-btn">
-        
-    </div>
-    <div class="profile-edit-btn">
+            <div class="profile-codename">
+                <h1 class="profile-codename1"></h1>
+            </div>
+            <div class="profile-date-issued">
+                <h1 class="profile-date-issued1"></h1>
+            </div>
+        <div class="shop-popup" id="shop-profile">
 
+        </div>
     </div>
-    <div class="shop-id-btn">
+    <div class="profile-sidebar">
+        <div class="profile-btn">
+            <button class="closeProfile" id="closeProfileBtn"></button>
+        </div>
+        <div class="profile-btn">
+            <button class="profile active" id="profileIDBtn"></button>
+        </div>
+        <div class="profile-btn">
+            <button class="profileEdit" id="profileEditBtn"></button>
+        </div>
+        <div class="profile-btn">
+            <button class="shop" id="shopIDBtn"></button>
+        </div>
+    </div>  
+    </div>
 
-    </div>
-</div>  
-</div>
+
     <!-- SETTINGS -->
     <div class="settings signout">
       <div class="settings-btn">
@@ -68,7 +67,7 @@
   </div>
   <div class="credits">
     <div class="credits-btn profileBtn">
-        <button id="profileBtn"></button>
+        <button class="profileBtn" id="profileBtn"></button>
     </div> 
     <div class="credits-btn">
         <button id="leaderboardBtn"> </button>
@@ -77,7 +76,6 @@
 
        <!-- title -->
        <div class="title chapters-title">
-
        </div>
 
    <div class="cards">
@@ -104,4 +102,8 @@
 
 
 </body>
+<script src="js/checkLogin.js"></script>
+<script src="js/levelCards.js"></script>
+<script src="js/transition.js"></script>
+<script src="js/profile.js"></script>
 </html>

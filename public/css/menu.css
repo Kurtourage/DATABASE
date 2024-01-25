@@ -271,14 +271,85 @@ body{
 .profilepopup.active{
     visibility: visible;
 }
-.character-profile{
+.firstside{ 
     margin: 0;
     width: 896px;
+}
+.character-profile{
+    position: absolute;
+    z-index: 30;
+    margin: 0;
+    width: 896px;
+    height: 100%;
     border: none;
     background-image: url(../assets/profile-id.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    visibility: hidden;
 }
+.character-profile.active{
+    visibility: visible;
+}
+.shop-popup{
+    width: 896px;
+    height: 620px;
+    border: 1px solid #130900;
+    background-color: #ffd262;
+    visibility: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    z-index: 10;
+}
+.shop-popup.active{
+    visibility: visible;
+}
+.shop-grid{
+    padding: 20px;
+    width: 896px;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.shop-grid img{
+    width: 199px;
+    height: 199px;
+    border: 1px solid #130900;
+    display: block;
+}
+
+.inventory-popup{
+    width: 896px;
+    height: 620px;
+    border: 1px solid #130900;
+    background-color: #ffd262;
+    visibility: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    z-index: 20;
+}
+.inventory-popup.active{
+    visibility: visible;
+}
+.inventory-grid{
+    padding: 20px;
+    width: 896px;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.inventory-grid img{
+    width: 199px;
+    height: 199px;
+    border: 1px solid #130900;
+    display: block;
+}
+
+
+
 
 
 .profile-frame{
@@ -366,7 +437,17 @@ body{
 #shopIDBtn
 {
     background-color: transparent;
-    background-image: url(../assets/logout1.png);
+    background-image: url(../assets/shop1.png);
+    background-size: 100% 100%;
+}
+.shopBtn.active{
+    background-color: transparent;
+    background-image: url(../assets/shop2.png);
+    background-size: 100% 100%;
+}
+.profile.active{
+    background-color: transparent;
+    background-image: url(../assets/profile2.png);
     background-size: 100% 100%;
 }
 #closeProfileBtn:hover{
@@ -386,6 +467,6 @@ body{
 }
 #shopIDBtn:hover{
     background-color: transparent;
-    background-image: url(../assets/logout2.png);
+    background-image: url(../assets/shop2.png);
     background-size: 100% 100%;
 }

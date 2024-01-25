@@ -803,6 +803,20 @@ height: 100%;
     background-size: 100% 100%;
     cursor: pointer;
 }
+.timer_div{
+    position: absolute;
+    width: 100px;
+    height: 45px;
+    border: 1px solid yellow;
+    z-index: 15;
+}
+.startgame.active{
+    display: block;
+}
+.startgame{
+    display: none;
+}
+
 
 
 
