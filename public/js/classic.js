@@ -196,9 +196,93 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.getElementById('startGameBtn').addEventListener('click', function () {
+    
     resetGame();
     startTimer();
     // Call the function to execute the first SQL query when the game starts
     getProblem();
   });
 });
+
+const cheatsheetContent = `
+<div class="cheatsheet">
+      <br>
+      <h3>Basic Commands:</h3>
+      <br>
+      <p><strong>SELECT:</strong> Retrieve data from a database.<br>
+      <em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
+      <br>
+      <p><strong>INSERT:</strong> Add new records into a table.<br>
+      <em>INSERT INTO table_name (column1, column2) VALUES (value1, value2);</em></p>
+      <br>
+      <p><strong>UPDATE:</strong> Modify existing records in a table.<br>
+      <em>UPDATE table_name SET column1 = value1 WHERE condition;</em></p>
+      <br>
+      <p><strong>DELETE:</strong> Remove records from a table.<br>
+      <em>DELETE FROM table_name WHERE condition;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Filtering Data:</h3>
+      <br>
+      <p><strong>WHERE:</strong> Conditionally filter rows.<br>
+      <em>SELECT * FROM table_name WHERE condition;</em></p>
+      <br>
+      <p><strong>AND/OR:</strong> Combine multiple conditions.<br>
+      <em>SELECT * FROM table_name WHERE condition1 AND/OR condition2;</em></p>
+      <br>
+      <p><strong>LIKE:</strong> Pattern matching with wildcard characters.<br>
+      <em>SELECT * FROM table_name WHERE column_name LIKE 'pattern';</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Sorting Data:</h3>
+      <br>
+      <p><strong>ORDER BY:</strong> Sort query results.<br>
+      <em>SELECT * FROM table_name ORDER BY column_name ASC/DESC;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Aggregation Functions:</h3>
+      <br>
+      <p><strong>COUNT:</strong> Count number of rows.<br>
+      <em>SELECT COUNT(column_name) FROM table_name;</em></p>
+      <br>
+      <p><strong>SUM:</strong> Calculate sum of values.<br>
+      <em>SELECT SUM(column_name) FROM table_name;</em></p>
+      <br>
+      <p><strong>AVG:</strong> Compute average value.</em><br>
+      <em>SELECT AVG(column_name) FROM table_name;</em></p>
+      <br>
+      <p><strong>MAX/MIN:</strong> Retrieve maximum/minimum value.<br>
+      <em>SELECT MAX(column_name) FROM table_name;</em><br>
+      <em>SELECT MIN(column_name) FROM table_name;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Joining Tables:</h3>
+      <br>
+      <p><strong>INNER JOIN:</strong> Combine rows from different tables.<br>
+      <em>SELECT * FROM table1 INNER JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <p><strong>LEFT JOIN:</strong> Retrieve all records from the left table and matching records from the right table.<br>
+      <em>SELECT * FROM table1 LEFT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <p><strong>RIGHT JOIN:</strong> Retrieve all records from the right table and matching records from the left table.<br>
+      <em>SELECT * FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Grouping Data:</h3>
+      <br>
+      <p><strong>GROUP BY:</strong> Group rows that have the same values.<br>
+      <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1;</em></p>
+      <br>
+      <p><strong>HAVING:</strong> Filter groups based on conditions.<br>
+      <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1 HAVING COUNT(column2) > value;</em></p>
+      <br>
+      <br>
+  </div>`;
+
+const existingDiv = document.getElementById('cheatsheet');
+existingDiv.innerHTML = cheatsheetContent;
