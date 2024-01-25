@@ -1,17 +1,11 @@
-let price;
-let item_id;
-let item_type;
-let user_dbcoins;
 
-
-
-fetch('/get-user-info', {
+fetch('/get-user-info?' + new Date().getTime(), {
     method: 'GET',
     headers: {
         'Content-type': 'application/json', 
     },
-
 })
+
 
 .then(response => {
     if (!response.ok) {
@@ -68,17 +62,16 @@ fetch('/get-shop-items', {
             const linkElement = document.createElement('img');
             linkElement.src = result.link; 
             linkElement.alt = result.name; 
-            item_id = result.item_id;
-            item_type = result.type;
-            price = result.price;
-            
+            const item_id = result.item_id;  // Declare as local variable
+            const item_type = result.type;  // Declare as local variable
+            const price = result.price; 
+
             const buyButton = document.createElement('button');
             buyButton.textContent = 'Buy';
 
 
             const isPurchased = userPurchases.some(purchase => purchase.item_id === result.item_id);
-
-            // If purchased, add a class for styling (e.g., grey out)
+          
             if (isPurchased) {
                 cardDiv.classList.add('purchased'); // Add your CSS class for styling
                 buyButton.disabled = true; // Optionally, disable the buy button
