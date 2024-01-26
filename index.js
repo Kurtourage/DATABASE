@@ -763,18 +763,14 @@ app.get('/get-user-level', (req, res) => {
 
 });
 
-
 app.get('/get-user-info', (req, res) => {
-
-
- if (req.session.user) {
-  
-  res.json(req.session.user);
-} else {
-  res.status(401).json({ error: 'User not logged in' });
-}
-
-}) ;
+  if (req.session.user) {
+      // Append a random query parameter to prevent caching
+      res.json({ ...req.session.user, timestamp: new Date().getTime() });
+  } else {
+      res.status(401).json({ error: 'User not logged in' });
+  }
+});
 
 
 
@@ -1435,33 +1431,41 @@ connection.query("SELECT * from users where username = ? ", [username], (err, re
     console.error("Error executing MySQL query for selecting dbcoins: ", err);
     res.status(500).send('Internal Server Error');
     return;
-  }
+  };
 
   if (results[0].dbcoins > item_price) {
     userDbCoins = results[0].dbcoins - item_price;
-  }
- 
+
   
-  connection.query("UPDATE users SET dbcoins =  ? WHERE username = ? " ,[userDbCoins, username], (err, results)=> {
-    if (err) {
-      console.error("Error executing MySQL query for updating dbcoins: ", err);
-      res.status(500).send('Internal Server Error');
-      return;
-
-    }
-
-    connection.query ("INSERT INTO user_purchasestbl (item_id, user_id, type) VALUES (?, ?, ?)", [item_id, userId, item_type ], (err, results) => {
-
+    connection.query("UPDATE users SET dbcoins =  ? WHERE username = ? " ,[userDbCoins, username], (err, results)=> {
       if (err) {
-        console.error("Error executing MySQL query for inserting into user_purchasestbl: ", err);
+        console.error("Error executing MySQL query for updating dbcoins: ", err);
         res.status(500).send('Internal Server Error');
         return;
   
       }
-
-      console.log("Purchase successful.")
+  
+      connection.query ("INSERT INTO user_purchasestbl (item_id, user_id, type) VALUES (?, ?, ?)", [item_id, userId, item_type ], (err, results) => {
+  
+        if (err) {
+          console.error("Error executing MySQL query for inserting into user_purchasestbl: ", err);
+          res.status(500).send('Internal Server Error');
+          return;
+    
+        }
+  
+        console.log("Purchase successful.")
+        res.json("Purchase successful.")
+      })
     })
-  })
+
+    
+  }
+ 
+  else {
+    res.json({message: "Insufficient dbcoins. "})
+  }
+
 })
 
 });
