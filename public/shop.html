@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
     <style>
+        body{
+            height: auto;
+        }
         .card {
   border: 1px solid #ddd;
   padding: 10px;
@@ -16,6 +19,7 @@
 .card.purchased {
     opacity: 0.5; 
 }
+
 
 /* Optionally, style the disabled buy button */
 .card.purchased button {
@@ -34,7 +38,7 @@ img {
 
     <div id = "dbcoins"></div>
     
-    <div id="shop-items"></div>
+    <div class="shopitems" id="shop-items"></div>
     <script src="js/shop.js"></script>
 </body>
 </html>

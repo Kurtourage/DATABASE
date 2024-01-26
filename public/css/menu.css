@@ -301,6 +301,20 @@ body{
     position: absolute;
     z-index: 10;
 }
+.shop-popup::-webkit-scrollbar-track {
+    background-color: transparent; /* Set the color of the scrollbar track */
+}
+.shop-popup::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+}
+
+.shop-popup::-webkit-scrollbar-thumb {
+    background-color: #ffa400; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; 
+    height: 30px;
+/* Optional: Add rounded corners to the scrollbar thumb */
+}
 .shop-popup.active{
     visibility: visible;
 }
@@ -312,11 +326,25 @@ body{
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
-.shop-grid img{
+.shop-card{
     width: 199px;
-    height: 199px;
-    border: 1px solid #130900;
+    height: 298.5px;
+    border: none;
     display: block;
+    padding-top: 25px;
+    background-color: transparent;
+    background-image: url(../assets/shop-card.png);
+    background-size: 100% 100%;
+    text-align: center;
+}
+.shop-card img{
+    width: 150px;
+    height: auto;
+    border: #130900;
+}
+.buyBtn{
+    width: 64px;
+    height: 24px;
 }
 
 .inventory-popup{

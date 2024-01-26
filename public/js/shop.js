@@ -56,7 +56,7 @@ fetch('/get-shop-items', {
         // Iterate through the data and create cards for each result
         data.shopItems.forEach(result => {
             const cardDiv = document.createElement('div');
-            cardDiv.classList.add('card');
+            cardDiv.classList.add('shop-card');
 
             // Create and append elements for name, item_id, and link
             const nameElement = document.createElement('p');
@@ -73,6 +73,7 @@ fetch('/get-shop-items', {
             price = result.price;
             
             const buyButton = document.createElement('button');
+            buyButton.classList.add('buyBtn')
             buyButton.textContent = 'Buy';
 
 
