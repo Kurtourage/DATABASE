@@ -111,7 +111,15 @@ app.post('/login', (req, res) => {
       if (passwordMatch) {
         // Passwords match, login successful
         req.session.user = results[0]; // Store user information in the session
-        res.redirect('/menu.html');
+
+        if (req.session.user.user_type == 'admin') {
+          res.redirect('/admin_dashboard.html');
+        }
+
+        if (req.session.user.user_type != 'admin') {
+          res.redirect('/menu.html');
+        }
+       
       } else {
         // Passwords do not match
         res.send('Invalid username or password');
@@ -120,9 +128,12 @@ app.post('/login', (req, res) => {
   });
 });
 
+
+
 // Define a route for handling signup requests
 app.post('/signup', (req, res) => {
   const { username, email, password } = req.body;
+  console.log(username, email, password);
 
   if (username.length > 15) {
     return res.status(400).json({ error: "Username must not be longer than 15 characters." });
@@ -160,7 +171,7 @@ app.post('/signup', (req, res) => {
 
         // Inserting data to the database
         connection.query(
-          'INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins, creation_date) VALUES (?, ?, ?, 0, 1, 0, ?)',
+          "INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins, creation_date, user_type) VALUES (?, ?, ?, 0, 1, 0, ?, 'user')",
           [username, email, hashedPassword, formattedDate],
           (insertErr, results) => {
             if (insertErr) {
@@ -1470,6 +1481,42 @@ connection.query("SELECT * from users where username = ? ", [username], (err, re
 
 });
 
+app.get('/get-inventory-items', (req, res) => {
+
+  connection.query("SELECT DISTINCT cosmetic_linktbl.item_id, cosmetic_linktbl.link, user_purchasestbl.user_id, shoptbl.name FROM cosmetic_linktbl LEFT JOIN user_purchasestbl ON cosmetic_linktbl.item_id = user_purchasestbl.item_id LEFT JOIN shoptbl ON user_purchasestbl.item_id = shoptbl.id WHERE cosmetic_linktbl.link LIKE '%default%' OR user_purchasestbl.user_id = ?; ", [userId], (err, results) => {
+  if (err) {
+    console.error("Error executing MySQL query for getting inventory items: ", err);
+    res.status(500).send('Internal Server Error');
+    return;
+
+    
+  }
+  console.log("Inventory item retrieval successful.")
+  res.json(results);
+
+ 
+
+  });
+
+});
+
+
+app.get('/get-users', (req, res) => {
+
+connection.query("SELECT * from users where user_type != 'admin'", (err, results) => {
+
+  if (err) {
+    console.error("Error executing MySQL query for getting users (admin): ", err);
+    res.status(500).send('Internal Server Error');
+    return;
+
+  }
+
+  res.json(results);
+});
+
+
+}) 
 
 
 // Define a route for logging out
@@ -1486,6 +1533,11 @@ app.get('/logout', (req, res) => {
     res.redirect('/login.html');
   });
 });
+
+
+
+
+
 
 // Start the server
 app.listen(port, () => {
