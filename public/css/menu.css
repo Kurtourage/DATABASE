@@ -337,6 +337,9 @@ body{
     background-size: 100% 100%;
     text-align: center;
 }
+.shop-card.purchased{
+    opacity: 0.5; 
+}
 .shop-card img{
     width: 150px;
     height: auto;

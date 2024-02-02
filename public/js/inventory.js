@@ -12,15 +12,12 @@
 
       items.forEach(function(item) {
         var card = document.createElement('div');
-        card.className = 'card';
-        
+        card.className = 'card'; 
              // Display image
              var img = document.createElement('img');
              img.src = item.link;
              img.alt = item.name; 
              card.appendChild(img);
-
-
         container.appendChild(card);
       });
     }
