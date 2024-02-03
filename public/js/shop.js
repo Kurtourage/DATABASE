@@ -6,7 +6,6 @@ fetch('/get-user-info?' + new Date().getTime(), {
     },
 })
 
-
 .then(response => {
     if (!response.ok) {
         throw new Error('Network response not OK');
