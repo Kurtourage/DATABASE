@@ -4,6 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory</title>
+    <style>
+        #inventory-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Adjust the values as needed */
+          gap: 10px; /* Adjust the gap between items */
+        }
+      
+        .card {
+          /* Add any additional styles for the card here */
+        }
+      
+        img {
+          width: 100%; /* Ensure the image takes up the full width of its container */
+          height: auto; /* Maintain aspect ratio */
+        }
+
+            /* Add this to your existing CSS or in a style tag in your HTML */
+        .card.greyed-out {
+        opacity: 0.7; /* You can adjust the opacity to control the level of greying out */
+        /* Add any other styles for the greyed-out state */
+        }
+
+      </style>
+      
 </head>
 <body>
     <div id="inventory-container"></div>

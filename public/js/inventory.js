@@ -1,27 +1,72 @@
+let user_pic;
 
-  document.addEventListener('DOMContentLoaded', function () {
-   
+function fetchAndDisplayInventory() {
+  fetch(`/get-inventory-items`)
+    .then(response => response.json())
+    .then(data => {
+      // Check if data is not empty
+      if (data.length > 0) {
+        // Assuming the first row has a property called 'user_pic'
+        user_pic = data[0].user_pic;
 
-    fetch(`/get-inventory-items`)
-      .then(response => response.json())
-      .then(data => displayInventoryItems(data))
-      .catch(error => console.error('Error retrieving inventory items:', error));
+        // Now you can use the user_pic variable as needed
+        console.log('User Pic:', user_pic);
 
-    function displayInventoryItems(items) {
-      var container = document.getElementById('inventory-container');
+        // Call the displayInventoryItems function with the data
+        displayInventoryItems(data);
+      } else {
+        console.error('Error: Empty data received.');
+      }
+    })
+    .catch(error => console.error('Error retrieving inventory items:', error));
+}
 
-      items.forEach(function(item) {
-        var card = document.createElement('div');
-        card.className = 'card';
-        
-             // Display image
-             var img = document.createElement('img');
-             img.src = item.link;
-             img.alt = item.name; 
-             card.appendChild(img);
+function displayInventoryItems(items) {
+  var container = document.getElementById('inventory-container');
+  container.innerHTML = ''; // Clear the container before adding updated cards
 
+  items.forEach(function(item) {
+    var card = document.createElement('div');
+    card.className = 'card';
 
-        container.appendChild(card);
-      });
+    // Check if items.user_pic == items.item_id
+    if (item.item_id == user_pic) {
+      card.classList.add('greyed-out'); // Add a class to grey out the card
     }
+
+    // Display image
+    var img = document.createElement('img');
+    img.src = item.link;
+    img.alt = item.name; 
+    card.appendChild(img);
+
+    // Add "Use" button
+    var useButton = document.createElement('button');
+    useButton.textContent = 'Use';
+
+    useButton.addEventListener('click', function() {
+      alert('Item used: ' + item.item_id);
+
+      // Simulate the change-profile-picture endpoint
+      // Replace this fetch with your actual endpoint
+      fetch('/change-profile-picture', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ item_id: item.item_id }),
+      })
+      
+      .catch(error => console.error('Error updating inventory:', error));
+
+      fetchAndDisplayInventory();
+    });
+
+    card.appendChild(useButton);
+    container.appendChild(card);
   });
+}
+
+// Initial fetch and display
+fetchAndDisplayInventory();
+

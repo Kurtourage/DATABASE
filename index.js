@@ -873,6 +873,68 @@ app.get('/update-hud', (req, res) => {
 
 
 
+app.post('/level-5-checker', (req, res) => {
+
+const ans = req.body.sqlInput;
+
+const ansLowered = ans.toLowerCase();
+
+const isChiefButlerEnterred = ansLowered.includes('edmund thatcher');
+
+const isMastermindEnterred = ansLowered.includes('evelyn whitewood');
+
+const deleteSuspectEntriesSql = `DELETE from suspect`;
+
+if (completedMissionsIndices.some(index => [0, 1, 2].includes(index))) {
+
+  if (isChiefButlerEnterred && !isMastermindEnterred) {
+
+    res.json("You are close, he's not the mastermind but he is an accomplice.");
+
+
+    gameDb.exec(`${deleteSuspectEntriesSql}`, (err) => {
+      if (err) {
+        console.error('Error executing SQL queries:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+      });
+    }
+    
+  
+  
+  if (!isChiefButlerEnterred && isMastermindEnterred) {
+  
+  res.json("You got the mastermind!");
+
+  gameDb.exec(`${deleteSuspectEntriesSql}`, (err) => {
+    if (err) {
+      console.error('Error executing SQL queries:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+    });
+  
+  }
+  
+  else {
+  
+    gameDb.exec(`${deleteSuspectEntriesSql}`, (err) => {
+      if (err) {
+        console.error('Error executing SQL queries:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+      }
+      });
+
+  }
+  
+}
+
+
+
+
+})
 
 
 
@@ -1483,7 +1545,7 @@ connection.query("SELECT * from users where username = ? ", [username], (err, re
 
 app.get('/get-inventory-items', (req, res) => {
 
-  connection.query("SELECT DISTINCT cosmetic_linktbl.item_id, cosmetic_linktbl.link, user_purchasestbl.user_id, shoptbl.name FROM cosmetic_linktbl LEFT JOIN user_purchasestbl ON cosmetic_linktbl.item_id = user_purchasestbl.item_id LEFT JOIN shoptbl ON user_purchasestbl.item_id = shoptbl.id WHERE cosmetic_linktbl.link LIKE '%default%' OR user_purchasestbl.user_id = ?; ", [userId], (err, results) => {
+  connection.query("SELECT DISTINCT cosmetic_linktbl.item_id, cosmetic_linktbl.link, user_purchasestbl.user_id, user_pic, shoptbl.name FROM cosmetic_linktbl LEFT JOIN user_purchasestbl ON cosmetic_linktbl.item_id = user_purchasestbl.item_id LEFT JOIN shoptbl ON user_purchasestbl.item_id = shoptbl.id LEFT JOIN users ON user_purchasestbl.user_id = users.user_id WHERE cosmetic_linktbl.link LIKE '%default%' OR user_purchasestbl.user_id = ?; ", [userId], (err, results) => {
   if (err) {
     console.error("Error executing MySQL query for getting inventory items: ", err);
     res.status(500).send('Internal Server Error');
@@ -1500,6 +1562,24 @@ app.get('/get-inventory-items', (req, res) => {
 
 });
 
+app.post('/change-profile-picture', (req, res) => {
+
+  pic_id = req.body.item_id;
+
+  connection.query("UPDATE users SET user_pic = ? WHERE user_id =?", [pic_id, userId], (err, results) => {
+
+    if (err) {
+      console.log("Error executing MySQL query for updating user's current picture: ", err);
+      res.status(500).send("Internal Server Error");
+      return;
+    }
+
+    console.log("User picture updated successfully.");
+    
+  })
+
+})
+
 
 app.get('/get-users', (req, res) => {
 
@@ -1513,10 +1593,10 @@ connection.query("SELECT * from users where user_type != 'admin'", (err, results
   }
 
   res.json(results);
-});
-
-
+  });
 }) 
+
+
 
 
 // Define a route for logging out
