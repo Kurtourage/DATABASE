@@ -62,6 +62,8 @@ function displayInventoryItems(items) {
         .catch(error => console.error('Error updating inventory:', error));
 
         fetchAndDisplayInventory();
+        getUserInfo();
+
       });
     }
 

@@ -6,6 +6,17 @@ document.addEventListener("DOMContentLoaded", function () {
   let problemStatement;
   let correctAnswers;
 
+
+  function getDbCoins(){
+    fetch('/get-dbcoins', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+  }
+
   function executeGameSQL(sql) {
     // Check if the timer has reached zero before executing the SQL
     if (timeLeft < 0) {
@@ -72,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let userInput;
 
   let timer;
-  let timeLeft = 0.1 * 60; // 5 minutes in seconds
+  let timeLeft = 10000 * 60; // 5 minutes in seconds
 
   function startTimer() {
     timer = setInterval(function () {

@@ -91,7 +91,7 @@ app.post('/login', (req, res) => {
 
     if (results.length === 0) {
       // User not found
-       res.json({type: 'username', error:'Invalid username or password'});
+       res.json({type: 'user', error:'user not found.'});
       return;
     }
 
@@ -113,11 +113,11 @@ app.post('/login', (req, res) => {
         req.session.user = results[0]; // Store user information in the session
 
         if (req.session.user.user_type == 'admin') {
-          res.json({type: 'admin'});
+          res.json({type: 'admin', success: true});
         }
 
         if (req.session.user.user_type != 'admin') {
-          res.json({type: 'user'});
+          res.json({type: 'user', success: true});
         } 
        
       } else {
