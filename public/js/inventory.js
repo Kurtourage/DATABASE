@@ -45,23 +45,25 @@ function displayInventoryItems(items) {
     useButton.classList.add('useBtn');
     useButton.textContent = 'Use';
 
-    useButton.addEventListener('click', function() {
-      
+    // Check if the card is not greyed out before attaching the click event
+    if (!card.classList.contains('greyed-out')) {
+      useButton.addEventListener('click', function() {
+        alert('Item used: ' + item.item_id);
 
-      // Simulate the change-profile-picture endpoint
-      // Replace this fetch with your actual endpoint
-      fetch('/change-profile-picture', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({ item_id: item.item_id }),
-      })
-      
-      .catch(error => console.error('Error updating inventory:', error));
+        // Simulate the change-profile-picture endpoint
+        // Replace this fetch with your actual endpoint
+        fetch('/change-profile-picture', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({ item_id: item.item_id }),
+        })
+        .catch(error => console.error('Error updating inventory:', error));
 
-      fetchAndDisplayInventory();
-    });
+        fetchAndDisplayInventory();
+      });
+    }
 
     card.appendChild(useButton);
     container.appendChild(card);
@@ -70,4 +72,3 @@ function displayInventoryItems(items) {
 
 // Initial fetch and display
 fetchAndDisplayInventory();
-
