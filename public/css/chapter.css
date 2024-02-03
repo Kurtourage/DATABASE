@@ -831,28 +831,12 @@ height: 100%;
     display: none;
 }
 
-
-.classic-tutorial{
-    width: 384px;
-    height: 512px;
-    border-radius: 16px;
+.start-game{
     position: absolute;
-    left: 288px;
-    user-select: none;
-    transition-property: transform, opacity, zIndex, ; 
-    transition-duration: 0.3s; 
-    transition-timing-function: ease-out; 
-    border: 1px solid #ffa400;
+    bottom: 5px;
+    z-index: 99999;
 }
-#classic-1{
-    color: red;
-}
-#classic-2{
-    color: yellow;
-}
-#classic-3{
-    color:gray;
-}
+
 
 
 
