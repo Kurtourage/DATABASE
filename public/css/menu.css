@@ -319,6 +319,8 @@ body{
     visibility: visible;
 }
 .shop-grid{
+    position: absolute;
+    top: 116px;
     padding: 20px;
     width: 896px;
     height: auto;
@@ -346,8 +348,10 @@ body{
     border: #130900;
 }
 .buyBtn{
-    width: 64px;
-    height: 24px;
+    margin-top: 24px;
+    width: 96px;
+    height: 32px;
+    cursor: pointer;
 }
 
 .inventory-popup{
@@ -365,6 +369,8 @@ body{
     visibility: visible;
 }
 .inventory-grid{
+    position: absolute;
+    top: 116px;
     padding: 20px;
     width: 896px;
     height: auto;
@@ -378,8 +384,67 @@ body{
     border: 1px solid #130900;
     display: block;
 }
+.inventory-card{
+    width: 199px;
+    height: 298.5px;
+    border: none;
+    display: block;
+    padding-top: 35px;
+    padding-left: 25px;
+    padding-right: 25px;
+    background-color: transparent;
+    background-image: url(../assets/shop-card.png);
+    background-size: 100% 100%;
+    text-align: center;
+}
+.inventory-card img{
+    width: 150px;
+    height: auto;
+    border: #130900;
+}
+.inventory-card.greyed-out{
+    opacity: 0.5;
+}
+.useBtn{
+    margin-top: 32px;
+    width: 96px;
+    height: 32px;
+    cursor: pointer;
+}
+.inventory-popup::-webkit-scrollbar-track {
+    background-color: transparent; /* Set the color of the scrollbar track */
+}
+.inventory-popup::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+}
 
-
+.inventory-popup::-webkit-scrollbar-thumb {
+    background-color: #ffa400; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; 
+    height: 30px;
+/* Optional: Add rounded corners to the scrollbar thumb */
+}
+.inventory-title{
+    position: absolute;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 896px;
+    height: 96px;
+    background-color: transparent;
+    background-image: url(../assets/inventorytitle.png);
+    background-size: 100% 100%
+}
+.shop-title{
+    position: absolute;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 896px;
+    height: 96px;
+    background-color: transparent;
+    background-image: url(../assets/shoptitle.png);
+    background-size: 100% 100%
+}
 
 
 

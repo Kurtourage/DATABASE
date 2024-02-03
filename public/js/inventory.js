@@ -27,7 +27,7 @@ function displayInventoryItems(items) {
 
   items.forEach(function(item) {
     var card = document.createElement('div');
-    card.className = 'card';
+    card.className = 'inventory-card';
 
     // Check if items.user_pic == items.item_id
     if (item.item_id == user_pic) {
@@ -42,10 +42,11 @@ function displayInventoryItems(items) {
 
     // Add "Use" button
     var useButton = document.createElement('button');
+    useButton.classList.add('useBtn');
     useButton.textContent = 'Use';
 
     useButton.addEventListener('click', function() {
-      alert('Item used: ' + item.item_id);
+      
 
       // Simulate the change-profile-picture endpoint
       // Replace this fetch with your actual endpoint
