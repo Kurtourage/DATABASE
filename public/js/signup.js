@@ -1,3 +1,5 @@
+document.getElementById('signupForm').addEventListener('submit', submitSignupForm);
+
 
 const signupForm = document.querySelector('.signup form');
 const usernameInput = signupForm.querySelector('#username');
@@ -39,7 +41,7 @@ signupForm.addEventListener('submit', async (event) => {
         passwordError.textContent = '';
 
         if (response.status === 200) {
-            // Continue with your existing success logic (redirect, etc.)
+           
             window.location.href = '/menu.html';
         
         } else {

@@ -113,12 +113,12 @@ app.post('/login', (req, res) => {
         req.session.user = results[0]; // Store user information in the session
 
         if (req.session.user.user_type == 'admin') {
-          res.redirect('/admin_dashboard.html');
+          res.json({type: 'admin'});
         }
 
         if (req.session.user.user_type != 'admin') {
-          res.redirect('/menu.html');
-        }
+          res.json({type: 'user'});
+        } 
        
       } else {
         // Passwords do not match
@@ -777,8 +777,22 @@ app.get('/get-user-level', (req, res) => {
 
 app.get('/get-user-info', (req, res) => {
   if (req.session.user) {
+    userId = req.session.user.user_id;
+
+    connection.query("SELECT link as profile_link FROM users INNER JOIN cosmetic_linktbl ON cosmetic_linktbl.id = users.user_pic WHERE users.user_id = ?",[userId], (err, results)=> {
+
+      if (err) {
+      console.log("Error getting source for profile picture:", err );
+      return;
+
+      }
+      const link = results[0].profile_link;
+
+      console.log(link);
+      res.json({ ...req.session.user, timestamp: new Date().getTime(), link: link });
+    })
       // Append a random query parameter to prevent caching
-      res.json({ ...req.session.user, timestamp: new Date().getTime() });
+      
   } else {
       res.status(401).json({ error: 'User not logged in' });
   }

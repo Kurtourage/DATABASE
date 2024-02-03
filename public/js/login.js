@@ -1,5 +1,5 @@
 
-
+document.getElementById('loginForm').addEventListener('submit', submitLoginForm);
 
 const container = document.querySelector(".container"),
     signup = document.querySelector(".signup-link"),
@@ -11,39 +11,41 @@ const container = document.querySelector(".container"),
     login.addEventListener("click", ()=>{
         container.classList.remove("active");
     })
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const loginButton = document.getElementById('loginButton');
-        loginButton.addEventListener('click', submitLoginForm);
-    });
+   
+  
+  function submitLoginForm(event) {
+      event.preventDefault();  // Prevent default form submission behavior
+  
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+  
+      // Perform AJAX request for login
+      fetch('/login', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.type === 'admin') {
+            // Manually redirect to admin dashboard
+            window.location.href = '/admin_dashboard.html';
+        } else if (data.type === 'password') {
+            // Handle password error
+            const passwordErrorContainer = document.getElementById('password-error');
+            passwordErrorContainer.textContent = data.error || '';
+        } else {
+            // Manually redirect to menu
+            window.location.href = '/menu.html';
+        }
+    })
     
-    function submitLoginForm() {
-        const username = document.getElementById('loginUsername').value;
-        const password = document.getElementById('loginPassword').value;
-    
-        // Perform AJAX request for login
-        fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ username, password }),
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Display error message in the corresponding error container
-            const errorContainer = document.getElementById(data.type + '-error');
-            errorContainer.textContent = data.error || ''; // If there's no error, clear the previous error message
-            
-            // If there's an error, you can display an alert or handle it in another way
-            if (data.error) {
-                alert(data.error);
-            }
-        })
-        .catch(error => {
-            console.error('Error during login:', error);
-            // Handle other errors if needed
-        });
-    }
-    
+        
+      .catch(error => {
+          console.error('Error during login:', error);
+          // Handle other errors if needed
+      });
+  }
+  

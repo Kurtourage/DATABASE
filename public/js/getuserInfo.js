@@ -6,12 +6,15 @@ fetch('/get-user-info')
   // Update the content of the profile-codename and profile-date-issued divs
   const codenameElements = document.querySelectorAll('.profile-codename1');
   const dateIssuedElements = document.querySelectorAll('.profile-date-issued1');
+  const profileElements = document.querySelectorAll('.profile-picture')
 
   codenameElements.forEach(element => {
     element.textContent = `${data.username || 'N/A'}`;
   });
 
-
+profileElements.forEach(element => {
+  element.style.backgroundImage = `url('${data.link || 'N/A'}')`;
+});
   
   dateIssuedElements.forEach(element => {
 
