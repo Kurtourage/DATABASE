@@ -229,6 +229,36 @@ textarea::placeholder{
 }
 
 /* FOR BOOK */
+.classicBig{
+    position: absolute;
+    transform: scale(0);
+    width: 960px;
+    height: 540px;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+    background-color: transparent;
+    border: none;
+    z-index: 20;
+    overflow: hidden;
+}
+.classicBig.active{
+    transform: scale(1);
+}
+
+.classicBig img {
+    width: 384px;
+    height: 512px;
+    border-radius: 16px;
+    position: absolute;
+    left: 288px;
+    user-select: none;
+    transition-property: transform, opacity, zIndex, ; 
+    transition-duration: 0.3s; 
+    transition-timing-function: ease-out; 
+  }
+
 .bookBig{
     position: absolute;
     transform: scale(0);
@@ -839,15 +869,112 @@ height: 100%;
 
 #post-game{
     position: absolute;
-    width: 256px;
-    height: 340px;
-    background-color: white;
+    width: 384px;
+    height: 384px;
+    border-radius: 16px;
+    background-image: url(../assets/timeup.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     z-index: 400;
     display: none;
+    padding-top: 108px;
+    padding-left: 96px;
+    font-size: 32px;
 }
 #post-game.active{
     display: block;
 }
+.coins{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 256px;
+    height: 64px;
+}
+.correct{
+    top: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 256px;
+    height: 64px;
+}
+.post-game-btn{
+    top: 50px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 256px;
+    height: 64px;
+    align-items: center;
+    gap: 60px;
+}
+.coin-img{
+    width: 64px;
+    height: 64px;
+    background-image: url(../assets/coin.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.correct-img{
+    width: 64px;
+    height: 64px;
+    background-image: url(../assets/check.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.post-exit-btn{
+    width: 64px;
+    height: 64px;
+}
+.startagain-btn{
+    width: 64px;
+    height: 64px;
+}
+#startAgainButton{
+    background-image: url(../assets/retry1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#startAgainButton:hover{
+    background-image: url(../assets/retry2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#coins-info{
+    text-align: center;
+    color: #130900;
+    width: 128px;
+    height: 64px;
+}
+#correct-answers-info{
+    text-align: center;
+    color: #130900;
+    width: 128px;
+    height: 64px;
+}
+.post-exit-btn button{
+    background-color: transparent;
+    outline: none;
+    border: none;    
+    width: 64px;
+    height: 64px;
+    display: block;
+    cursor: pointer;
+}
+.startagain-btn button{
+    background-color: transparent;
+    outline: none;
+    border: none;    
+    width: 64px;
+    height: 64px;
+    display: block;
+    cursor: pointer;
+}
+
+
+
 
 
 

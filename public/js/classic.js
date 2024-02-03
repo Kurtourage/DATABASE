@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let userInput;
 
   let timer;
-  let timeLeft = 1 * 60; // 5 minutes in seconds
+  let timeLeft = 0.1 * 60; // 5 minutes in seconds
 
   function startTimer() {
     timer = setInterval(function () {
@@ -120,9 +120,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const overlayactive = document.querySelector('.overlay');
           const postgameactive = document.getElementById('post-game');
           const coinsInfoDiv = document.getElementById('coins-info');
-          coinsInfoDiv.textContent = `You earned ${data.coins} coins!`;
+          coinsInfoDiv.textContent = `${data.coins}`;
           const correctAnswersInfoDiv = document.getElementById('correct-answers-info');
-          correctAnswersInfoDiv.textContent = `You got ${data.correctAnswers} correct answers!`;
+          correctAnswersInfoDiv.textContent = `${data.correctAnswers}`;
           // You can further customize how the correct answers information is displayed (e.g., styling)
           correctAnswersInfoDiv.style.display = 'block';
           postgameactive.classList.add('active');
@@ -133,6 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
           computer.classList.remove('active');
           riddle.classList.remove('active');
           tutorial.classList.remove('active');
+          timer_sound.pause();
         })
 
         .catch(error => {
@@ -148,10 +149,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function showStartAgainButton() {
     const startAgainButton = document.createElement('button');
-    startAgainButton.textContent = 'Start Again';
     startAgainButton.id = 'startAgainButton';
     const postgame = document.getElementById('post-game');
     const overlaystartAgain = document.querySelector('.overlay');
+    const postStartAgain = document.querySelector('.startagain-btn');
     startAgainButton.addEventListener('click', function () {
       // Perform the reset on the client side
       resetGame();
@@ -171,13 +172,16 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('startAgainButton').remove();
       postgame.classList.remove('active');
       overlaystartAgain.classList.remove('active');
+      timer_sound.currentTime = .5;
+      timer_sound.play();
+      timer_sound.volume = 0.5;
     });
-    postgame.appendChild(startAgainButton);
+    postStartAgain.appendChild(startAgainButton);
   }
   
 
   function resetGame() {
-    timeLeft = 1 * 60;
+    timeLeft = 0.1 * 60;
     userInput = '';
     document.getElementById('sqlInput').value = '';
     document.getElementById('timer').textContent = '';
@@ -258,7 +262,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.getElementById('startGameBtn').addEventListener('click', function () {
-    
+    timer_sound.currentTime = .5;
+    timer_sound.play();
+    timer_sound.volume = 0.5;
     resetGame();
     startTimer();
     // Call the function to execute the first SQL query when the game starts
@@ -433,7 +439,7 @@ unshowTutorial.addEventListener("click", () => {
     overlay.classList.remove('active');
 });
 // FOR BOOK
-const book = document.querySelector('.bookBig');
+const book = document.querySelector('.classicBig');
 const showBook = document.querySelector(".bookPop");
 const unshowBook = document.querySelector(".book-close");
 
@@ -541,3 +547,5 @@ prev.addEventListener('click', ()=>{
   }
   layout();
 })
+var timer_sound = document.getElementById('timer-sound');
+

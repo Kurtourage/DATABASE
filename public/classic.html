@@ -13,15 +13,38 @@
 </head>
 <body>
 
+  <audio id="timer-sound">
+    <source src="assets/music/timer.mp3" type="audio/mp3">
+  </audio>
+<div class="transition transition-1 is-active"></div>
+
 
 <!-- Level 1 content -->
 <div id="errorMessage" style="color: red;"></div>
 <div id="button-container"></div>
 
 <div id="post-game">
-  <div id="coins-info"></div>
-  <div id="correct-answers-info"></div>
-</div>
+  <div class="coins">
+    <div class="coin-img">
+    </div>
+    <h1 id="coins-info">
+    </h1>
+  </div>
+  <div class="correct">
+    <div class="correct-img"></div>
+    <h1 id="correct-answers-info"></h1>
+  </div>
+  <div class="post-game-btn">
+    <div class="post-exit-btn">
+      <a href="menu.html">
+        <button id="homeBtn"></button>
+        </a>
+    </div>
+    <div class="startagain-btn">
+
+    </div>
+  </div>
+  </div>
 <div id="ch1_1" ></div>
 <div id="ch1_2" ></div>
 <div id="ch1_3" ></div>
@@ -51,7 +74,7 @@
         </a>
       </div> 
       <div class="settings-btn">
-          <button id="musicBtn"> </button>
+          <button class="music-btn" id="musicBtn"> </button>
       </div> 
   </div>
   <div class="back-bg">
@@ -77,7 +100,7 @@
     <div class="cheatsheet" id="cheatsheet">
   </div>
 </div>
-<div class="bookBig active">
+<div class="classicBig active">
   <img class="img1" />
   <img class="img2" />
   <img class="img3" />
@@ -182,5 +205,6 @@
 
 <script src="js/checkLogin.js"></script>
 <script src="js/classic.js"></script>
+<script src="js/transition.js"></script>
 </body>
 </html>
