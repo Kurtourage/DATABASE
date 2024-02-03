@@ -837,6 +837,17 @@ height: 100%;
     z-index: 99999;
 }
 
+#post-game{
+    position: absolute;
+    width: 256px;
+    height: 340px;
+    background-color: white;
+    z-index: 400;
+    display: none;
+}
+#post-game.active{
+    display: block;
+}
 
 
 

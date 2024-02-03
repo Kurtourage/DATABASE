@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
   function executeGameSQL(sql) {
     // Check if the timer has reached zero before executing the SQL
     if (timeLeft < 0) {
-      alert("Time is up! Your score: ", correctAnswers);
       showStartAgainButton();
       return;
     }
@@ -107,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         clearInterval(timer);
         // Additional logic when the timer reaches zero (end the game, etc.)
-        alert("Time is up! Your score: ", correctAnswers);
         showStartAgainButton();
 
         fetch('/classic-add-coins', {
@@ -118,21 +116,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }) 
         .then(response => response.json())
         .then(data => {
-          console.log('Server resonse: ', data);
-
               // Display coins information in a new div
+          const overlayactive = document.querySelector('.overlay');
+          const postgameactive = document.getElementById('post-game');
           const coinsInfoDiv = document.getElementById('coins-info');
           coinsInfoDiv.textContent = `You earned ${data.coins} coins!`;
-
           const correctAnswersInfoDiv = document.getElementById('correct-answers-info');
           correctAnswersInfoDiv.textContent = `You got ${data.correctAnswers} correct answers!`;
-  
           // You can further customize how the correct answers information is displayed (e.g., styling)
           correctAnswersInfoDiv.style.display = 'block';
-          
+          postgameactive.classList.add('active');
         // You can further customize how the coins information is displayed (e.g., styling)
-        coinsInfoDiv.style.display = 'block';
-
+          coinsInfoDiv.style.display = 'block';
+          overlayactive.classList.add('active');
+          board.classList.remove('active');
+          computer.classList.remove('active');
+          riddle.classList.remove('active');
+          tutorial.classList.remove('active');
         })
 
         .catch(error => {
@@ -150,11 +150,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const startAgainButton = document.createElement('button');
     startAgainButton.textContent = 'Start Again';
     startAgainButton.id = 'startAgainButton';
-  
+    const postgame = document.getElementById('post-game');
+    const overlaystartAgain = document.querySelector('.overlay');
     startAgainButton.addEventListener('click', function () {
       // Perform the reset on the client side
       resetGame();
-      
       // Fetch the reset-counter endpoint on the server side
       fetch('/reset-counter', {
         method: 'POST',
@@ -169,9 +169,10 @@ document.addEventListener("DOMContentLoaded", function () {
       startTimer();
       getProblem();
       document.getElementById('startAgainButton').remove();
+      postgame.classList.remove('active');
+      overlaystartAgain.classList.remove('active');
     });
-  
-    document.body.appendChild(startAgainButton);
+    postgame.appendChild(startAgainButton);
   }
   
 
