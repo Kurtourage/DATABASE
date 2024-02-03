@@ -91,7 +91,7 @@ app.post('/login', (req, res) => {
 
     if (results.length === 0) {
       // User not found
-      res.json('Invalid username or password');
+       res.json({type: 'username', error:'Invalid username or password'});
       return;
     }
 
@@ -122,7 +122,7 @@ app.post('/login', (req, res) => {
        
       } else {
         // Passwords do not match
-        res.send('Invalid username or password');
+        res.json({type: 'password', error:'Incorrect Password'});
       }
     });
   });
@@ -135,9 +135,6 @@ app.post('/signup', (req, res) => {
   const { username, email, password } = req.body;
   console.log(username, email, password);
 
-  if (username.length > 15) {
-    return res.status(400).json({ error: "Username must not be longer than 15 characters." });
-  }
 
   // Get the current date and time in JavaScript
   const currentDate = new Date();
@@ -577,7 +574,7 @@ gameDb.all(sql, (err, results) => {
     }
   
 
-    
+
   classicDb.all(sql, (err, results) => {
     if (err) {
       console.error('Error executing Game SQL query:', err);
@@ -1430,7 +1427,7 @@ if (err) {
   return;
 }
 
-res.json({ coins: dbcoins, correctAnswers: counter});
+res.json({ coins: counter * 50, correctAnswers: counter});
 });
 });
 });
