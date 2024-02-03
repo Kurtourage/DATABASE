@@ -18,18 +18,22 @@ const config = {
       body: JSON.stringify({ sql, mode }),
       
           })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          console.log("Query results:", data.tableHtml);
-          displayResults(data.tableHtml);
-        } else {
-          console.error('Error executing SQL statement:', data.error);
-        }
-      })
-      .catch(error => console.error('Error executing SQL statement:', error));
-  }
-
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              console.log("Query results:", data.tableHtml);
+              displayResults(data.tableHtml);
+                 // Clear error message if successful
+                 document.getElementById('errorMessage').textContent = '';
+            } else {
+              console.error('Error executing SQL statement:', data.errorMessage);
+                  // Display error message
+                  document.getElementById('errorMessage').textContent = data.errorMessage;
+    
+            }
+          })
+          .catch(error => console.error('Error executing SQL statement:', error));
+      }
 
 
 // Function to extract the level number from the file name

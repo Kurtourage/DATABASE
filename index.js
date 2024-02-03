@@ -558,8 +558,9 @@ app.post('/execute-game-sql', (req, res) => {
 gameDb.all(sql, (err, results) => {
   if (err) {
     console.error('Error executing Game SQL query:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
-    return;
+    return res.status(500).json({ success: false, error: 'Internal Server Error', errorMessage: err.message });
+  
+
   }
 
   // Generate the HTML table on the server side
@@ -574,12 +575,15 @@ gameDb.all(sql, (err, results) => {
     if (!classicDbInitialized) {
       return res.status(500).json({ error: 'Game database not initialized' });
     }
-    // Use parameterized queries or prepared statements to prevent SQL injection
+  
+
+    
   classicDb.all(sql, (err, results) => {
     if (err) {
       console.error('Error executing Game SQL query:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
+      return res.status(500).json({ success: false, error: 'Internal Server Error', errorMessage: err.message });
+    
+  
     }
 
     // Generate the HTML table on the server side

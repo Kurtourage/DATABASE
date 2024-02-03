@@ -27,8 +27,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (data.success) {
           console.log("Query results:", data.tableHtml);
           displayResults(data.tableHtml);
+             // Clear error message if successful
+             document.getElementById('errorMessage').textContent = '';
         } else {
-          console.error('Error executing SQL statement:', data.error);
+          console.error('Error executing SQL statement:', data.errorMessage);
+              // Display error message
+              document.getElementById('errorMessage').textContent = data.errorMessage;
+
         }
       })
       .catch(error => console.error('Error executing SQL statement:', error));
