@@ -211,6 +211,8 @@ function updateHUD(missionObj) {
         }
         resultMessage.textContent = 'Level completed!'; 
 
+        //add fetching for adding coins to user on server endpoint here
+
          // Create a button
           const nextLevelButton = document.createElement('button');
           nextLevelButton.textContent = 'Click anywhere to continue';

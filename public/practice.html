@@ -4,9 +4,163 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice</title>
-    <script src="js/checkLogin.js"></script>
+    <link rel="stylesheet" href="css/codemirror.css">
+    <link rel="stylesheet" href="css/chapter.css">
+ 
+    
 </head>
 <body>
+
     
+  <audio id="timer-sound">
+    <source src="assets/music/timer.mp3" type="audio/mp3">
+  </audio>
+<div class="transition transition-1 is-active"></div>
+
+
+<!-- Level 1 content -->
+<div id="errorMessage" style="color: red;"></div>
+<div id="button-container"></div>
+
+<div id="post-game">
+  <div class="coins">
+    <div class="coin-img">
+    </div>
+    <h1 id="coins-info">
+    </h1>
+  </div>
+  <div class="correct">
+    <div class="correct-img"></div>
+    <h1 id="correct-answers-info"></h1>
+  </div>
+  <div class="post-game-btn">
+    <div class="post-exit-btn">
+      <a href="menu.html">
+        <button id="homeBtn"></button>
+        </a>
+    </div>
+    <div class="startagain-btn">
+
+    </div>
+  </div>
+  </div>
+<div id="ch1_1" ></div>
+<div id="ch1_2" ></div>
+<div id="ch1_3" ></div>
+<div id="ch1_4" ></div>
+<!-- NARRATION -->
+
+
+<!--<div class="image-slider">
+  <div class="overlay-slide"></div>
+  <div class="slide visible ch1_first" >
+    <h1>HELLO</h1>
+    <button id="next-btn">Next</button></div>
+  <div class="slide ch1_second">
+    <h1>HIII</h1>
+  <button id="end-btn">End</button></div>
+</div>-->
+<div class="overlay active">
+</div>  
+
+    <!-- SETTINGS -->
+    <div class="connector"></div>
+    <div class="credits ch_classic" id="ch_classic"></div>
+    <div class="settings signout">
+      <div class="settings-btn">
+        <a href="menu.html">
+        <button id="homeBtn"></button>
+        </a>
+      </div> 
+      <div class="settings-btn">
+          <button class="music-btn" id="musicBtn"> </button>
+      </div> 
+  </div>
+  <div class="back-bg">
+  </div>
+
+<!-- </div> BIG HOVERS -->
+<div class="boardBig" id="classicschema">
+    <div class="close board-close">
+      <h1>x</h1>
+    </div>
+</div>
+
+<div class="riddleBig">
+  <div class="close riddle-close">
+    <h1>x</h1>
+  </div>
+  
+</div>
+<div class="tutorialBig">
+  <div class="close tutorial-close">
+    <h1>x</h1>   
+  </div>
+    <div class="cheatsheet" id="cheatsheet">
+  </div>
+</div>
+<div class="classicBig active">
+  <img class="img1" />
+  <img class="img2" />
+  <div class="arrows">
+    <button class="prev" id="paper"></button>
+    <button class="next active" id="paper"></button>
+  </div>
+  <div class="start-game book-close">
+    <button class="startgame active" id="startGameBtn">Start Game</button>
+  </div>
+  
+</div>
+
+<div class="computerBig">
+    <div class="close computer-close">
+      <h1>OFF</h1>
+    </div>
+    <div class="computerInside">
+      <div id="hud-container">
+      
+        <!-- HUD content will be dynamically added here -->
+      </div>
+    <div id="level1" class="level">
+      <textarea id="sqlInput" placeholder="Type here"></textarea>
+      <div class="exc-btn">
+        <button id="executeBtn1">Execute SQL</button> 
+        <button  id="clearTable">Clear</button>
+      </div>
+      <div id="result-message"> </div>
+      <div id="tableContainer"></div>
+      </div>
+      </div>
+    </div>
+</div>
+
+<!-- SMALL HOVERS -->
+<div class="main-bg" id="classic-bg">
+    <div class="hovers">
+    <div class="timer_div" id="timer"></div>
+    <div class="hover-img" id="board"> 
+        <button class="boardPop"></button>
+    </div> 
+
+    <div class="hover-img" id="tutorial">
+      <button class="tutorialPop"></button>
+    </div>
+    <div class="hover-img" id="riddles">
+      <button class="riddlePop"></button>
+    </div>
+    <div class="hover-img" id="computer">
+        <button class="computerPop"></button>
+    </div>  
+    </div>
+</div>
+
+
+
+
+
+<script src="dist/sql-wasm.js"></script>
+<script src="js/checkLogin.js"></script>
+<script src="js/practice.js"></script>
 </body>
+
 </html>

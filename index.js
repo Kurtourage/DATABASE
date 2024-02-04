@@ -17,6 +17,7 @@ let classicDbInitialized = false;
   // SQLite database for the game
 const gameDb = new sqlite3.Database(':memory:');
 const classicDb = new sqlite3.Database(':memory:');
+const practiceDb = new sqlite3.Database(':memory:');
 let completedMissionsIndices = [];
 let userInputs = [];
 let username;
@@ -592,6 +593,22 @@ gameDb.all(sql, (err, results) => {
     // Send the HTML table in the response
     res.json({ success: true, tableHtml });
   });
+  }
+
+  if (mode === 'practice') {
+    practiceDb.all(sql, (err, results) => {
+
+      if (err) {
+        console.error('Error executing Game SQL query:', err);
+        return res.status(500).json({ success: false, error: 'Internal Server Error', errorMessage: err.message });
+      }
+
+      // Generate the HTML table on the server side
+    const tableHtml = generateTableHtml(results);
+
+    // Send the HTML table in the response
+    res.json({ success: true, tableHtml });
+    })
   }
   
 
