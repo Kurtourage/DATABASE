@@ -255,17 +255,32 @@ body{
     top: 0;
     left: 199px;
     visibility: hidden;
-    border:none;
 }
 .leaderboardpopup.active{
     visibility: visible;
 }
 .leaderboardnames{ 
+    position: absolute;
+    height: 620px;
     background-color: #ffd262;
     margin: 0;
     width: 896px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.leaderboardnames::-webkit-scrollbar-track {
+    background-color: transparent; /* Set the color of the scrollbar track */
+}
+.leaderboardnames::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
 }
 
+.leaderboardnames::-webkit-scrollbar-thumb {
+    background-color: #ffa400; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; 
+    height: 30px;
+}
 .overlay{
     position: absolute;
     width: 100%;
@@ -494,13 +509,62 @@ body{
 .leaderboard-title{
     position: absolute;
     margin-top: 10px;
-    margin-bottom: 20px;
     width: 896px;
     height: 96px;
     background-color: transparent;
     background-image: url(../assets/learboardtitle.png);
     background-size: 100% 100%
 }
+.highscore-title{
+    position: absolute;
+    margin-top: 96px;
+    margin-bottom: 20px;
+    width: 896px;
+    height: 96px;
+    background-color: transparent;
+    background-image: url(../assets/highscoretitle.png);
+    background-size: 100% 100%
+}
+.leaderboards{
+    position: absolute;
+    width: 896px;
+    top: 192px;
+}
+.leaderboards table{
+    width: 896px;
+    border-collapse: collapse;
+    cursor: default;
+}
+.leaderboards th{
+    text-align: left;
+    background-color: #ffa400;
+    padding-left: 128px;
+    border-bottom: 1px solid #130900;
+}
+.leaderboards td{
+    text-align: left;
+    padding-left: 128px;
+    border-bottom: 1px solid #130900;
+}
+.leaderboards tr:hover td{
+    background-color: rgba(255, 164, 0, 0.3);
+}
+.leaderboards tr{
+    font-size: 48px;    
+}
+table tr td:first-child,
+table tr th:first-child {
+    padding-left: 50px;
+    width: 50px; /* Example width, change it according to your preference */
+}
+table tr td:first-child {
+    text-align: center;
+}
+table tr th:nth-child(2) {
+    text-align: center;
+}
+
+
 
 
 
@@ -562,8 +626,11 @@ body{
     background-color: #ffd262;
 }
 .leaderboardsidebar{
+    position: absolute;
+    left: 896px;
     padding: 8px;
     width: 64px;
+    height: 620px;
     border-left:3px solid #130900;
     background-color: #ffd262;
 }
@@ -604,6 +671,11 @@ body{
     background-size: 100% 100%;
 }
 #closeProfileBtn:hover{
+    background-color: transparent;
+    background-image: url(../assets/profile-exit2.png);
+    background-size: 100% 100%;
+}
+#closeProfileBtnLB:hover{
     background-color: transparent;
     background-image: url(../assets/profile-exit2.png);
     background-size: 100% 100%;
