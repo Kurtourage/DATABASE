@@ -777,12 +777,25 @@ app.get('/get-user-level', (req, res) => {
 
 app.get('/get-user-info', (req, res) => {
   if (req.session.user) {
+
+
     userId = req.session.user.user_id;
+
+    connection.query("SELECT * from users WHERE user_id =?", [userId], (err, results) => {
+        if (err) {
+          console.log("Error getting updated user details: ", err);
+          res.status(500).json({ error: 'Internal Server Error' });
+          return;
+        }
+
+        req.session.user = results[0];
+
+    })
 
     connection.query("SELECT link as profile_link FROM users INNER JOIN cosmetic_linktbl ON cosmetic_linktbl.id = users.user_pic WHERE users.user_id = ?",[userId], (err, results)=> {
 
       if (err) {
-      console.log("Error getting source for profile picture:", err );
+      console.log("Error getting source for profile picture:", err ); 
       return;
 
       }
