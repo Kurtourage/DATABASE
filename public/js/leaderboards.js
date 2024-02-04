@@ -1,3 +1,5 @@
+let user_id;
+
 fetch('/get-leaderboards', {
     method: 'GET',
     headers: {
@@ -11,6 +13,7 @@ fetch('/get-leaderboards', {
         return response.json();
     })
     .then(data => {
+        user_id = data.user_id;
         console.log('Server response: ', data);
 
         const leaderboardsDiv = document.getElementById('leaderboards');
@@ -42,9 +45,17 @@ headerRow.appendChild(scoreHeader);
 tableElement.appendChild(headerRow);
 
 // Iterate through the data and create rows for each result
-data.forEach((result, index) => {
+
+data.rows.forEach((result, index) => {
+    
     // Create a table row (tr)
     const trElement = document.createElement('tr');
+
+    // Check if the user_id matches
+    if (result.user_id === user_id) {
+        trElement.classList.add('highlighted-row'); // Add a class for styling
+        console.log('Row highlighted for user_id:', user_id);
+    }
 
     // Create the first column (Rank)
     const rankCell = document.createElement('td');
@@ -54,6 +65,7 @@ data.forEach((result, index) => {
     // Create the second column (username)
     const usernameCell = document.createElement('td');
     usernameCell.textContent = result.username;
+    trElement.appendChild(usernameCell);
 
     // Create the third column (score)
     const scoreCell = document.createElement('td');
@@ -61,7 +73,6 @@ data.forEach((result, index) => {
     scoreCell.textContent = score;
 
     // Append cells to the row
-    trElement.appendChild(usernameCell);
     trElement.appendChild(scoreCell);
 
     // Append the row to the table
@@ -70,6 +81,7 @@ data.forEach((result, index) => {
 
 // Append the table to the leaderboardsDiv
 leaderboardsDiv.appendChild(tableElement);
+
 
         
     })
