@@ -64,6 +64,12 @@ font-size: 21px;
     font-size: 24px;
     margin-left: -70px;
 }
+#errorMessage{
+    position: absolute;
+    margin-left: 30px;
+    margin-top: 20px;
+    font-size: 30px;
+}
 .completed-mission{
     text-decoration: line-through;
     text-decoration-color: yellow; 
@@ -86,7 +92,7 @@ font-size: 21px;
     z-index: 20;
 }
 #chapterschema{
-    background-image: url(../assets/schemaboard.png);
+    background-image: url(../assets/schem.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -888,6 +894,11 @@ height: 100%;
     cursor: pointer;
     width: 192px;
     height: 64px;
+    border: none;
+    background-color: transparent;
+    background-image: url(../assets/startclassic2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
 #post-game{

@@ -209,15 +209,23 @@ function updateHUD(missionObj) {
         if (!completedMissions.includes(currentLevelMission)) {
           completedMissions.push(currentLevelMission);
         }
-        resultMessage.textContent = 'Level completed!'; 
 
         //add fetching for adding coins to user on server endpoint here
 
          // Create a button
           const nextLevelButton = document.createElement('button');
-          nextLevelButton.textContent = 'Click anywhere to continue';
           nextLevelButton.id = 'nextLevelButton';
           nextLevelButton.classList.add('nextLevelButton');
+
+
+          const overlay = document.querySelector('.overlay');
+          const computer = document.querySelector('.computerBig');
+          overlay.classList.add('active');
+          buttonContainer.classList.add('active');
+          computer.classList.remove('active');
+
+
+          
           
 
         // Append the button to the container

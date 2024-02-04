@@ -129,14 +129,39 @@
     text-decoration: underline;
 }
 #nextLevelButton{
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    z-index: 150;
-    background-image: url(../assets/chapters_background.png);
+    top: 90;
+    z-index: 99;
+}
+
+#button-container{
+    position: absolute;
+    width: 384px;
+    height: 384px;
+    border-radius: 16px;
+    background-image: url(../assets/chaptercomplete.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    transition: 3s ease-out;
+    z-index: 400;
+    display: none;
+    padding-top: 108px;
+    padding-left: 96px;
+    font-size: 32px;
 }
+#button-container.active{
+    display: block;
+}
+.nextLevelButton{
+    position: absolute;
+    bottom: 48px;
+    z-index: 99999;
+    cursor: pointer;
+    width: 132px;
+    height: 48px;
+    border: none;
+    background-color: transparent;
+    background-image: url(../assets/startclassic1.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
