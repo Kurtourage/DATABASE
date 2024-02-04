@@ -1491,14 +1491,14 @@ if (score > highscore) {
 
 app.get('/get-leaderboards', (req, res) => {
 
-  connection.query("SELECT username, classic_high_score from users ORDER BY classic_high_score DESC LIMIT 10", (err, results) => {
+  connection.query("SELECT user_id, username, classic_high_score from users ORDER BY classic_high_score DESC LIMIT 10", (err, results) => {
     if (err) {
       console.error('Error executing MySQL query:', err);
       res.status(500).send('Internal Server Error');
       return;
     }
 
-    res.json(results);
+    res.json({rows: results, user_id: userId});
   });
 
 
