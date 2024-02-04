@@ -229,6 +229,11 @@ input::placeholder {
   }
 
 
+.error-message{
+  position: absolute;
+}
+
+
 /* FOR KURT */
 @media screen and (min-width: 1367px) and (max-width: 1920px)  {
     .exit{
