@@ -873,8 +873,13 @@ height: 100%;
 
 .start-game{
     position: absolute;
-    bottom: 5px;
+    bottom: 64px;
     z-index: 99999;
+}
+#startGameBtn{
+    cursor: pointer;
+    width: 192px;
+    height: 64px;
 }
 
 #post-game{
