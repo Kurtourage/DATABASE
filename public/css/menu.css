@@ -550,7 +550,7 @@ body{
     background-color: rgba(255, 164, 0, 0.3);
 }
 .leaderboards tr{
-    font-size: 48px;    
+    font-size: 35px;    
 }
 table tr td:first-child,
 table tr th:first-child {
