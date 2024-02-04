@@ -154,7 +154,8 @@ app.post('/signup', (req, res) => {
 
       if (results.length > 0) {
         // username or email is already used.
-        res.send('Username or email is already in use.');
+      
+        res.json({success: false, reason: "username or email already in use."})
         return;
       }
 
