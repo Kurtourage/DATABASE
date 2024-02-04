@@ -7,7 +7,7 @@ function fetchAndDisplayInventory() {
       // Check if data is not empty
       if (data.items.length > 0) {
         // Assuming the first row has a property called 'user_pic'
-        user_pic = data.user_pic;
+        user_pic = data.picture_used;
 
         // Now you can use the user_pic variable as needed
         console.log('User Pic:', user_pic);

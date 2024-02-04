@@ -24,8 +24,8 @@ let userId;
 let dbcoins;
 let userDbCoins;
 let currentLevel = null;
-let userAcc;
 
+let user_pic;
 
 let sqlQuery;
 let problemStatement;
@@ -1587,7 +1587,19 @@ connection.query("SELECT * from users where username = ? ", [username], (err, re
 
 app.get('/get-inventory-items', (req, res) => {
 
-  let user_pic = req.session.user.user_pic;
+  connection.query("SELECT user_pic from users where user_id =?", [userId], (err, results)=> {
+
+    if (err) {
+      console.log("Error getting user_pic: ", err);
+      
+    }
+     user_pic = results[0].user_pic;
+     console.log('User picture for: ', userId, ": ", results);
+
+
+  })
+
+ 
 
   connection.query("SELECT DISTINCT cosmetic_linktbl.item_id, cosmetic_linktbl.link, user_purchasestbl.user_id, user_pic, shoptbl.name FROM cosmetic_linktbl LEFT JOIN user_purchasestbl ON cosmetic_linktbl.item_id = user_purchasestbl.item_id LEFT JOIN shoptbl ON user_purchasestbl.item_id = shoptbl.id LEFT JOIN users ON user_purchasestbl.user_id = users.user_id WHERE cosmetic_linktbl.link LIKE '%default%' OR user_purchasestbl.user_id = ?; ", [userId], (err, results) => {
   if (err) {
@@ -1598,7 +1610,7 @@ app.get('/get-inventory-items', (req, res) => {
     
   }
   console.log("Inventory item retrieval successful.")
-  res.json({items: results, user_pic: user_pic});
+  res.json({items: results, picture_used: user_pic});
  
 
  
