@@ -190,7 +190,7 @@ app.post('/signup', (req, res) => {
 
                 // User successfully registered, store user information in session
                 req.session.user = results[0];
-                res.redirect('/menu.html');
+                res.status(200);
               }
             );
           }

@@ -11,7 +11,7 @@ const emailInput = signupForm.querySelector('#email');
 
 
 
-signupForm.addEventListener('submit', async (event) => {
+function submitSignupForm(event) {
     event.preventDefault();
 
     const username = usernameInput.value.trim();
@@ -25,30 +25,33 @@ signupForm.addEventListener('submit', async (event) => {
 
     if (password === confirm_password) {
 
+        usernameError.textContent = '';
+        passwordError.textContent = '';
         // Use fetch API to send a POST request to the server
-        const response = await fetch('/signup', {
+        fetch('/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ username, password, email })
-        });
+        })
 
      
-
-        // Clear the error message before checking for new errors
-        usernameError.textContent = '';
-        passwordError.textContent = '';
-
-        if (response.status === 200) {
+       
+       
+        .then(data => {
+            if (data.status === 200) {
            
-            window.location.href = '/menu.html';
-        
-        } else {
-            // Handle other status codes as needed
-            console.error('Unexpected status code:', response.status);
-        }
+                window.location.href = '/menu.html';
+            
+            } else {
+                // Handle other status codes as needed
+                console.error('Unexpected status code:', response.status);
+            }
+    
 
+        }) 
+        
 
     }
 
@@ -57,5 +60,5 @@ signupForm.addEventListener('submit', async (event) => {
         passwordError.textContent = "Passwords do not match." || 'An error occurred.';
     }
    
-});
+};
 
