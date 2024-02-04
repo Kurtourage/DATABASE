@@ -12,10 +12,7 @@
    <audio id="music-sound">
       <source src="assets/music/menu.mp3" type="audio/mp3"> 
    </audio>
-   
-   <div class="connector">
-        
-   </div>
+
 
    <!-- PROFILE -->
    <div class="overlay">
@@ -35,35 +32,17 @@
             </div>
         </div>
         <div class="inventory-popup" id="inventory-profile">
-                <div class="inventory-grid">
-                    <img src="" alt="">
-                    <img src="" alt="">
-                    <img src="" alt="">
-                    <img src="" alt="">
-                    <img src="" alt="">
-                    <img src="" alt="">
-                    <img src="" alt="">
-                    <img src="" alt="">
+                <div class="inventory-title"></div>
+                <div class="inventory-grid" id="inventory-container">
                 </div>
         </div>
         <div class="shop-popup" id="shop-profile">
-            <div class="shop-grid">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
-                <img src="" alt="">
+            <div class="shop-title"></div>
+            <div class="dbcoinsleft">
+                <div class="coin-img"></div>
+                <div id = "dbcoins"></div>
+            </div>
+            <div class="shop-grid" id="shop-items">
             </div>
         </div>
     </div>
@@ -84,26 +63,39 @@
         </div>  
     </div>
 
-
+    <!-- leaderboards -->
+    <div class="leaderboardpopup">
+        <div class="leaderboardnames">
+            <div class="leaderboard-title"></div>
+            <div class="highscore-title"></div>
+            <div class="leaderboards" id="leaderboards"></div>
+        </div>
+        <div class="leaderboardsidebar">
+            <div class="profile-btn">
+                <button class="closeProfileLB" id="closeProfileBtnLB"></button>
+            </div>
+        </div>
+    </div>
+    
     <!-- SETTINGS -->
+    <div class="connector">     
+    </div>
     <div class="settings signout">
-      <div class="settings-btn">
-        <a href="menu.html">
-            <button id="backBtn"></button>
-        </a>
-      </div> 
-      <div class="settings-btn">
-          <button class="music-btn"> </button>
-      </div> 
-  </div>
-  <div class="credits">
-    <div class="credits-btn profileBtn">
-        <button class="profileBtn" id="profileBtn"></button>
-    </div> 
-    <div class="credits-btn">
-        <button id="leaderboardBtn"> </button>
-    </div> 
-</div>
+        <div class="settings-btn">
+            <button id="logoutBtn"></button>
+        </div> 
+        <div class="settings-btn">
+            <button class="music-btn" id="musicBtn"> </button>
+        </div> 
+    </div>
+    <div class="credits">
+        <div class="credits-btn">
+            <button class="profileBtn" id="profileBtn"></button>
+        </div> 
+        <div class="credits-btn">
+            <button class="leaderboardBtn" id="leaderboardBtn"> </button>
+        </div> 
+    </div>
 
 
 
@@ -144,4 +136,8 @@
 <script src="js/levelCards.js"></script>
 <script src="js/transition.js"></script>
 <script src="js/profile.js"></script>
+<script src="js/getUserInfo.js"></script>
+<script src="js/shop.js"></script>
+<script src="js/inventory.js"></script>
+<script src="js/leaderboards.js"></script>
 </html>

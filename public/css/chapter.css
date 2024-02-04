@@ -81,11 +81,19 @@ font-size: 21px;
     transform: scale(0);
     width: 960px;
     height: 540px;
+
+    border: none;
+    z-index: 20;
+}
+#chapterschema{
     background-image: url(../assets/schemaboard.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    border: none;
-    z-index: 20;
+}
+#classicschema{
+    background-image: url(../assets/classicschema.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 .overlay{
     position: absolute;
