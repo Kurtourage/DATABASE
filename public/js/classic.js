@@ -475,50 +475,8 @@ function layout() {
   const scaleStep = 0.6;
   const opacityStep = 0;
   const imageSources = [
-    "assets/testimony/testimony1.png",
-    "assets/testimony/testimony2.png",
-    "assets/testimony/testimony3.png",
-    "assets/testimony/testimony4.png",
-    "assets/testimony/testimony5.png",
-    "assets/testimony/testimony6.png",
-    "assets/testimony/testimony7.png",
-    "assets/testimony/testimony8.png",
-    "assets/testimony/testimony9.png",
-    "assets/testimony/testimony10.png",
-    "assets/testimony/testimony11.png",
-    "assets/testimony/testimony12.png",
-    "assets/testimony/testimony13.png",
-    "assets/testimony/testimony14.png",
-    "assets/testimony/testimony15.png",
-    "assets/testimony/testimony16.png",
-    "assets/testimony/testimony17.png",
-    "assets/testimony/testimony18.png",
-    "assets/testimony/testimony19.png",
-    "assets/testimony/testimony20.png",
-    "assets/testimony/testimony21.png",
-    "assets/testimony/testimony22.png",
-    "assets/testimony/testimony23.png",
-    "assets/testimony/testimony24.png",
-    "assets/testimony/testimony25.png",
-    "assets/testimony/testimony26.png",
-    "assets/testimony/testimony27.png",
-    "assets/testimony/testimony28.png",
-    "assets/testimony/testimony29.png",
-    "assets/testimony/testimony30.png",
-    "assets/testimony/testimony31.png",
-    "assets/testimony/testimony32.png",
-    "assets/testimony/testimony33.png",
-    "assets/testimony/testimony34.png",
-    "assets/testimony/testimony35.png",
-    "assets/testimony/testimony36.png",
-    "assets/testimony/testimony37.png",
-    "assets/testimony/testimony38.png",
-    "assets/testimony/testimony39.png",
-    "assets/testimony/testimony40.png",
-    "assets/testimony/testimony41.png",
-    "assets/testimony/testimony42.png",
-    "assets/testimony/testimony43.png",
-    "assets/testimony/testimony44.png"    
+    "assets/classic-tutorial/classic1.png",
+    "assets/classic-tutorial/classic2.png"
   ];
   
   
@@ -552,6 +510,8 @@ next.addEventListener('click', ()=>{
     index = imgs.length-1;
   }
   layout();
+  prev.classList.add('active');
+  next.classList.remove('active');
 })
 
 prev.addEventListener('click', ()=>{ 
@@ -560,6 +520,8 @@ prev.addEventListener('click', ()=>{
     index = 0;
   }
   layout();
+  prev.classList.remove('active');
+  next.classList.add('active');
 })
 var timer_sound = document.getElementById('timer-sound');
 
