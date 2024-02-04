@@ -11,6 +11,19 @@ const invBtn = document.getElementById('profileEditBtn');
 const shopIDimg = document.querySelector('.shopID');
 const profileIDimg = document.querySelector('.profileID');
 const profileIDEditimg = document.querySelector('.profileIDEdit');
+const leaderboardPopup = document.querySelector('.leaderboardpopup');
+const leaderboardClose = document.getElementById('closeProfileBtnLB');
+const leaderboardBtn = document.querySelector('.leaderboardBtn');
+
+leaderboardBtn.addEventListener("click", () => {
+    overlay.classList.add('active');
+    leaderboardPopup.classList.add('active');
+});
+
+leaderboardClose.addEventListener("click", () => {
+    overlay.classList.remove('active');
+    leaderboardPopup.classList.remove('active');
+});
 
 whole_profile.addEventListener("click", () => {
     overlay.classList.add('active');

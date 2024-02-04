@@ -740,6 +740,16 @@ height: 100%;
     background-repeat: no-repeat;
     background-size: cover;
 }
+.credits.ch_classic{
+    width: 128px;
+    height: 218px;
+    position: absolute;
+    top: 240px;
+    right: 45px;
+    background-image: url(../assets/ch_classic.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .credits.ch_cr2{
     width: 128px;
     height: 218px;

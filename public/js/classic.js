@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let userInput;
 
   let timer;
-  let timeLeft = 1 * 60; // 5 minutes in seconds
+  let timeLeft = 10 * 60; // 5 minutes in seconds
 
   function startTimer() {
     timer = setInterval(function () {
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
 
   function resetGame() {
-    timeLeft = 1 * 60;
+    timeLeft = 10 * 60;
     userInput = '';
     document.getElementById('sqlInput').value = '';
     document.getElementById('timer').textContent = '';

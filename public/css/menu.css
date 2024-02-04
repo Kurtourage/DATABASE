@@ -245,6 +245,27 @@ body{
     margin-left: 145px;
 }
 
+.leaderboardpopup{
+    display: flex;
+    position: absolute;
+    border: none;
+    z-index: 50;
+    width: 960px;
+    height: 620px;
+    top: 0;
+    left: 199px;
+    visibility: hidden;
+    border:none;
+}
+.leaderboardpopup.active{
+    visibility: visible;
+}
+.leaderboardnames{ 
+    background-color: #ffd262;
+    margin: 0;
+    width: 896px;
+}
+
 .overlay{
     position: absolute;
     width: 100%;
@@ -470,6 +491,16 @@ body{
     background-image: url(../assets/shoptitle.png);
     background-size: 100% 100%
 }
+.leaderboard-title{
+    position: absolute;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 896px;
+    height: 96px;
+    background-color: transparent;
+    background-image: url(../assets/learboardtitle.png);
+    background-size: 100% 100%
+}
 
 
 
@@ -530,6 +561,12 @@ body{
     border-left:3px solid #130900;
     background-color: #ffd262;
 }
+.leaderboardsidebar{
+    padding: 8px;
+    width: 64px;
+    border-left:3px solid #130900;
+    background-color: #ffd262;
+}
 .profile-btn button{
     outline: none;
     border: none;    
@@ -540,6 +577,11 @@ body{
     cursor: pointer;
 }
 #closeProfileBtn{
+    background-color: transparent;
+    background-image: url(../assets/profile-exit1.png);
+    background-size: 100% 100%;
+}
+#closeProfileBtnLB{
     background-color: transparent;
     background-image: url(../assets/profile-exit1.png);
     background-size: 100% 100%;
