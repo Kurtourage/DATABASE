@@ -15,7 +15,7 @@ function fetchUserInformation() {
         user_dbcoins = data.dbcoins;
         const dbcoinsDiv = document.getElementById('dbcoins');
         if (dbcoinsDiv) {
-          dbcoinsDiv.textContent = `DBCoins: ${data.dbcoins}`;
+          dbcoinsDiv.textContent = `${data.dbcoins}`;
         }
         
         // Update the UI for shop items after buying
