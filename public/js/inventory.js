@@ -43,7 +43,6 @@ function displayInventoryItems(items) {
     // Add "Use" button
     var useButton = document.createElement('button');
     useButton.classList.add('useBtn');
-    useButton.textContent = 'Use';
 
     // Check if the card is not greyed out before attaching the click event
     if (!card.classList.contains('greyed-out')) {

@@ -98,8 +98,7 @@ function fetchUserInformation() {
   
             const buyButton = document.createElement('button');
             buyButton.classList.add('buyBtn');
-            buyButton.textContent = 'Buy';
-  
+              
             const isPurchased = userPurchases.some(purchase => purchase.item_id === result.item_id);
   
             if (isPurchased) {

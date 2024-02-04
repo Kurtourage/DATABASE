@@ -414,6 +414,16 @@ body{
     height: 32px;
     cursor: pointer;
 }
+.shop-card button{
+    background-color: transparent;
+    background-image: url(../assets/use2.png);
+    background-size: 100% 100%;
+}
+.purchased button{
+    background-color: transparent;
+    background-image: url(../assets/use3.png);
+    background-size: 100% 100%;
+}
 
 .inventory-popup{
     width: 896px;
@@ -466,6 +476,17 @@ body{
 .inventory-card.greyed-out{
     opacity: 0.5;
 }
+.inventory-card button{
+    background-color: transparent;
+    background-image: url(../assets/use1.png);
+    background-size: 100% 100%;
+}
+.greyed-out button{
+    background-color: transparent;
+    background-image: url(../assets/use4.png);
+    background-size: 100% 100%;
+}
+
 .useBtn{
     margin-top: 32px;
     width: 96px;
