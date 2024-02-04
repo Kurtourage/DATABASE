@@ -24,7 +24,7 @@ let userId;
 let dbcoins;
 let userDbCoins;
 let currentLevel = null;
-
+let userAcc;
 
 
 let sqlQuery;
@@ -168,12 +168,13 @@ app.post('/signup', (req, res) => {
 
         // Inserting data to the database
         connection.query(
-          "INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins, creation_date, user_type) VALUES (?, ?, ?, 0, 1, 0, ?, 'user')",
+          "INSERT INTO users (username, email, password, user_pic, user_saved_level, dbcoins, creation_date, user_type) VALUES (?, ?, ?, 17, 1, 0, ?, 'user')",
           [username, email, hashedPassword, formattedDate],
           (insertErr, results) => {
             if (insertErr) {
               console.error('Error executing MySQL query:', insertErr);
               res.status(500).send('Internal Server Error');
+              res.json({success: false});
               return;
             }
 
@@ -190,7 +191,8 @@ app.post('/signup', (req, res) => {
 
                 // User successfully registered, store user information in session
                 req.session.user = results[0];
-                res.status(200);
+                res.json({success: true}); 
+                console.log("User account created successfully.")
               }
             );
           }
@@ -980,7 +982,7 @@ function generateRandomSQLProblem(counter) {
   
       const easy_template = [
           {
-            template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE department_name = '{{department}}'",
+            template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = deparments.department_id WHERE department_name = '{{department}}'",
             problemStatement: "Retrieve all employees in the '{{department}}' department.",
           },
           {
@@ -1017,7 +1019,7 @@ function generateRandomSQLProblem(counter) {
           
   const medium_Template = [
       {
-        template: "SELECT employee_name, job_title FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE departments.department_name = '{{department}}' AND salary > {{salary}}",
+        template: "SELECT employee_name, job_title FROM employees INNER JOIN departments ON employees.department_id = departments.department_id WHERE departments.department_name = '{{department}}' AND salary > {{salary}}",
         problemStatement: "Retrieve  the names and job titles of employees  in the '{{department}}' department with a salary greater than {{salary}}.",
       },
       {
@@ -1035,7 +1037,7 @@ function generateRandomSQLProblem(counter) {
       },
   
       {
-          template: "SELECT employees.employee_name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE employees.department_id = '{{departmentId}}' AND employees.salary > {{salary}}",
+          template: "SELECT employees.employee_name, departments.department_name FROM employees INNER JOIN departments ON employees.department_id = departments.department_id WHERE employees.department_id = '{{departmentId}}' AND employees.salary > {{salary}}",
           problemStatement: "Retrieve the names of employees and their respective department names for those in the department with ID '{{departmentId}}' and a salary greater than {{salary}}.",
         },
         
@@ -1045,7 +1047,7 @@ function generateRandomSQLProblem(counter) {
         },
   
         {
-          template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = department_id WHERE department_name = '{{department}}' AND employees.salary BETWEEN {{minSalary}} AND {{maxSalary}}",
+          template: "SELECT * FROM employees INNER JOIN departments ON employees.department_id = departments.department_id WHERE department_name = '{{department}}' AND employees.salary BETWEEN {{minSalary}} AND {{maxSalary}}",
           problemStatement: "Retrieve all employees in the '{{department}}' department with salaries between {{minSalary}} and {{maxSalary}}.",
       },
       
@@ -1418,30 +1420,10 @@ app.post('/reset-counter', (req, res) => {
 
 
 app.get('/classic-add-coins', (req, res) => {
-  let username = req.session.user.username;
-  console.log(username);
+       username = req.session.user.username;
+      userDbCoins = req.session.user.dbcoins;
+       console.log(username);
 
-
-  connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
-    if (err) {
-      console.error('Error executing MySQL query:', err);
-      res.status(500).send('Internal Server Error');
-      return;
-    }
-    console.log('Query results:', results); 
-
-    if (results.length > 0) {
-      userDbCoins = results[0].dbcoins;
-    } 
-
-    
-
-    else {
-      console.error('User not found.');
-      res.status(404).send('User not found.');
-      return;
-    }
-    
  
 
 
@@ -1455,6 +1437,30 @@ if (err) {
 }
 
 res.json({ coins: counter * 50, correctAnswers: counter});
+
+
+
+connection.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+  if (err) {
+    console.error('Error executing MySQL query:', err);
+    res.status(500).send('Internal Server Error');
+    return;
+  }
+  
+
+  if (results.length > 0) {
+    console.log(results[0]);
+    
+  } 
+
+  
+
+  else {
+    console.error('User not found.');
+    res.status(404).send('User not found.');
+    return;
+  }
+  
 });
 });
 });
@@ -1462,16 +1468,23 @@ res.json({ coins: counter * 50, correctAnswers: counter});
 
 app.get('/update-high-score',(req, res) => {
 let username = req.session.user.username;
-let highscore = counter * 50;
-connection.query('UPDATE users SET classic_high_score = ? WHERE username = ?', [highscore, username], (err, results) => {
-  if (err) {
-    console.error('Error executing MySQL query:', err);
-    res.status(500).send('Internal Server Error');
-    return;
-  }
-  console.log("Successful updating high score for ", username);
+let highscore = req.session.user.classic_high_score;
+let score = counter * 50;
 
-})
+if (score > highscore) {
+  connection.query('UPDATE users SET classic_high_score = ? WHERE username = ?', [score, username], (err, results) => {
+    if (err) {
+      console.error('Error executing MySQL query:', err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+    
+    console.log("Successful updating high score for ", username);
+  
+  });
+
+}
+
 });
 
 

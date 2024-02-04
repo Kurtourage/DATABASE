@@ -19,6 +19,8 @@ function submitSignupForm(event) {
     const email = emailInput.value.trim();
     const confirm_password = confirmPasswordInput.value.trim();
     
+    usernameError.textContent = "";
+    passwordError.textContent = "";
     if (username.length > 15) {
         usernameError.textContent = "Username longer than 15 characters"  || "An error occured";
     }
@@ -27,7 +29,7 @@ function submitSignupForm(event) {
 
         usernameError.textContent = '';
         passwordError.textContent = '';
-        // Use fetch API to send a POST request to the server
+
         fetch('/signup', {
             method: 'POST',
             headers: {
@@ -35,23 +37,23 @@ function submitSignupForm(event) {
             },
             body: JSON.stringify({ username, password, email })
         })
-
-     
-       
-       
+        .then(response => response.json())
         .then(data => {
-            if (data.status === 200) {
-           
+            if (data.success) {
+                // Redirect or perform any client-side action
                 window.location.href = '/menu.html';
-            
-            } else {
-                // Handle other status codes as needed
-                console.error('Unexpected status code:', response.status);
             }
-    
 
-        }) 
-        
+            else {
+                  // Handle other scenarios if needed
+                console.error('Signup unsuccessful:', data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error during signup:', error);
+          
+        });
+
 
     }
 

@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let userInput;
 
   let timer;
-  let timeLeft = 0.1 * 60; // 5 minutes in seconds
+  let timeLeft = 10 * 60; // 5 minutes in seconds
 
   function startTimer() {
     timer = setInterval(function () {
@@ -94,30 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (timeLeft < 0) {
 
-        fetch('/update-high-score', {
-          method: 'GET',
-          headers: {
-            'Content-type': 'Application/json',
-          },
-        })
-
-        .then(response => {
-          if(!response.ok) {
-            throw new Error ('Network response not OK');
-          }
-          return response.json();
-        })
-
-        .then(data => {
-          console.log('Server response: ', data);
-        })
-
-        .catch(error => {
-          console.error('Error: ', error); 
-        })
-        clearInterval(timer);
-        // Additional logic when the timer reaches zero (end the game, etc.)
-        showStartAgainButton();
+       
 
         fetch('/classic-add-coins', {
           method: 'get',
@@ -151,6 +128,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
           console.error("error sending request: ", error);
         })
+
+
+        fetch('/update-high-score', {
+          method: 'GET',
+          headers: {
+            'Content-type': 'Application/json',
+          },
+        })
+
+        .then(response => {
+          if(!response.ok) {
+            throw new Error ('Network response not OK');
+          }
+          return response.json();
+        })
+
+        .then(data => {
+          console.log('Server response: ', data);
+        })
+
+        .catch(error => {
+          console.error('Error: ', error); 
+        })
+        clearInterval(timer);
+        // Additional logic when the timer reaches zero (end the game, etc.)
+        showStartAgainButton();
       }
     }, 1000);
   }
@@ -192,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
 
   function resetGame() {
-    timeLeft = 0.1 * 60;
+    timeLeft = 10 * 60;
     userInput = '';
     document.getElementById('sqlInput').value = '';
     document.getElementById('timer').textContent = '';
