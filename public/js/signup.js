@@ -8,8 +8,10 @@ const passwordError = signupForm.querySelector('#password-error');
 const passwordInput = signupForm.querySelector('#password');
 const confirmPasswordInput = signupForm.querySelector('#confirm_password');
 const emailInput = signupForm.querySelector('#email');
+const emailError = signupForm.querySelector('#email-error');
 
-
+usernameError.textContent = '';
+passwordError.textContent = '';
 
 function submitSignupForm(event) {
     event.preventDefault();
@@ -21,12 +23,16 @@ function submitSignupForm(event) {
     
     usernameError.textContent = "";
     passwordError.textContent = "";
+    emailError.textContent = "";
+
     if (username.length > 15) {
         usernameError.textContent = "Username longer than 15 characters"  || "An error occured";
+        return;
     }
 
     if (password === confirm_password) {
-
+        
+        emailError.textContent = '';
         usernameError.textContent = '';
         passwordError.textContent = '';
 
@@ -47,6 +53,8 @@ function submitSignupForm(event) {
             else {
                   // Handle other scenarios if needed
                 console.error('Signup unsuccessful:', data.error);
+                usernameError.textContent = data.reason;
+                emailError.textContent = data.reason;
             }
         })
         .catch(error => {
