@@ -23,7 +23,9 @@ fetch('/get-leaderboards', {
           
             const liElement = document.createElement('li');
             const score = result.classic_high_score !== null ? result.classic_high_score : 0;
-            liElement.textContent = `${result.username} - Score: ${score}`;
+            const spaces = '&nbsp;'.repeat(8);
+
+            liElement.textContent = `${result.username}${spaces} ${score}`;
             olElement.appendChild(liElement);
         });
 

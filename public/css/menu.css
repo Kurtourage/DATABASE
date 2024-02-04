@@ -494,11 +494,20 @@ body{
 .leaderboard-title{
     position: absolute;
     margin-top: 10px;
-    margin-bottom: 20px;
     width: 896px;
     height: 96px;
     background-color: transparent;
     background-image: url(../assets/learboardtitle.png);
+    background-size: 100% 100%
+}
+.highscore-title{
+    position: absolute;
+    margin-top: 96px;
+    margin-bottom: 20px;
+    width: 896px;
+    height: 96px;
+    background-color: transparent;
+    background-image: url(../assets/highscoretitle.png);
     background-size: 100% 100%
 }
 
