@@ -5,15 +5,15 @@ function fetchAndDisplayInventory() {
     .then(response => response.json())
     .then(data => {
       // Check if data is not empty
-      if (data.length > 0) {
+      if (data.items.length > 0) {
         // Assuming the first row has a property called 'user_pic'
-        user_pic = data[0].user_pic;
+        user_pic = data.user_pic;
 
         // Now you can use the user_pic variable as needed
         console.log('User Pic:', user_pic);
 
         // Call the displayInventoryItems function with the data
-        displayInventoryItems(data);
+        displayInventoryItems(data.items);
       } else {
         console.error('Error: Empty data received.');
       }
