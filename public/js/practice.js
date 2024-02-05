@@ -79,6 +79,9 @@ const cheatsheetContent = `
       <br>
       <h3>Basic Commands:</h3>
       <br>
+      <p><strong>CREATE:</strong> Used to create a new table in a database.<br>
+      <em>CREATE TABLE table_name (column1 datatype, column2 datatype,<br>column3 datatype);</em></p>
+      <br>
       <p><strong>SELECT:</strong> Retrieve data from a database.<br>
       <em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
       <br>
@@ -90,6 +93,14 @@ const cheatsheetContent = `
       <br>
       <p><strong>DELETE:</strong> Remove records from a table.<br>
       <em>DELETE FROM table_name WHERE condition;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Data Types:</h3>
+      <br>
+      <p><strong>INTEGER:</strong><br>
+      
+      </p>
       <br>
       <hr>
       <br>
@@ -164,20 +175,8 @@ starting.addEventListener("click", () => {
 });
 
 // FOR BOARD
-const board = document.querySelector('.boardBig');
 const overlay = document.querySelector('.overlay');
-const showBoard = document.querySelector(".boardPop");
-const unshowBoard = document.querySelector(".board-close");
 
-showBoard.addEventListener("click", () => {
-    board.classList.add('active');
-    overlay.classList.add('active');
-});
-
-unshowBoard.addEventListener("click", () => {
-    board.classList.remove('active');
-    overlay.classList.remove('active');
-});
 //FOR COMPUTER
 const computer = document.querySelector('.computerBig');
 const showComputer = document.querySelector(".computerPop");
@@ -211,20 +210,6 @@ textarea.addEventListener("input", function(e) {
 
 
 
-// FOR RIDDLE
-const riddle = document.querySelector('.riddleBig');
-const showRiddle = document.querySelector(".riddlePop");
-const unshowRiddle = document.querySelector(".riddle-close");
-
-showRiddle.addEventListener("click", () => {
-    riddle.classList.add('active');
-    overlay.classList.add('active');
-});
-
-unshowRiddle.addEventListener("click", () => {
-    riddle.classList.remove('active');
-    overlay.classList.remove('active');
-});
 
 // FOR tutorial
 const tutorial = document.querySelector('.tutorialBig');
@@ -241,7 +226,7 @@ unshowTutorial.addEventListener("click", () => {
     overlay.classList.remove('active');
 });
 // FOR BOOK
-const book = document.querySelector('.classicBig');
+const book = document.querySelector('.practiceBig');
 const showBook = document.querySelector(".bookPop");
 const unshowBook = document.querySelector(".book-close");
 
@@ -251,65 +236,6 @@ unshowBook.addEventListener("click", () => {
     overlay.classList.remove('active');
 });
 
-const imgs = document.querySelectorAll('img');
-const prev = document.querySelector('.prev');
-const next = document.querySelector('.next');
 
-let index = 0;
-
-function layout() {
-  const xOffsetStep = 100;
-  const count = imgs.length;
-  const scaleStep = 0.6;
-  const opacityStep = 0;
-  const imageSources = [
-    "assets/classic-tutorial/classic1.png",
-    "assets/classic-tutorial/classic2.png"
-  ];
-  
-  
-  for(let i = 0; i < imgs.length; i++){
-    img = imgs[i];
-    const sign = Math.sign(i - index);
-
-    let xOffset = (i - index) * xOffsetStep;
-    if(i!==index) {
-      xOffset = xOffset + 80 * sign;
-    }
-    const scale = scaleStep ** Math.abs(i - index);
-    const rotateY = i === index ? 0 : 30 * -sign;
-    img.style.transform = `perspective(800px) translateX(${xOffset}px) scale(${scale}) rotateY(${rotateY}deg)`;
-    
-    let opacity = opacityStep ** Math.abs(i - index);
-    if(Math.abs(i - index) > 2) {
-      opacity = 0
-    }
-    img.style.opacity = opacity;
-    
-    img.style.zIndex = count - Math.abs(index - i);
-    img.src = imageSources[i];
-  }
-}
-layout();
-
-next.addEventListener('click', ()=>{ 
-  index++;
-  if(index > imgs.length-1){
-    index = imgs.length-1;
-  }
-  layout();
-  prev.classList.add('active');
-  next.classList.remove('active');
-})
-
-prev.addEventListener('click', ()=>{ 
-  index--;
-  if(index < 0){
-    index = 0;
-  }
-  layout();
-  prev.classList.remove('active');
-  next.classList.add('active');
-})
 var timer_sound = document.getElementById('timer-sound');
 
