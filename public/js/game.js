@@ -231,9 +231,12 @@ function updateHUD(missionObj) {
 
           // Create a new div
           const coinsInfoDiv = document.createElement("div");
-          coinsInfoDiv.id = "coins-info";
+          coinsInfoDiv.id = "coins-infostory";
+          coinsInfoDiv.classList.add('coin-story');
+          const coinsInfoImg = document.createElement("div");
+          coinsInfoImg.classList.add('coin-story-img');
 
-          coinsInfoDiv.textContent = `${data.dbcoins}`;
+          coinsInfoDiv.textContent = `${data.dbcoins} coins collected`;
         
           // Append the new div to the button container
           buttonContainer.appendChild(coinsInfoDiv);
