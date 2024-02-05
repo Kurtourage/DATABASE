@@ -402,6 +402,7 @@ body{
 }
 .shop-card.purchased{
     opacity: 0.5; 
+    cursor: not-allowed;
 }
 .shop-card img{
     width: 150px;
@@ -423,6 +424,7 @@ body{
     background-color: transparent;
     background-image: url(../assets/use3.png);
     background-size: 100% 100%;
+    cursor: not-allowed;
 }
 
 .inventory-popup{
@@ -485,6 +487,7 @@ body{
     background-color: transparent;
     background-image: url(../assets/use4.png);
     background-size: 100% 100%;
+    cursor: not-allowed;
 }
 
 .useBtn{

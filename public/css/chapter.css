@@ -272,7 +272,34 @@ textarea::placeholder{
     transition-duration: 0.3s; 
     transition-timing-function: ease-out; 
   }
-
+  .practiceBig{
+    position: absolute;
+    transform: scale(0);
+    width: 960px;
+    height: 540px;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+    background-color: transparent;
+    border: none;
+    z-index: 20;
+    overflow: hidden;
+  }
+  .practiceBig.active{
+    transform: scale(1);
+  }
+  .practiceBigimage{
+    position: absolute;
+    width: 384px;
+    height: 512px;
+    border-radius: 16px;
+    position: absolute;
+    left: 288px;
+    background-image: url(../assets/practicemode.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 .bookBig{
     position: absolute;
     transform: scale(0);
