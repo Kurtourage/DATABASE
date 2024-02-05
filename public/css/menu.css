@@ -742,3 +742,18 @@ table tr th:nth-child(2) {
 .shop-card p{
     font-size: 17px;
 }
+
+.profilebadgestory.active{
+    transform: scale(1);
+    position: absolute;
+    top: 20px;
+    border: 1px solid white;
+    width: 96px;
+    height: 96px;
+    left: 499px;
+}
+
+
+.profilebadgestory{
+    transform: scale(0);
+}
