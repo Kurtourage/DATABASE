@@ -98,7 +98,8 @@ function fetchUserInformation() {
   
             const buyButton = document.createElement('button');
             buyButton.classList.add('buyBtn');
-              
+
+  
             const isPurchased = userPurchases.some(purchase => purchase.item_id === result.item_id);
   
             if (isPurchased) {
@@ -118,7 +119,7 @@ function fetchUserInformation() {
                   fetchShopItems();
                 } else {
                   // If not enough coins, display a message
-                  shopItemsDiv.appendChild(notEnoughCoinsDiv);
+                  cardDiv.appendChild(notEnoughCoinsDiv);
                 }
               });
             }

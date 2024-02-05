@@ -79,6 +79,9 @@ const cheatsheetContent = `
       <br>
       <h3>Basic Commands:</h3>
       <br>
+      <p><strong>CREATE:</strong> Used to create a new table in a database.<br>
+      <em>CREATE TABLE table_name (column1 datatype, column2 datatype,<br>column3 datatype);</em></p>
+      <br>
       <p><strong>SELECT:</strong> Retrieve data from a database.<br>
       <em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
       <br>
@@ -90,6 +93,14 @@ const cheatsheetContent = `
       <br>
       <p><strong>DELETE:</strong> Remove records from a table.<br>
       <em>DELETE FROM table_name WHERE condition;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Data Types:</h3>
+      <br>
+      <p><strong>INTEGER:</strong><br>
+      
+      </p>
       <br>
       <hr>
       <br>
