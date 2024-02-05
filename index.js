@@ -5,6 +5,7 @@ const session = require('express-session');
 const sqlite3 = require('sqlite3').verbose();
 const bcrypt = require('bcrypt');
 const { connect } = require('http2');
+const { send } = require('vite');
 const app = express();
 const port = 5173;
 
@@ -25,9 +26,9 @@ let userId;
 let dbcoins;
 let userDbCoins;
 let currentLevel = null;
-
+let currentLevelNumber;
 let user_pic;
-
+let sending_dbcoins;
 let sqlQuery;
 let problemStatement;
 let counter = 0;
@@ -1437,6 +1438,44 @@ app.post('/reset-counter', (req, res) => {
 });
 
 
+app.post('/add-coins', (req, res) => {
+
+  currentLevelNumber = req.body.currentLevelNumber;
+
+  
+
+  connection.query("SELECT * FROM users WHERE user_id = ?", [userId], (err, results) => {
+    if (err) {
+      console.log("Error fetching user information: ", err);
+      return;
+    }
+
+    console.log(results);
+    console.log(currentLevelNumber);
+    let dbcoins = results[0].dbcoins;
+
+
+    if (currentLevelNumber < results[0].user_saved_level) {
+      dbcoins = dbcoins + 0;
+      sending_dbcoins = 0;
+    } else if (currentLevelNumber >= results[0].user_saved_level) {
+      dbcoins = dbcoins + 250;
+      sending_dbcoins = 250;
+    }
+
+    connection.query("UPDATE users SET dbcoins = ? WHERE user_id = ?", [dbcoins, userId], (err, updateResults) => {
+      if (err) {
+        console.log("Error updating coins: ", err);
+        return;
+      }
+
+      res.json({ success: true, dbcoins: sending_dbcoins });
+      console.log("Coins to be rewarded: ", sending_dbcoins);
+    });
+  });
+});
+
+
 app.get('/classic-add-coins', (req, res) => {
        username = req.session.user.username;
       userDbCoins = req.session.user.dbcoins;
@@ -1565,7 +1604,7 @@ connection.query("SELECT * from users where username = ? ", [username], (err, re
     return;
   };
 
-  if (results[0].dbcoins > item_price) {
+  if (results[0].dbcoins >= item_price) {
     userDbCoins = results[0].dbcoins - item_price;
 
   

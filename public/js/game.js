@@ -1,4 +1,8 @@
+document.addEventListener("DOMContentLoaded", function () {
+
 const mode = 'story';
+let currentLevelNumber;
+let dbcoins;
 
 
 const config = {
@@ -45,7 +49,7 @@ function getCurrentLevelNumber() {
 
 // Function to start the current level on page load
 function startCurrentLevel() {
-  const currentLevelNumber = getCurrentLevelNumber();
+   currentLevelNumber = getCurrentLevelNumber();
   startLevel(currentLevelNumber);
 }
 
@@ -212,6 +216,29 @@ function updateHUD(missionObj) {
 
         //add fetching for adding coins to user on server endpoint here
 
+        fetch('/add-coins', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({currentLevelNumber}),
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data.success);
+          console.log(data.dbcoins);
+          
+       
+
+          // Create a new div
+          const coinsInfoDiv = document.createElement("div");
+          coinsInfoDiv.id = "coins-info";
+
+          coinsInfoDiv.textContent = `${data.dbcoins}`;
+        
+          // Append the new div to the button container
+          buttonContainer.appendChild(coinsInfoDiv);
+         
+         
          // Create a button
           const nextLevelButton = document.createElement('button');
           nextLevelButton.id = 'nextLevelButton';
@@ -231,6 +258,10 @@ function updateHUD(missionObj) {
         // Append the button to the container
         buttonContainer.appendChild(nextLevelButton);
         document.getElementById('nextLevelButton').addEventListener('click', startNextLevel)
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
       } 
     }
 
@@ -296,6 +327,7 @@ function updateHUD(missionObj) {
       const tableContainer = document.getElementById("tableContainer");
       const clearContainer = document.getElementById("clearTable");
       const clearExit = document.querySelector(".computer-close");
+      const errorMessage = document.getElementById('errorMessage');
 
       // Clear previous results
       while (tableContainer.firstChild) {
@@ -304,6 +336,10 @@ function updateHUD(missionObj) {
       tableContainer.innerHTML = tableHtml;
 
       clearContainer.addEventListener("click", () => {
+
+
+        //clear error
+        errorMessage.textContent = '';
         // Clear result
         while (tableContainer.firstChild) {
           tableContainer.removeChild(tableContainer.firstChild);
@@ -312,6 +348,8 @@ function updateHUD(missionObj) {
       });
     }
   });
+
+
 
 const cheatsheetContent = `
 <div class="cheatsheet">
@@ -396,3 +434,4 @@ const cheatsheetContent = `
 const existingDiv = document.getElementById('cheatsheet');
 existingDiv.innerHTML = cheatsheetContent;
 
+});
