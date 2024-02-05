@@ -36,15 +36,14 @@
 
 
 <!-- Level 1 content -->
-<div id="errorMessage" style="color: red;"></div>
+
 <div id="button-container"></div>
 
 <div id="post-game">
   <div class="coins">
     <div class="coin-img">
     </div>
-    <h1 id="coins-info">
-    </h1>
+    <h1 id="coins-info"></h1>
   </div>
   <div class="correct">
     <div class="correct-img"></div>
@@ -139,12 +138,14 @@
         <!-- HUD content will be dynamically added here -->
       </div>
     <div id="level1" class="level">
+      
       <textarea id="sqlInput" placeholder="Type here"></textarea>
       <div class="exc-btn">
         <button id="executeBtn1">Execute SQL</button> 
         <button  id="clearTable">Clear</button>
       </div>
       <div id="result-message"> </div>
+      <div id="errorMessage" style="color: red;"></div>
       <div id="tableContainer"></div>
       </div>
       </div>
@@ -175,7 +176,6 @@
 
 
 <script src="dist/sql-wasm.js"></script>
-
 <script src="js/checkLogin.js"></script>
 <script src="js/classic.js"></script>
 <script src="js/transition.js"></script>
