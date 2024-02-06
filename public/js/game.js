@@ -298,6 +298,8 @@ function updateHUD(missionObj) {
           
           if (currentLevelNumber == 5) {
 
+            // code dito
+
             fetch('/add-badge', {
               method: 'POST',
               headers: {'Content-Type': 'application/json',
