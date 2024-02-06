@@ -282,11 +282,33 @@ function updateHUD(missionObj) {
           buttonContainer.appendChild(coinsInfoDiv);
          
          
-         // Create a button
-          const nextLevelButton = document.createElement('button');
-          nextLevelButton.id = 'nextLevelButton';
-          nextLevelButton.classList.add('nextLevelButton');
+          if (currentLevelNumber > 5) {
 
+            // Create a button
+            const nextLevelButton = document.createElement('button');
+            nextLevelButton.id = 'nextLevelButton';
+            nextLevelButton.classList.add('nextLevelButton');
+
+
+                      // Append the button to the container
+            buttonContainer.appendChild(nextLevelButton);
+            document.getElementById('nextLevelButton').addEventListener('click', startNextLevel)
+          }
+         
+
+          const backtoStoryButton = document.createElement('button');
+          backtoStoryButton.id = 'backtoStoryButton';
+          backtoStoryButton.classList.add('backtoStoryButton');
+
+
+                    // Append the button to the container
+          buttonContainer.appendChild(backtoStoryButton);
+          document.getElementById('backtoStoryButton').addEventListener('click',  function(){
+
+             // Redirect to storyMode.html
+          window.location.href = 'storyMode.html';
+          })
+          
 
           const overlay = document.querySelector('.overlay');
           const computer = document.querySelector('.computerBig');
@@ -308,9 +330,7 @@ function updateHUD(missionObj) {
           })
           };
 
-        // Append the button to the container
-        buttonContainer.appendChild(nextLevelButton);
-        document.getElementById('nextLevelButton').addEventListener('click', startNextLevel)
+ 
       })
       .catch(error => {
         console.error('Error fetching data:', error);
