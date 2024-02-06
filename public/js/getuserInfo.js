@@ -13,13 +13,14 @@ function getUserInfo(){
       const codenameElements = document.querySelectorAll('.profile-codename1');
       const dateIssuedElements = document.querySelectorAll('.profile-date-issued1');
       const profileElements = document.querySelectorAll('.profile-picture');
+      const profilebadge = document.querySelector('.profilebadge');
     
       if(data.storyModeCompleted ==null) {
         
-        //turn off active badge
+        profilebadge.classList.remove('active');
       }
 
-      //turn on active badge
+      
   
       codenameElements.forEach(element => {
         element.textContent = `${data.username || 'N/A'}`;
@@ -33,6 +34,7 @@ function getUserInfo(){
         const formattedDate = new Date(data.creation_date).toLocaleDateString('en-CA');
         element.textContent = `${formattedDate || 'N/A'}`;
       });
+      profilebadge.classList.add('active');
     })
     .catch(error => console.error('Error fetching user data:', error));
   
