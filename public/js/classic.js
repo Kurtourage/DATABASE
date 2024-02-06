@@ -541,4 +541,14 @@ prev.addEventListener('click', ()=>{
   next.classList.add('active');
 })
 var timer_sound = document.getElementById('timer-sound');
+const music_btn = document.querySelector('.music-btn');
+music_btn.addEventListener("click", () => {
+    music_btn.classList.toggle('inactive');
+    if (music_btn.classList.contains('inactive')) {
+        timer_sound.volume = 0;
+    } else {
+        // Set the desired volume when the 'inactive' class is not present
+        timer_sound.volume = 0.5;
+    }
+});
 

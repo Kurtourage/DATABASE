@@ -5,7 +5,7 @@ window.onload = () => {
     setTimeout(() => {
         transition_el.classList.remove('is-active');
     }, 1);
-    audio.volume = 0.08;
+    audio.volume = 0.02;
     audio.loop = true;
     audio.play();
 }
@@ -17,7 +17,7 @@ music_btn.addEventListener("click", () => {
         audio.volume = 0;
     } else {
         // Set the desired volume when the 'inactive' class is not present
-        audio.volume = 0.08;
+        audio.volume = 0.02;
     }
 });
 
