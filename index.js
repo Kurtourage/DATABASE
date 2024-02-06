@@ -296,22 +296,22 @@ app.post('/initialize-game-db', (req, res) => {
 
        const insertEvidenceTableSQL  = `INSERT INTO evidence (name, location_found)
        VALUES
-       ('Poisoned Chalice', 'Analysis of the drink served to Marcus Whitewood reveals traces of a rare and potent poison. The spectral raven subtly directs attention to the chalice, indicating foul play in his demise'),
-       ('Merlot', 'The wine that was poisoned'),
-       ('Broken Necklace', 'Evelyn Whitewood''s necklace, a family heirloom, is discovered shattered. The raven hints at the necklace''s importance, signaling a struggle or a significant altercation before the tragic events.'),
-       ('Shattered Vial', 'Discovered near the greenhouse, hidden amidst a bed of vibrant flowers near the Whitewood family statue.'),
-       ('Torn Fabric', 'Caught on the ornate gates at the estate''s entrance, hinting at a hurried departure into the night.'),
-       ('Cryptic Note', 'Concealed within the ancient grandfather clock in the study, nestled behind its pendulum.'),
-       ('Midnight Blossom', 'a vibrant poisonous flower seen at the Sanctum, looks red when withered.'),
-       ('Stardust Lily', 'a poisonous flower seen in the Greenhouse'),
-       ('Bright Bloom', 'a vibrant red flower, di alam saan nakalagay hahaha'),  
-       ('Fragmented Jewelry', 'Scattered amidst the opulent tapestries in the banquet hall, glinting under the soft glow of chandeliers.'),
-       ('Unfamiliar Key', 'Hidden within an intricate mosaic on the mosaic near the garden''s fountain, its presence overlooked.'),
-       ('Broken Ornament', 'Found tangled within the overgrown thicket near the conservatory, shards peeking through the tangled vines.'),
-       ('Mysterious Book', ' Discovered beneath a pile of forgotten scripts on a bookstand in the music room.'),
-       ('Tainted Cloth', 'Hidden amidst the curtains in the master bedroom, a piece of fabric stained with an unidentifiable substance.'),
-       ('Dented Cane', 'Abandoned near the gardener''s shed, nestled among the tools and pots, unnoticed in the bustling garden.'),
-       ('Hidden Passageway', 'A previously unknown hidden passageway within the estate, revealed by the spectral raven''s subtle gestures, suggests an escape route or clandestine movements possibly utilized by the perpetrator.')
+       ('Poisoned Chalice', 'Garden'),
+       ('Merlot', 'Greenhouse'),
+       ('Broken Necklace', 'Conservatory'),
+       ('Shattered Vial', 'Greenhouse'),
+       ('Torn Fabric', 'Manor Entrance'),
+       ('Cryptic Note', 'Family Quarters'),
+       ('Midnight Blossom', 'Manor Sanctum'),
+       ('Stardust Lily', 'Greenhouse'),
+       ('Bright Bloom', 'Manor Sanctum'),  
+       ('Fragmented Jewelry', 'Grand Hall'),
+       ('Unfamiliar Key', 'garden'),
+       ('Broken Ornament', 'Conservatory'),
+       ('Mysterious Book', 'Study'),
+       ('Tainted Cloth', 'Servant's Quarter'),
+       ('Dented Cane', 'Drawing Room'),
+       ('Hidden Passageway', 'Art Gallery')
       
       ;` 
        ; 
@@ -683,7 +683,7 @@ const levels = [
   {
     id: 4,
     mission: ["INSERT INTO mansion_locations(name) VALUES('Manor Sanctum')", 'SELECT * FROM mansion_locations', 'create table weapon_location(name TEXT)', "INSERT INTO weapon_location(name) VALUES('manor sanctum')", 'CREATE TABLE murder_weapon(name TEXT)' , "INSERT INTO murder_weapon(name) VALUES ('Midnight Blossom')", "SELECT * FROM profiles WHERE address = 'Midway Grove, Calabasas City'", "DELETE FROM profiles where address != 'Midway Grove, Calabasas City' "],
-    objective: ['INSERT a new location in the mansion_locations table.', 'SELECT all locations in the mansion.', 'CREATE a table named weapon_location.', 'UPDATE your guess location where the weapon is.' ,'CREATE a table named `murder_weapon` with a `name` field.', 'INSERT the weapon used in the “murder_weapon” table.', 'SELECT all persons that lives in the Whitewood residence.' , 'DELETE all guests.' ]
+    objective: ['INSERT a new location in the mansion_locations table.', 'SELECT all locations in the mansion.', 'CREATE a table named weapon_location with a TEXT column named `name`.', 'UPDATE your guess location where the weapon is.' ,'CREATE a table named `murder_weapon` with a `TEXT` field named `name`.', 'INSERT the weapon used in the “murder_weapon” table.', 'SELECT all persons that lives in the Whitewood residence.' , 'DELETE all guests in one line using their address .' ]
  
   },
 
