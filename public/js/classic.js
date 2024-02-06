@@ -36,10 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
           .then(data => {
             if (data.success) {
               console.log("Query results:", data.tableHtml);
-              displayResults(data.tableHtml);
+                
                  // Clear error message if successful
                  document.getElementById('errorMessage').textContent = '';
-            } else {
+                 displayResults(data.tableHtml);
+            } else { 
               console.error('Error executing SQL statement:', data.errorMessage);
                   // Display error message
                   document.getElementById('errorMessage').textContent = data.errorMessage;
@@ -62,29 +63,41 @@ document.addEventListener("DOMContentLoaded", function () {
     .then(data => console.log(data))
     .catch(error => console.error('Error initializing database:', error));
 
-  function displayResults(tableHtml) {
-    const tableContainer = document.getElementById("tableContainer");
-    const clearContainer = document.getElementById("clearTable");
-    const clearExit = document.querySelector(".computer-close");
-    const errorMessage = document.getElementById('errorMessage');
-
-    // Clear previous results
-    while (tableContainer.firstChild) {
-      tableContainer.removeChild(tableContainer.firstChild);
+    function displayResults(tableHtml) {
+      const tableContainer = document.getElementById("tableContainer");
+      const clearContainer = document.getElementById("clearTable");
+    
+      // Clear previous results
+      while (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
+      }
+      tableContainer.innerHTML = tableHtml;
     }
-    tableContainer.innerHTML = tableHtml;
-
-    clearContainer.addEventListener("click", () => {
-
-      //clear error
-      errorMessage.textContent = '';
-      // Clear result
+    
+    // Event listener for clearContainer outside of displayResults
+    document.getElementById("clearTable").addEventListener("click", () => {
+      console.log("clear table is clicked.");
+    
+      // Check if there's an error message and clear it
+      const errorMessageElement = document.getElementById('errorMessage');
+      if (errorMessageElement.textContent.trim() !== '') {
+        errorMessageElement.textContent = '';
+      }
+    
+      // Clear other elements or perform additional actions if needed
+      // For example, clear the table results
+      const tableContainer = document.getElementById("tableContainer");
       while (tableContainer.firstChild) {
         tableContainer.removeChild(tableContainer.firstChild);
       }
     });
-  }
+    
 
+
+    
+    
+
+    
   let userInput;
 
   let timer;
@@ -162,7 +175,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }, 1000);
   }
-
 
 
 

@@ -37,6 +37,45 @@ const config = {
             }
           })
           .catch(error => console.error('Error executing SQL statement:', error));
+
+
+          if (currentLevelNumber == 5) {
+
+            const hintDiv = document.getElementById("hint");
+
+    
+                fetch('/level-5-checker', {
+                  method: 'POST',
+                  headers: {
+                      'Content-type': 'application/json',
+                  },
+                  body: JSON.stringify({sql}),
+                })
+
+                .then(response=>{
+
+                  if (!response.ok) {
+                      throw new Error('Network response not OK');
+                    }
+                    return response.json();
+                })
+
+                .then(data => {
+
+                  hintDiv.innerHTML = data;
+
+
+                })
+
+                .catch(error => {
+
+                  console.error('Error fetching data:', error);
+                  // Handle error, e.g., display an error message in the hint div
+                  hintDiv.innerHTML = 'An error occurred while fetching data.';
+                });
+            
+
+          }
       }
 
 
@@ -44,7 +83,8 @@ const config = {
 function getCurrentLevelNumber() {
   // Extract the number from the file name (e.g., "CH1.html" -> 1)
   const match = window.location.pathname.match(/\/CH(\d+)\.html/);
-  return match ? parseInt(match[1], 5) : 1; // Default to level 1 if not found
+
+  return match ? parseInt(match[1], 6) : 1; // Default to level 1 if not found
 }
 
 // Function to start the current level on page load
@@ -217,7 +257,7 @@ function updateHUD(missionObj) {
         //add fetching for adding coins to user on server endpoint here
 
         fetch('/add-coins', {
-          method: 'POST',
+          method: 'GET',
           headers: {'Content-Type': 'application/json',
         },
         body: JSON.stringify({currentLevelNumber}),
@@ -253,7 +293,15 @@ function updateHUD(missionObj) {
 
 
           
-          
+          if (currentLevelNumber == 5) {
+
+            fetch('/add-badge', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json',
+            },            
+   
+          })
+          };
 
         // Append the button to the container
         buttonContainer.appendChild(nextLevelButton);
@@ -286,7 +334,13 @@ function updateHUD(missionObj) {
         }
   
         const result = await response.json();
-        console.log(result.mission); // You can use the mission data as needed
+       
+        if (currentLevelNumber == 5) {
+
+          console.log("Congratulations on finishing the story!")
+
+        }
+
         handleStartNextLevelResult(result);
       } catch (error) {
         console.error(error);
@@ -323,30 +377,35 @@ function updateHUD(missionObj) {
       .then(data => console.log(data))
       .catch(error => console.error('Error initializing database:', error));
 
-      function displayResults(tableHtml) {
+   
+    function displayResults(tableHtml) {
       const tableContainer = document.getElementById("tableContainer");
       const clearContainer = document.getElementById("clearTable");
-      const clearExit = document.querySelector(".computer-close");
-      const errorMessage = document.getElementById('errorMessage');
-
+    
       // Clear previous results
       while (tableContainer.firstChild) {
         tableContainer.removeChild(tableContainer.firstChild);
       }
       tableContainer.innerHTML = tableHtml;
-
-      clearContainer.addEventListener("click", () => {
-
-
-        //clear error
-        errorMessage.textContent = '';
-        // Clear result
-        while (tableContainer.firstChild) {
-          tableContainer.removeChild(tableContainer.firstChild);
-        }
-
-      });
     }
+    
+    // Event listener for clearContainer outside of displayResults
+    document.getElementById("clearTable").addEventListener("click", () => {
+      console.log("clear table is clicked.");
+    
+      // Check if there's an error message and clear it
+      const errorMessageElement = document.getElementById('errorMessage');
+      if (errorMessageElement.textContent.trim() !== '') {
+        errorMessageElement.textContent = '';
+      }
+    
+      // Clear other elements or perform additional actions if needed
+      // For example, clear the table results
+      const tableContainer = document.getElementById("tableContainer");
+      while (tableContainer.firstChild) {
+        tableContainer.removeChild(tableContainer.firstChild);
+      }
+    });
   });
 
 

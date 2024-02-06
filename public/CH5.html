@@ -14,6 +14,7 @@
 
 
 <!-- Level 1 content -->
+
 <div id="button-container"></div>
 
 <!-- NARRATION -->
@@ -48,22 +49,21 @@
 <div class="overlay">
 </div>  
 
-    <!-- SETTINGS -->
-    <div class="connector"></div>
-    <div class="credits ch_cr5" id="ch_cr5"></div>
-    <div class="settings signout">
-      <div class="settings-btn">
-        <a href="menu.html">
-          <button id="homeBtn"></button>
-        </a>
-      </div> 
-      <div class="settings-btn">
-          <button id="musicBtn"> </button>
-      </div> 
-  </div>
-  <div class="back-bg">
-  </div>
-
+  <!-- SETTINGS -->
+  <div class="connector"></div>
+  <div class="credits ch_cr5" id="ch_cr5"></div>
+  <div class="settings signout">
+    <div class="settings-btn">
+      <a href="menu.html">
+        <button id="homeBtn"></button>
+      </a>
+    </div> 
+    <div class="settings-btn">
+        <button id="musicBtn"> </button>
+    </div> 
+</div>
+<div class="back-bg">
+</div>
 <!-- </div> BIG HOVERS -->
 <div class="boardBig" id="chapterschema">
     <div class="close board-close">
@@ -123,13 +123,14 @@
     <button class="prev" id="paper"></button>
     <button class="next" id="paper"></button>
   </div>
+  </div>
 </div>
 <div class="riddleBig">
   <div class="close riddle-close">
     <h1>x</h1>
   </div>
   <div class="riddleContent">
-    <h1> I can hide your face, a visage veiled,
+ <h1> I can hide your face, a visage veiled,
       Yet showcase triumph, when honor's hailed.
       What am I, both mystery and prize?
       In whispers lost, but seen by wise eyes.
@@ -217,16 +218,16 @@
     </div>
     <div class="computerInside">
       <div id="hud-container">
-        <div id = "hint"></div>
         <!-- HUD content will be dynamically added here -->
       </div>
     <div id="level1" class="level">
       <textarea id="sqlInput" placeholder="Type here"></textarea>
       <div class="exc-btn">
         <button class="computerBtn" id="executeBtn1"></button> 
-        <button class="computerBtn" id="clearTable"></button>
+        <button class="computerBtn"  id="clearTable"></button>
       </div>
       <div id="result-message"> </div>
+      <div id ="hint"></div>
       <div id="errorMessage" style="color: red;"></div>
       <div id="tableContainer"></div>
       </div>
@@ -239,6 +240,7 @@
     <h1>x</h1>   
   </div>
 </div>
+
 <!-- SMALL HOVERS -->
 <div class="main-bg" id="main-bg">
     <div class="hovers">
@@ -279,6 +281,6 @@
 <script src="js/popup.js"></script>
 <script src="js/transition.js"></script>
 <script src="js/img-transition.js"></script>
-<script src="js/level5.js"></script>
+
 </body>
 </html>

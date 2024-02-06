@@ -665,7 +665,7 @@ const levels = [
   {
     id: 1,
     mission: [ 'SELECT * from profiles', "Insert into profiles (name) Values('{{name}}')",'Delete from profiles where id = 46' ],
-    objective:['SELECT all persons involved from the profile table', 'INSERT your username in the profiles table', 'DELETE your information in the profiles table using id ']
+    objective:['SELECT all persons involved from the profiles table', 'INSERT your username in the profiles table', 'DELETE your information in the profiles table using id ']
      },
 
   {
@@ -682,14 +682,14 @@ const levels = [
 
   {
     id: 4,
-    mission: ["INSERT INTO mansion_locations(name), VALUES('Manor Sanctum')", 'SELECT * FROM mansion_locations', 'create table weapon_location(name TEXT)', "INSERT INTO weapon_location(name) VALUES('manor sanctum')", 'CREATE TABLE murder_weapon(name TEXT)' , "INSERT INTO murder_weapon(name) VALUES ('Midnight Blossom')", "SELECT * FROM profiles WHERE address = 'Midway Grove, Calabasas City'", "DELETE FROM profiles where address != 'Midway Grove, Calabasas City' "],
+    mission: ["INSERT INTO mansion_locations(name) VALUES('Manor Sanctum')", 'SELECT * FROM mansion_locations', 'create table weapon_location(name TEXT)', "INSERT INTO weapon_location(name) VALUES('manor sanctum')", 'CREATE TABLE murder_weapon(name TEXT)' , "INSERT INTO murder_weapon(name) VALUES ('Midnight Blossom')", "SELECT * FROM profiles WHERE address = 'Midway Grove, Calabasas City'", "DELETE FROM profiles where address != 'Midway Grove, Calabasas City' "],
     objective: ['INSERT a new location in the mansion_locations table.', 'SELECT all locations in the mansion.', 'CREATE a table named weapon_location.', 'UPDATE your guess location where the weapon is.' ,'CREATE a table named `murder_weapon` with a `name` field.', 'INSERT the weapon used in the “murder_weapon” table.', 'SELECT all persons that lives in the Whitewood residence.' , 'DELETE all guests.' ]
  
   },
 
   {
     id: 5,
-    mission: ["SELECT profiles.name FROM testimony INNER JOIN profiles ON testimony.id = profiles.id  INNER JOIN favorite_objects ON profiles.id = favorite_objects.id WHERE testimony LIKE '%garden%' AND object_type LIKE '%flower%'", 'CREATE TABLE suspect (name text)', "INSERT into suspect (name) Values ('Edmund Thatcher')" ],
+    mission: ["SELECT profiles.name as name, favorite_objects.name as favorite_object from profiles INNER JOIN favorite_objects ON profiles.id = favorite_objects.id ","SELECT profiles.name FROM testimony INNER JOIN profiles ON testimony.id = profiles.id  INNER JOIN favorite_objects ON profiles.id = favorite_objects.id WHERE testimony LIKE '%garden%' AND object_type LIKE '%flower%'", 'CREATE TABLE suspect (name text)', "INSERT into suspect (name) Values ('Edmund Thatcher')" ],
     objective: ['SELECT all people and their favorite objects.', 'SELECT all the names where the alibis have “garden” and the type of object they like is “flowers.”',  'CREATE  a table named `suspect` with a `name` column.', 'INSERT the killer in the suspect table, SELECT the *answer* in the suspect table.']
 
   }
@@ -706,6 +706,7 @@ const levels = [
 app.post('/start-level', (req, res) => {
   // Get the level ID and username from the request
   const { levelId } = req.body;
+
   username = req.session.user.username;
   // Find the corresponding level
   const level = levels.find((l) => l.id === levelId);
@@ -734,6 +735,8 @@ app.post('/start-level', (req, res) => {
 
 // Endpoint to start the next level
 app.post('/start-next-level', (req, res) => {
+
+  let user_db_level;
   // Check if there is a current level
   if (!currentLevel) {
     return res.status(400).json({ error: 'No active level' });
@@ -753,18 +756,39 @@ app.post('/start-next-level', (req, res) => {
    // Get the user ID from the session
    const userId = req.session.user.user_id;
    userInputs = [];
-   // Update the user_saved_level in the database
-   connection.query(
-     'UPDATE users SET user_saved_level = ? WHERE user_id = ?',
-     [nextLevel.id, userId],
-     (err, results) => {
-       if (err) {
-         console.error('Error updating user_saved_level:', err);
-         res.status(500).json({ error: 'Internal Server Error' });
-         return;
-       }
-      }
-   )
+
+   connection.query("SELECT * from users where user_id =?", [userId] , (err, results) => {
+
+    if (err) {
+      console.log("Error selecting user for updating level: ", err);
+
+    }
+
+    user_db_level = results[0].user_saved_level;
+    
+    if (user_db_level < nextLevel.id) {
+ // Update the user_saved_level in the database
+ connection.query(
+  'UPDATE users SET user_saved_level = ? WHERE user_id = ?',
+  [nextLevel.id, userId],
+  (err, results) => {
+    if (err) {
+      console.error('Error updating user_saved_level:', err);
+      res.status(500).json({ error: 'Internal Server Error' });
+      return;
+    }
+
+    console.log("Succesfully updated current level of user: ", userId, ": Level: ", nextLevel.id)
+   })
+  }
+
+    else {
+        console.log("User already completed level.")
+
+
+    }
+   })
+  
   
   // Set the current level to the next level
   currentLevel = nextLevel;
@@ -924,7 +948,7 @@ app.get('/update-hud', (req, res) => {
 
 app.post('/level-5-checker', (req, res) => {
 
-const ans = req.body.sqlInput;
+const ans = req.body.sql;
 
 const ansLowered = ans.toLowerCase();
 
@@ -1436,6 +1460,22 @@ app.post('/reset-counter', (req, res) => {
 
   res.json({ success: true, message: 'Counter reset on the server side' });
 });
+
+
+
+app.post('/add-badge', (req, res) => {
+
+connection.query("UPDATE users SET storyModeCompleted = 1 WHERE user_id = ?"[userId], (err, results) => {
+
+  if (err) {
+    console.log("Error adding badge: ", err);
+  }
+
+  console.log("Story Mode Badge Added to user: ", username);
+
+})
+
+})
 
 
 app.post('/add-coins', (req, res) => {

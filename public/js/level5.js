@@ -1,3 +1,6 @@
+
+const hintDiv = document.getElementById("hint");
+
 fetch('/level-5-checker', {
     method: 'POST',
     headers: {
