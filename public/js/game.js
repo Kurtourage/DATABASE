@@ -257,7 +257,7 @@ function updateHUD(missionObj) {
         //add fetching for adding coins to user on server endpoint here
 
         fetch('/add-coins', {
-          method: 'GET',
+          method: 'POST',
           headers: {'Content-Type': 'application/json',
         },
         body: JSON.stringify({currentLevelNumber}),
