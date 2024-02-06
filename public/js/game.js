@@ -323,7 +323,7 @@ function updateHUD(missionObj) {
             // code dito
 
             fetch('/add-badge', {
-              method: 'POST',
+              method: 'GET',
               headers: {'Content-Type': 'application/json',
             },            
    

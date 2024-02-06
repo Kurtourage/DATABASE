@@ -1463,19 +1463,21 @@ app.post('/reset-counter', (req, res) => {
 
 
 
-app.post('/add-badge', (req, res) => {
+app.get('/add-badge', (req, res) => {
+  const userId = req.session.user.user_id;
 
-connection.query("UPDATE users SET storyModeCompleted = 1 WHERE user_id = ?"[userId], (err, results) => {
+  connection.query("UPDATE users SET storyModeCompleted = 1 WHERE user_id = ?", [userId], (err, results) => {
+    if (err) {
+      console.log("Error adding badge: ", err);
+      res.status(500).send("Error adding badge");
+      return;
+    }
 
-  if (err) {
-    console.log("Error adding badge: ", err);
-  }
+    console.log("Story Mode Badge Added to user: ", userId);
+    res.status(200).send("Story Mode Badge Added");
+  });
+});
 
-  console.log("Story Mode Badge Added to user: ", username);
-
-})
-
-})
 
 
 app.post('/add-coins', (req, res) => {
@@ -1501,6 +1503,12 @@ app.post('/add-coins', (req, res) => {
     } else if (currentLevelNumber >= results[0].user_saved_level) {
       dbcoins = dbcoins + 250;
       sending_dbcoins = 250;
+    }
+
+    else if(results[0].storyModeCompleted == 1 && results[0].user_saved_level == 5)  {
+
+      dbcoins = dbcoins + 0;
+      sending_dbcoins = 0;
     }
 
     connection.query("UPDATE users SET dbcoins = ? WHERE user_id = ?", [dbcoins, userId], (err, updateResults) => {

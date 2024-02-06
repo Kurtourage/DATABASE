@@ -18,6 +18,7 @@ function getUserInfo(){
       if(data.storyModeCompleted ==null) {
         
         profilebadge.classList.remove('active');
+        console.log("badge not shown.")
       }
 
       
@@ -34,7 +35,10 @@ function getUserInfo(){
         const formattedDate = new Date(data.creation_date).toLocaleDateString('en-CA');
         element.textContent = `${formattedDate || 'N/A'}`;
       });
+
+      
       profilebadge.classList.add('active');
+      console.log("badge shown.")
     })
     .catch(error => console.error('Error fetching user data:', error));
   
