@@ -16,8 +16,7 @@ function getUserInfo(){
       const profilebadge = document.querySelector('.profilebadge');
     
       if(data.storyModeCompleted ==null) {
-        
-        profilebadge.classList.remove('active');
+      
         console.log("badge not shown.")
       }
 

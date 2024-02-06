@@ -743,7 +743,7 @@ table tr th:nth-child(2) {
     font-size: 17px;
 }
 
-.profilebadgestory.active{
+.profilebadge.active{
     transform: scale(1);
     transform: rotate(45deg);
     position: absolute;
@@ -757,6 +757,6 @@ table tr th:nth-child(2) {
     background-size: 100% 100%;
 }
 
-.profilebadgestory{
+.profilebadge{
     transform: scale(0);
 }
