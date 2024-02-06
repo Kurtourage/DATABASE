@@ -745,14 +745,17 @@ table tr th:nth-child(2) {
 
 .profilebadgestory.active{
     transform: scale(1);
+    transform: rotate(45deg);
     position: absolute;
-    top: 20px;
-    border: 1px solid white;
-    width: 96px;
-    height: 96px;
-    left: 499px;
+    top: 10px;
+    border: none;
+    width: 128px;
+    height: 128px;
+    left: 490px;
+    background-color: transparent;
+    background-image: url(../assets/profilebadge.png);
+    background-size: 100% 100%;
 }
-
 
 .profilebadgestory{
     transform: scale(0);

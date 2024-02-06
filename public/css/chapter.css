@@ -1033,7 +1033,12 @@ height: 100%;
     display: block;
     cursor: pointer;
 }
-
+.coin-story{
+    position: absolute;
+    bottom: 132px;
+    left: 38px;
+    font-size: 35px;
+}
 
 
 
