@@ -1729,6 +1729,12 @@ connection.query("SELECT * from users where user_type != 'admin'", (err, results
 }) 
 
 
+app.post('/edit-user-username', (req, res) => {
+
+  
+})
+
+
 
 
 // Define a route for logging out
