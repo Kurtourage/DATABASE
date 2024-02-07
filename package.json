@@ -16,7 +16,7 @@
     "sqlite3": "^5.1.6"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.4.0",
+    
     "sql.js": "^1.8.0"
   }
 }
