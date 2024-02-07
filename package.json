@@ -13,10 +13,10 @@
     "express": "^4.18.2",
     "express-session": "^1.17.3",
     "mysql": "^2.18.1",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^5.1.6",
+    "vite": "^4.5.2"
   },
   "devDependencies": {
-    
     "sql.js": "^1.8.0"
   }
 }
