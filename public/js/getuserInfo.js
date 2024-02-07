@@ -35,9 +35,11 @@ function getUserInfo(){
         element.textContent = `${formattedDate || 'N/A'}`;
       });
 
-      
+      if (data.storyModeCompleted == 1){
+              
       profilebadge.classList.add('active');
-      console.log("badge shown.")
+      console.log("badge shown.");
+      }
     })
     .catch(error => console.error('Error fetching user data:', error));
   
