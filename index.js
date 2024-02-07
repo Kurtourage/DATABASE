@@ -309,7 +309,7 @@ app.post('/initialize-game-db', (req, res) => {
        ('Unfamiliar Key', 'garden'),
        ('Broken Ornament', 'Conservatory'),
        ('Mysterious Book', 'Study'),
-       ('Tainted Cloth', 'Servant's Quarter'),
+       ('Tainted Cloth', 'Servants Quarter'),
        ('Dented Cane', 'Drawing Room'),
        ('Hidden Passageway', 'Art Gallery')
       
@@ -689,7 +689,9 @@ const levels = [
 
   {
     id: 5,
-    mission: ["SELECT profiles.name as name, favorite_objects.name as favorite_object from profiles INNER JOIN favorite_objects ON profiles.id = favorite_objects.id ","SELECT profiles.name FROM testimony INNER JOIN profiles ON testimony.id = profiles.id  INNER JOIN favorite_objects ON profiles.id = favorite_objects.id WHERE testimony LIKE '%garden%' AND object_type LIKE '%flower%'", 'CREATE TABLE suspect (name text)', "INSERT into suspect (name) Values ('Edmund Thatcher')" ],
+    mission: ["SELECT profiles.name as name, favorite_objects.name as favorite_object from profiles INNER JOIN favorite_objects ON profiles.id = favorite_objects.id ",
+    "SELECT profiles.name FROM testimony INNER JOIN profiles ON testimony.id = profiles.id  INNER JOIN favorite_objects ON profiles.id = favorite_objects.id WHERE testimony LIKE '%garden%' AND object_type LIKE '%flower%'", 
+    'CREATE TABLE suspect (name text)', "INSERT into suspect (name) Values ('Edmund Thatcher')" ],
     objective: ['SELECT all people and their favorite objects.', 'SELECT all the names where the alibis have “garden” and the type of object they like is “flowers.”',  'CREATE  a table named `suspect` with a `name` column.', 'INSERT the killer in the suspect table, SELECT the *answer* in the suspect table.']
 
   }
