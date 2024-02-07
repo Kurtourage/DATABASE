@@ -1729,10 +1729,116 @@ connection.query("SELECT * from users where user_type != 'admin'", (err, results
 }) 
 
 
-app.post('/edit-user-username', (req, res) => {
+// Endpoint to update username
+app.put('/edit-username/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const newUsername = req.body.newUsername;
 
-  
-})
+  // Update the username in the database
+  connection.query(
+    'UPDATE users SET username = ? WHERE user_id = ?',
+    [newUsername, userId],
+    (error, results) => {
+      if (error) {
+        console.error('Error updating username in MySQL:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        res.json({ message: 'Username updated successfully' });
+      }
+    }
+  );
+});
+
+// Endpoint to update password
+app.put('/edit-password/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const newPassword = req.body.newPassword;
+
+   // Hash the password using bcrypt
+   bcrypt.hash(newPassword, 10, (hashErr, hashedPassword) => {
+    if (hashErr) {
+      console.error('Error hashing password:', hashErr);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+  // Update the password in the database
+      connection.query(
+        'UPDATE users SET password = ? WHERE user_id = ?',
+        [hashedPassword, userId],
+        (error, results) => {
+          if (error) {
+            console.error('Error updating password in MySQL:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+          } else {
+            res.json({ message: 'Password updated successfully' });
+          }
+        }
+      );
+
+  });
+
+
+
+
+});
+
+
+// Endpoint to update password
+app.put('/edit-email/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const newEmail = req.body.newEmail;
+
+  // Update the password in the database
+  connection.query(
+    'UPDATE users SET email = ? WHERE user_id = ?',
+    [newEmail, userId],
+    (error, results) => {
+      if (error) {
+        console.error('Error updating email in MySQL:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        res.json({ message: 'Password updated successfully' });
+      }
+    }
+  );
+});
+
+// Endpoint to update dbcoins
+app.put('/edit-dbcoins/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const newDbCoins = req.body.newDbCoins;
+
+  // Update dbcoins in the database
+  connection.query(
+    'UPDATE users SET dbcoins = ? WHERE user_id = ?',
+    [newDbCoins, userId],
+    (error, results) => {
+      if (error) {
+        console.error('Error updating dbcoins in MySQL:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      } else {
+        res.json({ message: 'Dbcoins updated successfully' });
+      }
+    }
+  );
+});
+
+
+
+// Endpoint to delete user
+app.delete('/delete-user/:userId', (req, res) => {
+  const userId = req.params.userId;
+
+  // Delete the user from the database
+  connection.query('DELETE FROM users WHERE user_id = ?', [userId], (error, results) => {
+    if (error) {
+      console.error('Error deleting user from MySQL:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      res.json({ message: 'User deleted successfully' });
+    }
+  });
+});
 
 
 
