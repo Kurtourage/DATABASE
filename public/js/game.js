@@ -296,18 +296,24 @@ function updateHUD(missionObj) {
           }
          
 
-          const backtoStoryButton = document.createElement('button');
-          backtoStoryButton.id = 'backtoStoryButton';
-          backtoStoryButton.classList.add('backtoStoryButton');
+          else if (currentLevelNumber == 5) {
 
+            const backtoStoryButton = document.createElement('button');
+            backtoStoryButton.id = 'backtoStoryButton';
+            backtoStoryButton.classList.add('backtoStoryButton');
+  
+  
+                      // Append the button to the container
+            buttonContainer.appendChild(backtoStoryButton);
+            document.getElementById('backtoStoryButton').addEventListener('click',  function(){
+  
+               // Redirect to storyMode.html
+            window.location.href = 'storyMode.html';
+            })
 
-                    // Append the button to the container
-          buttonContainer.appendChild(backtoStoryButton);
-          document.getElementById('backtoStoryButton').addEventListener('click',  function(){
+          }
 
-             // Redirect to storyMode.html
-          window.location.href = 'storyMode.html';
-          })
+          
           
 
           const overlay = document.querySelector('.overlay');
