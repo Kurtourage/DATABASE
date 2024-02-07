@@ -458,7 +458,7 @@ app.post('/initialize-game-db', (req, res) => {
         name TEXT, object_type TEXT);`
         ;
 
-        const insertFavoriteObjectsTableSQ = `
+        const insertFavoriteObjectsTableSQL = `
         INSERT INTO favorite_objects(name, object_type)
         VALUES
         ('Merlot', 'Wine'),
@@ -527,7 +527,7 @@ gameDb.serialize(() => {
     ${createMaritalStatusTableSQL}
     ${insertMaritalStatusDataSQL}
     ${createFavoriteObjectsTableSQL}
-    ${insertFavoriteObjectsTableSQ}
+    ${insertFavoriteObjectsTableSQL}
   `, (err) => {
     if (err) {
       console.error('Error executing SQL queries:', err);
@@ -958,7 +958,7 @@ const isMastermindEnterred = ansLowered.includes('evelyn whitewood');
 
 const deleteSuspectEntriesSql = `DELETE from suspect`;
 
-if (completedMissionsIndices.some(index => [0, 1, 2].includes(index))) {
+if (completedMissionsIndices.some(index => [0, 1, 2, 3].includes(index))) {
 
   if (isChiefButlerEnterred && !isMastermindEnterred) {
 
@@ -1500,7 +1500,9 @@ app.post('/add-coins', (req, res) => {
     if (currentLevelNumber < results[0].user_saved_level) {
       dbcoins = dbcoins + 0;
       sending_dbcoins = 0;
-    } else if (currentLevelNumber >= results[0].user_saved_level) {
+
+
+    } else if (currentLevelNumber >= results[0].user_saved_level && results[0].storyModeCompleted == null) {
       dbcoins = dbcoins + 250;
       sending_dbcoins = 250;
     }

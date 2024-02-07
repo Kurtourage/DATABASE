@@ -282,7 +282,7 @@ function updateHUD(missionObj) {
           buttonContainer.appendChild(coinsInfoDiv);
          
          
-          if (currentLevelNumber > 5) {
+          if (currentLevelNumber < 5) {
 
             // Create a button
             const nextLevelButton = document.createElement('button');
