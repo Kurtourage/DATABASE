@@ -309,7 +309,7 @@ app.post('/initialize-game-db', (req, res) => {
        ('Unfamiliar Key', 'garden'),
        ('Broken Ornament', 'Conservatory'),
        ('Mysterious Book', 'Study'),
-       ('Tainted Cloth', 'Servant's Quarter'),
+       ('Tainted Cloth', 'Servants Quarter'),
        ('Dented Cane', 'Drawing Room'),
        ('Hidden Passageway', 'Art Gallery')
       
