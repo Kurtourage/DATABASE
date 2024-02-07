@@ -296,23 +296,7 @@ function updateHUD(missionObj) {
           }
          
 
-          else if (currentLevelNumber == 5) {
-
-            const backtoStoryButton = document.createElement('button');
-            backtoStoryButton.id = 'backtoStoryButton';
-            backtoStoryButton.classList.add('backtoStoryButton');
-  
-  
-                      // Append the button to the container
-            buttonContainer.appendChild(backtoStoryButton);
-            document.getElementById('backtoStoryButton').addEventListener('click',  function(){
-  
-               // Redirect to storyMode.html
-            window.location.href = 'storyMode.html';
-            })
-
-          }
-
+         
           
           
 
@@ -326,7 +310,27 @@ function updateHUD(missionObj) {
           
           if (currentLevelNumber == 5) {
 
+
+            const backtoStoryButton = document.createElement('button');
+            backtoStoryButton.id = 'backtoStoryButton';
+            backtoStoryButton.classList.add('backtoStoryButton');
+  
+  
+                      // Append the button to the container
+            buttonContainer.appendChild(backtoStoryButton);
+            document.getElementById('backtoStoryButton').addEventListener('click',  function(){
+  
+               // Redirect to storyMode.html
+            window.location.href = 'storyMode.html';
+            })
             // code dito
+
+            
+          const overlay = document.querySelector('.overlay');
+          const computer = document.querySelector('.computerBig');
+          overlay.classList.add('active');
+          buttonContainer.classList.add('active');
+          computer.classList.remove('active');
 
             fetch('/add-badge', {
               method: 'GET',
