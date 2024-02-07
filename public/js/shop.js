@@ -107,7 +107,7 @@ function fetchUserInformation() {
               buyButton.disabled = true;
             } else {
               buyButton.addEventListener('click', () => {
-                if (user_dbcoins > result.price) {
+                if (user_dbcoins >= result.price) {
                   fetch('/buy-item', {
                     method: 'POST',
                     headers: {
