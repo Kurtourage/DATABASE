@@ -305,23 +305,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const cheatsheetContent = `
 <div class="cheatsheet">
-      <br>
-      <h3>Basic Commands:</h3>
-      <br>
-      <p><strong>SELECT:</strong> Retrieve data from a database.<br>
-      <em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
-      <br>
-      <p><strong>INSERT:</strong> Add new records into a table.<br>
-      <em>INSERT INTO table_name (column1, column2) VALUES (value1, value2);</em></p>
-      <br>
-      <p><strong>UPDATE:</strong> Modify existing records in a table.<br>
-      <em>UPDATE table_name SET column1 = value1 WHERE condition;</em></p>
-      <br>
-      <p><strong>DELETE:</strong> Remove records from a table.<br>
-      <em>DELETE FROM table_name WHERE condition;</em></p>
-      <br>
-      <hr>
-      <br>
+<br>
+<h3>Basic Commands:</h3>
+<br>
+<p><strong>CREATE:</strong> Used to create a new table in a database.<br>
+<em>CREATE TABLE table_name (column1 datatype, column2 datatype,<br>column3 datatype);</em></p>
+<br>
+<p><strong>SELECT:</strong> Retrieve data from a database.<br>
+<em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
+<br>
+<p><strong>INSERT:</strong> Add new records into a table.<br>
+<em>INSERT INTO table_name (column1, column2) VALUES (value1, value2);</em></p>
+<br>
+<p><strong>UPDATE:</strong> Modify existing records in a table.<br>
+<em>UPDATE table_name SET column1 = value1 WHERE condition;</em></p>
+<br>
+<p><strong>DELETE:</strong> Remove records from a table.<br>
+<em>DELETE FROM table_name WHERE condition;</em></p>
+<br>
+<hr>
+<br>
+<h3>Data Types:</h3>
+<br>
+<p><strong>INTEGER:</strong><br>
+Examples:<br>
+<em>INT<br> INTEGER<br> TINYINT<br> SMALLINT<br> MEDIUMINT<br> BIGINT<br> UNSIGNED BIG INT<br> INT2<br> INT3</em><br>
+<strong>TEXT:</strong><br>
+Examples:<br>
+<em>CHARACTER(20)<br> VARCHAR(255)<br> VARYING CHARACTER(255)<br> NCHAR(55)<br> NATIVE CHARACTER(70)<br> NVARCHAR(100)<br> TEXT<br> CLOB</em><br>
+<strong>BLOB:</strong><br>
+Examples:<br>
+<em>BLOB</em><br>
+<strong>REAL:</strong><br>
+Examples:<br>
+<em>DOUBLE<br> DOUBLE PRECISION<br> FLOAT</em><br>
+<strong>NUMERIC:</strong><br>
+Examples:<br>
+<em>DECIMAL(10, 5)<br> BOOLEAN<br> DATE<br> DATETIME</em><br>
+</p>
+<br>
+<hr>
+<br>
       <h3>Filtering Data:</h3>
       <br>
       <p><strong>WHERE:</strong> Conditionally filter rows.<br>
