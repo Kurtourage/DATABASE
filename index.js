@@ -947,69 +947,36 @@ app.get('/update-hud', (req, res) => {
 });
 
 
-
 app.post('/level-5-checker', (req, res) => {
+  const ans = req.body.sql;
+  const ansLowered = ans.toLowerCase();
+  const isChiefButlerEnterred = ansLowered.includes('edmund thatcher');
+  const isMastermindEnterred = ansLowered.includes('evelyn whitewood');
+  const deleteSuspectEntriesSql = `DELETE from suspect`;
 
-const ans = req.body.sql;
-
-const ansLowered = ans.toLowerCase();
-
-const isChiefButlerEnterred = ansLowered.includes('edmund thatcher');
-
-const isMastermindEnterred = ansLowered.includes('evelyn whitewood');
-
-const deleteSuspectEntriesSql = `DELETE from suspect`;
-
-if (completedMissionsIndices.some(index => [0, 1, 2, 3].includes(index))) {
-
-  if (isChiefButlerEnterred && !isMastermindEnterred) {
-
-    res.json("You are close, he's not the mastermind but he is an accomplice.");
-
-
-    gameDb.exec(`${deleteSuspectEntriesSql}`, (err) => {
-      if (err) {
-        console.error('Error executing SQL queries:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
-        return;
-      }
-      });
-    }
+  if (completedMissionsIndices.includes(2)) {
+    if (isChiefButlerEnterred && !isMastermindEnterred) {
+      res.json("You are close, he's not the mastermind but he is an accomplice.");
     
-  
-  
-  if (!isChiefButlerEnterred && isMastermindEnterred) {
-  
-  res.json("You got the mastermind!");
+    } else if (!isChiefButlerEnterred && isMastermindEnterred) {
+      res.json("You got the mastermind!");
 
-  gameDb.exec(`${deleteSuspectEntriesSql}`, (err) => {
-    if (err) {
-      console.error('Error executing SQL queries:', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-      return;
-    }
-    });
-  
-  }
-  
-  else {
-  
+    
+
+    // Common logic after evaluating conditions
     gameDb.exec(`${deleteSuspectEntriesSql}`, (err) => {
       if (err) {
         console.error('Error executing SQL queries:', err);
         res.status(500).json({ error: 'Internal Server Error' });
         return;
       }
-      });
-
+    });
+  } else {
+    // Handle the case when the completedMissionsIndices does not include 2
+    res.json("Mission not completed");
   }
-  
-}
-
-
-
-
-})
+};                                
+});
 
 
 
