@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "DATABASE",
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "DATABASE"
+	}
+}

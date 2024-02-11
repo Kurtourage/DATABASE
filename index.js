@@ -665,7 +665,7 @@ const levels = [
   {
     id: 1,
     mission: [ 'SELECT * from profiles', "Insert into profiles (name) Values('{{name}}')",'Delete from profiles where id = 46' ],
-    objective:['SELECT all persons involved from the profiles table', 'INSERT your username in the profiles table', 'DELETE your information in the profiles table using id ']
+    objective:['SELECT all persons involved from the profiles table', 'INSERT only your username in the profiles table', 'DELETE your information in the profiles table using id ']
      },
 
   {

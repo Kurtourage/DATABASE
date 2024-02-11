@@ -451,7 +451,7 @@ position: absolute;
 transform: scale(0);
 width: 350px;
 height: 500px;
-top: 75px;
+top: 92px;
 left: 508px;
 background-image: url(../assets/tutorialBig.png);
 background-repeat: no-repeat;
@@ -461,22 +461,22 @@ z-index: 20;
 
 .tutorialBig.active{
 transform: scale(1);
+
 }
 .tutorialBig .close{
-position: fixed;
-width: 35px;
-height: 35px;
-top: 12px;
-right: 12px;
-background-color: transparent;
+    position: absolute;
+    color: #fff5c1;
+    width: 35px;
+    height: 35px;
+    left: 380px;
+    top: -40px;
+    background-color: transparent;
 }
 
 .tutorialBig .close h1{
-    color: #130900;
-    font-size: 27px;
+    color: #fff5c1;
+    font-size: 40px;
     cursor: pointer;
-    padding-left: 10px;
-
 }
 
 .tutorialPop{
@@ -486,19 +486,49 @@ background-color: transparent;
 width: 100%;
 height: 100%;
 }
-.cheatsheet{
-text-align: justify;
-    text-align: left;
+.search-input-container input{
     position: absolute;
-    top: -8px;
-    padding-right: 18px;
-    margin: 18px;
-    width: 290px;
-    height: 480px;
+    top: -40px;
+    width: 350px;
+    height: 40px;
+    padding-left: 5px;
+    font-size: 25px;
+    background-color: #fff5c1;
+    color: #130900;
+    border: none;
+    border-left: 10px solid #130900;
+    border-right: 10px solid #130900;
+    border-top: 10px solid #130900;
+    outline: none;
+}
+.search-input::placeholder{
+    color: #ffbc2e;
+}
+.result-search{
+    position: absolute;
+    width: 330px;
+    height: 470px;
+    margin-top: 15px;
+    right: 10px;
     overflow-y: auto;
+    padding-right: 5px;
+    padding-left: 5px;
     overflow-x: hidden;
     cursor: context-menu;
 }
+.result-search::-webkit-scrollbar-track {
+    background-color: transparent; /* Set the color of the scrollbar track */
+}
+.result-search::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+}
+.result-search::-webkit-scrollbar-thumb {
+    background-color: #ffa400; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; 
+    height: 10px;
+}
+
 .cheatsheet h3{
     font-size: 1.8em;
     color: #321900;
@@ -516,9 +546,7 @@ text-align: justify;
     border-color: #130900;
 }
 
-.cheatsheet::-webkit-scrollbar{
-    display: none;
-}
+
 
 /* FOR NEWSPAPER */
 .newspaperBig::-webkit-scrollbar {
@@ -1319,11 +1347,10 @@ height: 100%;
     transform: scale(1);
 }
 .tutorialBig .close{
+    position: absolute;
+    color: #fff5c1;
     width: 35px;
     height: 35px;
-    top: 0;
-    right: 0;
-    background-color: green;
 }
 .tutorialPop{
     border: none;
