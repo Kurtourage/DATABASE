@@ -65,11 +65,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   document.getElementById('executeBtn1').addEventListener('click', function () {
-    
-   
       userInput = document.getElementById('sqlInput').value;
       executeGameSQL(userInput);
-    
+  });
+  document.getElementById('sqlInput').addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+        // Trigger the click event for the button
+        document.getElementById("executeBtn1").click();
+    }
   });
 
   

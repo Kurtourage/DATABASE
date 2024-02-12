@@ -269,8 +269,11 @@ document.addEventListener("DOMContentLoaded", function () {
     if (timeLeft >= 0) {
       userInput = document.getElementById('sqlInput').value;
       executeGameSQL(userInput);
+      
     }
   });
+  
+  
 
   document.getElementById("executeBtn1").addEventListener("click", checkUserAnswer);
 
