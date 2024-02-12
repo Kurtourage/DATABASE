@@ -450,190 +450,112 @@ const cheatsheetContent = `
 <br>
 <h3>Basic Commands:</h3>
 <br>
-<ul>
-    <li class="search-list">
-        <p class="create-word"><strong>CREATE:</strong> Used to create a new table in a database.<br>
-        <em>CREATE TABLE table_name (column1 datatype, column2 datatype,<br>column3 datatype);</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="select-word"><strong>SELECT:</strong> Retrieve data from a database.<br>
-        <em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="insert-word"><strong>INSERT:</strong> Add new records into a table.<br>
-        <em>INSERT INTO table_name (column1, column2) VALUES (value1, value2);</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="update-word"><strong>UPDATE:</strong> Modify existing records in a table.<br>
-        <em>UPDATE table_name SET column1 = value1 WHERE condition;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="delete-word"><strong>DELETE:</strong> Remove records from a table.<br>
-        <em>DELETE FROM table_name WHERE condition;</em></p>
-        <br>
-    </li>
-</ul>
-
+<p class="create-word"><strong>CREATE:</strong> Used to create a new table in a database.<br>
+<em>CREATE TABLE table_name (column1 datatype, column2 datatype,<br>column3 datatype);</em></p>
+<br>
+<p class="select-word"><strong>SELECT:</strong> Retrieve data from a database.<br>
+<em>SELECT column1, column2 FROM table_name WHERE condition;</em></p>
+<br>
+<p class="insert-word"><strong>INSERT:</strong> Add new records into a table.<br>
+<em>INSERT INTO table_name (column1, column2) VALUES (value1, value2);</em></p>
+<br>
+<pclass="update-word"><strong>UPDATE:</strong> Modify existing records in a table.<br>
+<em>UPDATE table_name SET column1 = value1 WHERE condition;</em></p>
+<br>
+<p class="delete-word"><strong>DELETE:</strong> Remove records from a table.<br>
+<em>DELETE FROM table_name WHERE condition;</em></p>
+<br>
 <hr>
-
+<br>
 <h3>Data Types:</h3>
-<ul>
-    <li class="search-list">
-        <p class="integer-word"><strong>INTEGER:</strong><br>
-        Examples:<br>
-        <em>INT<br>INTEGER<br> TINYINT<br> SMALLINT<br> MEDIUMINT<br> BIGINT<br> UNSIGNED BIG INT<br> INT2<br> INT3</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="text-word"><strong>TEXT:</strong><br>
-        Examples:<br>
-        <em>CHARACTER(20)<br> VARCHAR(255)<br> VARYING CHARACTER(255)<br> NCHAR(55)<br> NATIVE CHARACTER(70)<br> NVARCHAR(100)<br> TEXT<br> CLOB</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="blob-word"><strong>BLOB:</strong><br>
-        Examples:<br>
-        <em>BLOB</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="real-word"><strong>REAL:</strong><br>
-        Examples:<br>
-        <em>DOUBLE<br> DOUBLE PRECISION<br> FLOAT</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="numeric-word"><strong>NUMERIC:</strong><br>
-        Examples:<br>
-        <em>DECIMAL(10, 5)<br> BOOLEAN<br> DATE<br> DATETIME</em></p>
-        <br>
-    </li>
-</ul>
-
+<br>
+<p class="integer-word"><strong>INTEGER:</strong><br>
+Examples:<br>
+<em>INT<br>INTEGER<br> TINYINT<br> SMALLINT<br> MEDIUMINT<br> BIGINT<br> UNSIGNED BIG INT<br> INT2<br> INT3</em><br></p>
+<p class="text-word"><br><strong>TEXT:</strong><br>
+Examples:<br>
+<em>CHARACTER(20)<br> VARCHAR(255)<br> VARYING CHARACTER(255)<br> NCHAR(55)<br> NATIVE CHARACTER(70)<br> NVARCHAR(100)<br> TEXT<br> CLOB</em><br>
+</p>
+<p class="blob-word"><strong>BLOB:</strong><br>
+Examples:<br>
+<em>BLOB</em></p>
+<br>
+<p class="real-word"><strong>REAL:</strong><br>
+Examples:<br>
+<em>DOUBLE<br> DOUBLE PRECISION<br> FLOAT</em>
+</p>
+<br>
+<p class="numeric-word"><strong>NUMERIC:</strong><br>
+Examples:<br>
+<em>DECIMAL(10, 5)<br> BOOLEAN<br> DATE<br> DATETIME</em><br>
+</p>
+<br>
 <hr>
-
-<h3>Filtering Data:</h3>
-<ul>
-    <li class="search-list">
-        <p class="where-word"><strong>WHERE:</strong> Conditionally filter rows.<br>
-        <em>SELECT * FROM table_name WHERE condition;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="and/or-word"><strong>AND/OR:</strong> Combine multiple conditions.<br>
-        <em>SELECT * FROM table_name WHERE condition1 AND/OR condition2;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="like-word"><strong>LIKE:</strong> Pattern matching with wildcard characters.<br>
-        <em>SELECT * FROM table_name WHERE column_name LIKE 'pattern';</em></p>
-        <br>
-    </li>
-</ul>
-
-<hr>
-
-<h3>Sorting Data:</h3>
-<ul>
-    <li class="search-list">
-        <p class="order-by-word"><strong>ORDER BY:</strong> Sort query results.<br>
-        <em>SELECT * FROM table_name ORDER BY column_name ASC/DESC;</em></p>
-        <br>
-    </li>
-</ul>
-
-<hr>
-
-<h3>Aggregation Functions:</h3>
-<ul>
-    <li class="search-list">
-        <p class="count-word"><strong>COUNT:</strong> Count number of rows.<br>
-        <em>SELECT COUNT(column_name) FROM table_name;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="sum-word"><strong>SUM:</strong> Calculate sum of values.<br>
-        <em>SELECT SUM(column_name) FROM table_name;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="avg-word"><strong>AVG:</strong> Compute average value.</em><br>
-        <em>SELECT AVG(column_name) FROM table_name;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <strong>MAX/MIN:</strong> Retrieve maximum/minimum value.<br>
-        <p class="max-word"><em>SELECT MAX(column_name) FROM table_name;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="min-word">
-        <em>SELECT MIN(column_name) FROM table_name;</em></p>
-        <br>
-    </li>
-</ul>
-
-<hr>
-
-<h3>Joining Tables:</h3>
-<ul>
-    <li class="search-list">
-        <p class="inner-join-word"><strong>INNER JOIN:</strong> Combine rows from different tables.<br>
-        <em>SELECT * FROM table1 INNER JOIN table2 ON table1.column_name = table2.column_name;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="left-join-word"><strong>LEFT JOIN:</strong> Retrieve all records from the left table and matching records from the right table.<br>
-        <em>SELECT * FROM table1 LEFT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="right-join-word"><strong>RIGHT JOIN:</strong> Retrieve all records from the right table and matching records from the left table.<br>
-        <em>SELECT * FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
-        <br>
-    </li>
-</ul>
-
-<hr>
-
-<h3>Grouping Data:</h3>
-<ul>
-    <li class="search-list">
-        <p class="group-by-word"><strong>GROUP BY:</strong> Group rows that have the same values.<br>
-        <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1;</em></p>
-        <br>
-    </li>
-    <li class="search-list">
-        <p class="having-word"><strong>HAVING:</strong> Filter groups based on conditions.<br>
-        <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1 HAVING COUNT(column2) > value;</em></p>
-        <br>
-    </li>
-</ul>
+<br>
+      <h3>Filtering Data:</h3>
+      <br>
+      <p class="where-word"><strong>WHERE:</strong> Conditionally filter rows.<br>
+      <em>SELECT * FROM table_name WHERE condition;</em></p>
+      <br>
+      <p class="and/or-word"><strong>AND/OR:</strong> Combine multiple conditions.<br>
+      <em>SELECT * FROM table_name WHERE condition1 AND/OR condition2;</em></p>
+      <br>
+      <p class="like-word"><strong>LIKE:</strong> Pattern matching with wildcard characters.<br>
+      <em>SELECT * FROM table_name WHERE column_name LIKE 'pattern';</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Sorting Data:</h3>
+      <br>
+      <p class="order-by-word"><strong>ORDER BY:</strong> Sort query results.<br>
+      <em>SELECT * FROM table_name ORDER BY column_name ASC/DESC;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Aggregation Functions:</h3>
+      <br>
+      <p class="count-word"><strong>COUNT:</strong> Count number of rows.<br>
+      <em>SELECT COUNT(column_name) FROM table_name;</em></p>
+      <br>
+      <p class="sum-word"><strong>SUM:</strong> Calculate sum of values.<br>
+      <em>SELECT SUM(column_name) FROM table_name;</em></p>
+      <br>
+      <p class="avg-word"><strong>AVG:</strong> Compute average value.</em><br>
+      <em>SELECT AVG(column_name) FROM table_name;</em></p>
+      <br>
+      <strong>MAX/MIN:</strong> Retrieve maximum/minimum value.<br>
+      <p class="max-word"><em>SELECT MAX(column_name) FROM table_name;</em><br></p>
+      <p class="min-word">
+      <em>SELECT MIN(column_name) FROM table_name;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Joining Tables:</h3>
+      <br>
+      <p class="inner-join-word"><strong>INNER JOIN:</strong> Combine rows from different tables.<br>
+      <em>SELECT * FROM table1 INNER JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <p class="left-join-word"><strong>LEFT JOIN:</strong> Retrieve all records from the left table and matching records from the right table.<br>
+      <em>SELECT * FROM table1 LEFT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <p class="right-join-word"><strong>RIGHT JOIN:</strong> Retrieve all records from the right table and matching records from the left table.<br>
+      <em>SELECT * FROM table1 RIGHT JOIN table2 ON table1.column_name = table2.column_name;</em></p>
+      <br>
+      <hr>
+      <br>
+      <h3>Grouping Data:</h3>
+      <br>
+      <p class="group-by-word"><strong>GROUP BY:</strong> Group rows that have the same values.<br>
+      <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1;</em></p>
+      <br>
+      <p class="having-word"><strong>HAVING:</strong> Filter groups based on conditions.<br>
+      <em>SELECT column1, COUNT(column2) FROM table_name GROUP BY column1 HAVING COUNT(column2) > value;</em></p>
+      <br>
+      <br>
   </div>`;
 
 const existingDiv = document.getElementById('cheatsheet');
 existingDiv.innerHTML = cheatsheetContent;
 });
 
-document.querySelector('.search-input').addEventListener(`input`, filterList)
 
-function filterList(){
-  const searchInput = document.querySelector('.search-input');
-  const filter = searchInput.value.toLowerCase();
-  const listItems = document.querySelectorAll('.search-list');
-
-  listItems.forEach((item) =>{
-    let text = item.textContent;
-    
-    if (text.toLowerCase().includes(filter.toLowerCase())){
-      item.style.display = '';
-    }
-    else {
-      item.style.display = none;
-    }
-  });
-  }

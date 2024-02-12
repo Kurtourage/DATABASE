@@ -545,6 +545,12 @@ height: 100%;
 .cheatsheet hr{
     border-color: #130900;
 }
+.cheatsheet.active{
+    visibility: hidden;
+}
+.cheatsheet{
+    visibility: visible;
+}
 
 
 
