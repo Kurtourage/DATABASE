@@ -214,18 +214,19 @@ textarea::placeholder{
 .level textarea {
     display: block;
     width: 890px; /* Adjust the width as needed */
-    height: 55px; /* Adjust the height as needed */
+    height: 70px; /* Adjust the height as needed */
     margin: 0 auto;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 100;
     background-color: transparent;
     display: flex; /* Use flexbox */
     align-items: flex-start;
-    border: none; /* Adding a border for visual distinction */
+     /* Adding a border for visual distinction */
     padding: 10px; /* Adding padding for better readability */
     resize: none;
     overflow: hidden;
     outline: none;
+    border: 1px solid #321900;
     /*color: #130900; */
 }
 
