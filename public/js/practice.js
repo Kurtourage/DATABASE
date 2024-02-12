@@ -27,6 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           console.error('Error executing SQL statement:', data.errorMessage);
               // Display error message
+              const tableContainer = document.getElementById("tableContainer");
+              while (tableContainer.firstChild) {
+                tableContainer.removeChild(tableContainer.firstChild);
+              }
               document.getElementById('errorMessage').textContent = data.errorMessage;
 
         }

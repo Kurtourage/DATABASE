@@ -143,8 +143,6 @@
     background-size: 100% 100%;
     z-index: 400;
     display: none;
-    padding-top: 108px;
-    padding-left: 96px;
     font-size: 32px;
 }
 #button-container.active{
@@ -158,6 +156,7 @@
     width: 132px;
     height: 48px;
     border: none;
+    left: 126px;
     background-color: transparent;
     background-image: url(../assets/startclassic1.png);
     background-repeat: no-repeat;
