@@ -561,5 +561,30 @@ Examples:<br>
 const existingDiv = document.getElementById('cheatsheet');
 existingDiv.innerHTML = cheatsheetContent;
 });
+const existingDiv = document.getElementById('cheatsheet');
+existingDiv.innerHTML = cheatsheetContent;
 
+const existingSearchDiv = document.getElementById('searchResults');
+existingSearchDiv.innerHTML = cheatsheetContent;
 
+function searchCheatsheet() {
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('searchResults');
+
+  const searchTerm = searchInput.value.toLowerCase();
+  const contentLowerCase = cheatsheetContent.toLowerCase();
+  const filteredContent = contentLowerCase.includes(searchTerm);
+
+  if (filteredContent) {
+    const highlightedContent = contentLowerCase.replace(
+      new RegExp(searchTerm, 'gi'),
+      match => `<span class="highlight">${match}</span>`
+    );
+    searchResults.innerHTML = highlightedContent;
+  } else {
+    searchResults.innerHTML = '<p>No matching results found.</p>';
+  }
+}
+
+// Attach the function to the input field's "input" event
+document.getElementById('search-input').addEventListener('input', searchCheatsheet);
