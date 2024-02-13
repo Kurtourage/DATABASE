@@ -463,28 +463,28 @@ const cheatsheetContent = `
 <p class="insert-word"><strong>INSERT:</strong> Add new records into a table.<br>
 <em>INSERT INTO table_name (column1, column2) VALUES (value1, value2);</em></p>
 <br>
-<pclass="update-word"><strong>UPDATE:</strong> Modify existing records in a table.<br>
+<p><strong>UPDATE:</strong> Modify existing records in a table.<br>
 <em>UPDATE table_name SET column1 = value1 WHERE condition;</em></p>
 <br>
-<p class="delete-word"><strong>DELETE:</strong> Remove records from a table.<br>
+<p><strong>DELETE:</strong> Remove records from a table.<br>
 <em>DELETE FROM table_name WHERE condition;</em></p>
 <br>
 <hr>
 <br>
 <h3>Data Types:</h3>
 <br>
-<p class="integer-word"><strong>INTEGER:</strong><br>
+<p><strong>INTEGER:</strong><br>
 Examples:<br>
 <em>INT<br>INTEGER<br> TINYINT<br> SMALLINT<br> MEDIUMINT<br> BIGINT<br> UNSIGNED BIG INT<br> INT2<br> INT3</em><br></p>
 <p class="text-word"><br><strong>TEXT:</strong><br>
 Examples:<br>
 <em>CHARACTER(20)<br> VARCHAR(255)<br> VARYING CHARACTER(255)<br> NCHAR(55)<br> NATIVE CHARACTER(70)<br> NVARCHAR(100)<br> TEXT<br> CLOB</em><br>
 </p>
-<p class="blob-word"><strong>BLOB:</strong><br>
+<p><strong>BLOB:</strong><br>
 Examples:<br>
 <em>BLOB</em></p>
 <br>
-<p class="real-word"><strong>REAL:</strong><br>
+<p><strong>REAL:</strong><br>
 Examples:<br>
 <em>DOUBLE<br> DOUBLE PRECISION<br> FLOAT</em>
 </p>
@@ -521,16 +521,16 @@ Examples:<br>
       <p class="count-word"><strong>COUNT:</strong> Count number of rows.<br>
       <em>SELECT COUNT(column_name) FROM table_name;</em></p>
       <br>
-      <p class="sum-word"><strong>SUM:</strong> Calculate sum of values.<br>
+      <p><strong>SUM:</strong> Calculate sum of values.<br>
       <em>SELECT SUM(column_name) FROM table_name;</em></p>
       <br>
-      <p class="avg-word"><strong>AVG:</strong> Compute average value.</em><br>
+      <p><strong>AVG:</strong> Compute average value.</em><br>
       <em>SELECT AVG(column_name) FROM table_name;</em></p>
       <br>
-      <strong>MAX/MIN:</strong> Retrieve maximum/minimum value.<br>
-      <p class="max-word"><em>SELECT MAX(column_name) FROM table_name;</em><br></p>
-      <p class="min-word">
-      <em>SELECT MIN(column_name) FROM table_name;</em></p>
+      <p><strong>MAX/MIN:</strong> Retrieve maximum/minimum value.<br>
+      <em>SELECT MAX(column_name) FROM table_name;</em><br>
+      <em>SELECT MIN(column_name) FROM table_name;</em>
+      </p>
       <br>
       <hr>
       <br>
@@ -561,30 +561,5 @@ Examples:<br>
 const existingDiv = document.getElementById('cheatsheet');
 existingDiv.innerHTML = cheatsheetContent;
 });
-const existingDiv = document.getElementById('cheatsheet');
-existingDiv.innerHTML = cheatsheetContent;
 
-const existingSearchDiv = document.getElementById('searchResults');
-existingSearchDiv.innerHTML = cheatsheetContent;
 
-function searchCheatsheet() {
-  const searchInput = document.getElementById('search-input');
-  const searchResults = document.getElementById('searchResults');
-
-  const searchTerm = searchInput.value.toLowerCase();
-  const contentLowerCase = cheatsheetContent.toLowerCase();
-  const filteredContent = contentLowerCase.includes(searchTerm);
-
-  if (filteredContent) {
-    const highlightedContent = contentLowerCase.replace(
-      new RegExp(searchTerm, 'gi'),
-      match => `<span class="highlight">${match}</span>`
-    );
-    searchResults.innerHTML = highlightedContent;
-  } else {
-    searchResults.innerHTML = '<p>No matching results found.</p>';
-  }
-}
-
-// Attach the function to the input field's "input" event
-document.getElementById('search-input').addEventListener('input', searchCheatsheet);

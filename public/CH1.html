@@ -158,15 +158,13 @@
   <div class="keywords"></div>
   <div class="tutorialInside">
     <div class="search-input-container">
-      <input type="text" placeholder="Search here..." class="search-input">
+      <input type="text" placeholder="Search here..." class="search-input" id="searchinput">
     </div>
     <div class="result-search">
       <div class="cheatsheet" id="cheatsheet">
       </div>
     </div>
-
   </div>
-  
 </div>
 
 <div class="newspaperBig">
@@ -307,5 +305,16 @@
 <script src="js/transition.js"></script>
 <script src="js/img-transition.js"></script>
 <script src="js/music.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#searchinput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#cheatsheet *").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 </body>
 </html>
